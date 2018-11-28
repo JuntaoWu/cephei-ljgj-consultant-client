@@ -1,0 +1,7 @@
+{
+  "name": "visual-operation-security",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

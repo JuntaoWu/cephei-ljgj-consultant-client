@@ -1,0 +1,102 @@
+page-current-task {
+    .td-left.even {
+        border-right: 2px solid darken(map-get($map: $colors, $key: light), 10%);
+        border-bottom: 2px solid darken(map-get($map: $colors, $key: light), 10%);
+    }
+    
+    .td-right.odd {
+        border-left: 2px solid darken(map-get($map: $colors, $key: light), 10%);
+        border-bottom: 2px solid darken(map-get($map: $colors, $key: light), 10%);
+    }
+
+    .td-left, .td-right {
+        &.highlight {
+            border-color: #afe784;
+        }
+    }
+
+    table.manual {
+        .td-left.even {
+            border-right-color: #afe784;
+        }
+        .td-right.odd {
+            border-left-color: #afe784;
+        }
+    }
+    
+    .fab-left {
+        left: 0;
+    }
+
+    .fab-right {
+        left: 235px;
+    }
+
+    .fab {
+        position: absolute;
+        background-color: white;
+        color: black;
+        border: 1px solid silver;
+
+        padding: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    .task-container {
+        width: 288px;
+        max-width: 100%;
+        margin: auto;
+        position: relative;
+    }
+
+    .splash-bg {
+        position: relative;
+        background: url('../assets/img/bg_top_green.png') no-repeat transparent;
+        background-size: cover;
+        height: 28%;
+        z-index: 1;
+        background-repeat: repeat-x;
+        animation: animatedBackground 40s linear infinite;
+      }
+
+        
+    .splash-info {
+        position: relative;
+        z-index: 2;
+        margin-top: -120px;
+        text-align: center;
+        color: white;
+
+        h6 {
+            font-size: small;
+        }
+        div {
+            min-height: 17px;
+        }
+      }
+      .splash-logo {
+        margin: auto;
+        background: url('../assets/img/home_center_green.png') repeat transparent;
+        background-size: 100%;
+        width: 80px;
+        height: 80px;
+      }
+
+      .finish-tag {
+          width: 80px;
+          height: 80px;
+          background: url('../assets/img/finish_tag.png') no-repeat transparent;
+          background-size: contain;
+          display: inline-block;
+          position: absolute;
+          bottom: -35%;
+          right: 10%;
+      }
+
+      .btn-manual-complete {
+          left: 115px;
+      }
+}

@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-nav>
+        <button class="force-back" ion-button="bar-button" (click)="navigateToHome()">
+            <ion-icon class="back-button-icon-ios" name="arrow-back" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            {{'BACK_BUTTON_TEXT' | translate}}
+        </button>
+        <ion-title>{{'TAB1_TITLE' | translate}}</ion-title>
+    </ion-nav>
+</ion-header>
+
+<ion-content>
+    <div class="splash-bg">
+        <div *ngIf="currentTask.completed" class="finish-tag"></div>
+    </div>
+    <div class="splash-info">
+        <h6>- 当前任务 -</h6>
+        <div>{{title}}</div>
+        <div class="splash-logo" [style.backgroundImage]="progressUrl"></div>
+    </div>
+    <div class="task-container">
+        <table style="width: 200px; height: 400px; margin: -10px auto auto auto;" [style.height]="taskContainerHeight" [class.manual]="taskType == TaskType.Monitoring && currentTask.status == 0">
+            <tr *ngFor="let row of lineArray; let i=index">
+                <td class="td-left" [ngClass]="{ 'odd': i % 2 != 0, 'even': i % 2 == 0, 'highlight': isCellHighlight(i) }"></td>
+                <td class="td-right" [ngClass]="{ 'odd': i % 2 != 0, 'even': i % 2 == 0, 'highlight': isCellHighlight(i) }"></td>
+            </tr>
+        </table>
+        <table style="width: 200px; height: 84px; margin: auto;" *ngIf="taskType == TaskType.Monitoring && currentTask.status == 0">
+            <colgroup>
+                <col width="50%">
+                <col width="50%">
+            </colgroup>
+            <tr>
+                <td style="border-right: 2px solid #afe784"></td>
+                <td></td>
+            </tr>
+        </table>
+        <!-- todo: getFabTop -->
+        <button *ngIf="taskType == TaskType.Monitoring && currentTask.status == 0" class="btn-manual-complete" ion-fab (click)="manualComplete()"
+            [style.top]="getFabTop(totalStep + 1)">
+            <img title="complete task" src="assets/img/task_finish_freen.png">
+        </button>
+
+        <button ion-fab (click)="navigateToTaskDetail(i)" *ngFor="let step of stepArray; let i=index" [style.top]="getFabTop(i)"
+            [ngClass]="{ 'fab-left': i % 2 == 0, 'fab-right': i % 2 != 0, 'highlight': isFabHighlight(step, i)}">
+            <img [title]="step.name" *ngIf="!step.completed" [src]="step.normalSrc">
+            <img [title]="step.name" *ngIf="step.completed" [src]="step.checkedSrc">
+        </button>
+
+    </div>
+</ion-content>

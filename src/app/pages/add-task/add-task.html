@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-nav>
+    <button class="force-back" ion-button="bar-button" (click)="navigateToHome()">
+      <ion-icon class="back-button-icon-ios" name="arrow-back" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      {{'BACK_BUTTON_TEXT' | translate}}
+    </button>
+    <ion-title>{{'TAB3_TITLE' | translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button color="white" (click)="showConfirm()">
+        保存
+      </button>
+    </ion-buttons>
+  </ion-nav>
+</ion-header>
+
+<ion-content padding>
+  <!--<button ion-fab [navPush]="detailPage">
+        <div>
+            <ion-icon name="camera"></ion-icon>
+            <label>现场勘察</label>
+        </div>
+    </button>-->
+  <ion-item style="padding-left:0px;height: 30%">
+    <ion-textarea placeholder="请填写任务标题" [(ngModel)]='title'></ion-textarea>
+  </ion-item>
+  <ion-item-divider></ion-item-divider>
+  <geolocation-bar [(currentlat)]="currentlat" [(currentlng)]="currentlng" [(address)]="address"></geolocation-bar>
+  <ion-item-divider></ion-item-divider>
+  <ion-item style="padding-left:0px;height: 5%" *ngIf='showSelect'>
+    <ion-label style="margin-right: 0px;padding-left: 10px">{{selectlabel}}</ion-label>
+    <ion-select [(ngModel)]='selectedvalue' interface="popover">
+      <ion-select-option *ngFor="let obj of Options" [value]="obj">{{obj.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-content>

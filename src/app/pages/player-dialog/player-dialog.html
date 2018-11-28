@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-nav>
+        <button ion-button="bar-button" (click)="goBack()">
+            <ion-icon class="back-button-icon-ios" name="arrow-back" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            {{'BACK_BUTTON_TEXT' | translate}}
+        </button>
+    </ion-nav>
+</ion-header>
+
+<ion-content padding>
+    <div class="operation-title1">
+        <button ion-button icon-left color="light" style="width:100px; float: left;" (click)="playAudio()" [disabled]="isPlayAudio">播放音频</button>
+        <button ion-button icon-center color="light" style="width:100px;" (click)="PauseAudio()" [disabled]="isPauseAudio">暂停</button>
+        <button ion-button icon-right color="light" style="width:100px; float: right;" (click)="ContinuePlay()" [disabled]="isContiueAudio">播放</button>
+    </div>
+    <div class="plater">
+        <div class="slider">
+            <div id="processor" class="processor"></div>
+            <div id="controller" class="controller"></div>
+        </div>
+    </div>
+
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-nav>
+        {{name}}
+    </ion-nav>
+</ion-header>
+<ion-content>
+    <ion-list class="accordion-list">
+        <!-- First Level -->
+        <ion-list-header ion-item *ngFor="let item of informations; let i = index" no-lines no-padding>
+            <!-- Toggle Button -->
+            <ion-item detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
+                <ion-avatar item-start style="padding-top: 8px; margin-right: 0px;">
+                    <div>
+                        <span class="circle-outside">
+                            <span class="circle-inside">{{i + 1}}</span>
+                        </span>
+                    </div>
+                </ion-avatar>
+                <span [class.workcompleted]="item.completed" (click)="navigateToDetail(item)">{{item.name}}</span>
+                <ion-icon item-right name="arrow-down" *ngIf="!item.open" (click)="toggleSection(i)"></ion-icon>
+                <ion-icon item-right name="arrow-up" *ngIf="item.open" (click)="toggleSection(i)"></ion-icon>
+            </ion-item>
+
+            <!-- Direct Add Button as Fallback -->
+            <ion-item ion-item detail-none class="child-item" text-wrap [class.hide]="!item.completed || !item.open">
+                <ion-slides>
+                    <ion-slide *ngFor="let img of item.images" style="max-width:90px;max-height:90px;margin:5px 5px">
+                        <img [src]="img.src" (click)="showPicture(img.src)">
+                    </ion-slide>
+                </ion-slides>
+            </ion-item>
+
+        </ion-list-header>
+    </ion-list>
+</ion-content>

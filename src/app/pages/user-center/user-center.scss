@@ -1,0 +1,65 @@
+page-user-center{
+    .splash-bg {
+        position: relative;
+        background: url('../assets/img/bg_source_green.png') no-repeat transparent;
+        background-size: cover;
+        height: 25%;
+        z-index: 1;
+        background-repeat: repeat-x;
+        animation: animatedBackground 40s linear infinite;
+      }
+    .splash-info {
+        position: relative;
+        z-index: 2;
+        margin-top: -120px;
+        text-align: center;
+      }
+    .splash-logo {
+        margin: auto;
+        background: url('../assets/img/home_center_green.png') repeat transparent;
+        background-size: 100%;
+        width: 100px;
+        height: 100px;
+      }
+
+    .adduser-bt{
+        width: 70%;
+        margin: auto;
+        margin-top: 20px
+    }
+    .ion-label-font{
+        font-family: "Microsoft YaHei" ! important;
+        color: silver;
+    }
+    .text-input-ios{
+        text-align: right;
+    }
+    .text-input-md{
+        text-align: right;
+    }
+    .splash-company-logo {
+        float: left;
+        background: url('../assets/img/company_logo.png') no-repeat transparent;
+        background-size: 100%;
+        width: 120px;
+        height: 130px;
+        margin-top: 10px;
+        margin-left: 5px;
+      }
+  
+      .splash-user-logo {
+        float: right;
+        background: url('../assets/img/icon_user_big.png') no-repeat transparent;
+        background-size: 100%;
+        width: 50px;
+        height: 130px;
+        margin-top: 10px;
+        margin-right: 5px;
+      }
+      .label-ios{
+        margin: 0px 8px 0px 0;
+      }
+      .label-md{
+        margin: 0px 8px 0px 0;
+      }
+}

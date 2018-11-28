@@ -1,0 +1,78 @@
+{
+    "BACK_BUTTON_TEXT": "返回",
+  
+    "NAME": "姓名",
+    "EMAIL": "Email",
+    "USERNAME": "用户名",
+    "PASSWORD": "密码",
+    "LOGIN": "登录",
+    "SIGNUP": "注册",
+  
+    "TAB1_TITLE": "任务单",
+    "TAB2_TITLE": "我的任务",
+    "TAB3_TITLE": "添加任务",
+    "TAB4_TITLE": "用户列表",
+    "TAB5_TITLE": "任务列表",
+  
+    "MAP_TITLE": "Map",
+  
+    "TUTORIAL_SKIP_BUTTON": "Skip",
+    "TUTORIAL_CONTINUE_BUTTON": "Continue",
+  
+    "TUTORIAL_SLIDE1_TITLE": "Welcome to the Ionic Super Starter",
+    "TUTORIAL_SLIDE1_DESCRIPTION": "The <b>Ionic Super Starter</b> is a fully-featured Ionic starter with many pre-built pages and best practices.",
+  
+    "TUTORIAL_SLIDE2_TITLE": "How to use the Super Starter",
+    "TUTORIAL_SLIDE2_DESCRIPTION": "Assemble the various page types you want and remove the ones you don't. We've provided many common mobile app page layouts, like login and signup pages, tabs, and this tutorial page.",
+  
+    "TUTORIAL_SLIDE3_TITLE": "Getting Started",
+    "TUTORIAL_SLIDE3_DESCRIPTION": "Need help? Check out the Super Starter README for a full tutorial",
+  
+    "TUTORIAL_SLIDE4_TITLE": "Ready to Play?",
+  
+    "WELCOME_INTRO": "The starting point for your next great Ionic app",
+  
+    "SETTINGS_TITLE": "Settings",
+    "SETTINGS_OPTION1": "Option 1",
+    "SETTINGS_OPTION2": "Option 2",
+    "SETTINGS_OPTION3": "Option 3",
+    "SETTINGS_OPTION4": "Option 4",
+  
+    "SETTINGS_PROFILE_BUTTON": "Edit Profile",
+  
+    "SETTINGS_PAGE_PROFILE": "Edit Profile",
+  
+    "WELCOME_TITLE": "欢迎",
+  
+    "LOGIN_TITLE": "登录",
+    "LOGIN_ERROR": "无法登录. 请检查帐户信息并重试.",
+    "LOGIN_BUTTON": "登录",
+    "SIGNUP_TITLE": "注册",
+    "SIGNUP_ERROR": "无法注册账号. 请检查帐户信息并重试.",
+    "SIGNUP_BUTTON": "注册",
+  
+    "LIST_MASTER_TITLE": "Items",
+  
+    "ITEM_CREATE_TITLE": "New Item",
+    "ITEM_CREATE_CHOOSE_IMAGE": "Add Image",
+  
+    "ITEM_NAME_PLACEHOLDER": "Name",
+    "ITEM_ABOUT_PLACEHOLDER": "About",
+  
+    "DONE_BUTTON": "完成",
+    "CANCEL_BUTTON": "取消",
+    "DELETE_BUTTON": "删除",
+  
+    "CARDS_TITLE": "Social",
+  
+    "SEARCH_TITLE": "搜索",
+    "SEARCH_PLACEHOLDER": "Search the items list, e.g. \"Donald Duck\"",
+  
+    "HOME_TITLE": "首页",
+
+    "TAB_CURRENT_TASK_TITLE": "任务单",
+    "TAB_MY_TASK_TITLE": "我的任务",
+    "TAB_ADD_TASK_TITLE": "添加任务",
+    "TAB_USER_LIST_TITLE": "用户列表",
+    "TAB_TASK_LIST_TITLE": "任务列表"
+  }

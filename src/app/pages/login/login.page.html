@@ -1,0 +1,34 @@
+<ion-content>
+    <div class="splash-bg">
+    </div>
+    <div class="splash-info">
+        <div *ngIf="management" class="splash-logo-management"></div>
+        <div *ngIf="client" class="splash-logo-client"></div>
+        <div class="splash-logo-bottom" style="margin-top:55px !important"></div>
+    </div>
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+        <ion-list style="position: relative">
+            <ion-item style="padding-left: 10px;">
+                <ion-label class="ion-label-font">
+                    <img src="assets/img/icon_user_new.png" style="height:20px;margin-right:10px">
+                </ion-label>
+                <ion-input required minlength="11" maxlength="11" name="phone" type="number" placeholder="手机号"
+                    [(ngModel)]='logon.phoneNo' #phone="ngModel"></ion-input>
+                <ion-button fill="clear" [disabled]="phone.invalid || hasSentVerificationCode" (click)="getVerificationCode()">{{getVerificationCodeText}}</ion-button>
+            </ion-item>
+            <ion-item style="padding-left: 10px;">
+                <ion-label class="ion-label-font">
+                    <img src="assets/img/icon_pwd_new.png" style="height:20px;margin-right:10px">
+                </ion-label>
+                <ion-input name="password" type="text" placeholder="验证码" [(ngModel)]='logon.verificationCode'></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>记住我?</ion-label>
+                <ion-checkbox name="rememberMe" [(ngModel)]="logon.rememberMe"></ion-checkbox>
+            </ion-item>
+        </ion-list>
+        <ion-button type="submit" [disabled]="!loginForm.form.valid" expand="full">登录</ion-button>
+    </form>
+    <ion-label class="label version-label">{{versionLabel}}</ion-label>
+    <ion-label class="label company-label">Your company label here</ion-label>
+</ion-content>

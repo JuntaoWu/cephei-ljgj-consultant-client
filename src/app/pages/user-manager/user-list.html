@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-nav>
+    <span style="line-height: 40px;">用户列表</span>
+  </ion-nav>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let row of userList; let i=index" (click)="navigateToUserInfo(row)" style="padding-left: 0px">
+      <ion-avatar item-start style="padding-top: 8px;margin-right: 0px;">
+        <div>
+          <span class="circle-outside">
+            <span class="circle-inside">{{i+1}}</span>
+          </span>
+        </div>
+      </ion-avatar>
+      <span style="color:silver">{{row.fullname}}</span>
+    </ion-item>
+  </ion-list>
+</ion-content>

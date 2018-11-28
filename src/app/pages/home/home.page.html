@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-nav align-title="center">
+        <ion-title>{{'HOME_TITLE' | translate}}</ion-title>
+    </ion-nav>
+</ion-header>
+
+<ion-content scroll="false">
+    <div class="splash-bg">
+        <!--<button ion-button icon-only style="float: right; background-color: transparent; box-shadow: none;">
+            <div>
+                <ion-icon name="person-outline"></ion-icon>
+                <label style="display: block; font-size: x-small;" (click)="navigateToUserCenter()">用户中心</label>
+            </div>
+        </button>-->
+        <div class="splash-user-logo" (click)="navigateToUserCenter()"></div>
+        <div class="splash-company-logo"></div>
+    </div>
+    <div class="splash-info">
+        <div class="splash-logo"></div>
+    </div>
+    <div padding style="position: relative; z-index: 3;">
+        <ul>
+            <li>
+                <img src="assets/img/step_1_function_green.png" routerLink="/tabs/fixing" />
+                <!-- <button ion-fab [navPush]="tabsRoot" [navParams]="fixing">
+                    <ion-icon name="hammer-outline"></ion-icon>
+                </button>检修作业 -->
+            </li>
+            <li style="margin-top: 65px; margin-right: 15px;">
+                <img src="assets/img/step_2_function_green.png" routerLink="/tabs/inspectInspection" />
+                <!-- <button ion-fab [navPush]="tabsRoot" [navParams]="inspectInspection">
+                    <ion-icon name="map-outline"></ion-icon>
+                </button>巡视检查 -->
+            </li>
+            <li style="margin-top: 65px; margin-left: 15px;">
+                <img src="assets/img/step_3_function_green.png" routerLink="/tabs/supervisedCheck" />
+                <!-- <button ion-fab [navPush]="tabsRoot" [navParams]="supervisedCheck">
+                    <ion-icon name="eye-outline"></ion-icon>
+                </button>监督检查 -->
+            </li>
+            <li>
+                <img src="assets/img/step_4_function_green.png" routerLink="/tabs/switchingOperation" />
+                <!-- <button ion-fab [navPush]="tabsRoot" [navParams]="switchingOperation">
+                    <ion-icon name="cog-outline"></ion-icon>
+                </button>倒闸操作 -->
+            </li>
+        </ul>
+    </div>
+</ion-content>

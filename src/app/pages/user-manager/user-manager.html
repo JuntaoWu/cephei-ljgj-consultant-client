@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-nav>
+      <button class="force-back" ion-button="bar-button" (click)="navigateToHome()">
+        <ion-icon class="back-button-icon-ios" name="arrow-back" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+        {{'BACK_BUTTON_TEXT' | translate}}
+      </button>
+      <ion-title>{{'TAB4_TITLE' | translate}}</ion-title>
+    </ion-nav>
+  </ion-header>
+  
+  <ion-content>
+    <div class="adduser-bg">
+      
+    </div>
+    <button ion-button block class="adduser-bt" (click)="navigateToUserInfo()">添加用户</button>
+    <button ion-button block class="showuser-bt" (click)="navigateToUserAreaList()">查看用户列表</button> 
+  </ion-content>

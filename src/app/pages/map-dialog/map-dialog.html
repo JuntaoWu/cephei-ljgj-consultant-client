@@ -1,0 +1,15 @@
+<ion-header>
+    <ion-nav>
+        <button ion-button="bar-button" (click)="goBack()">
+            <ion-icon class="back-button-icon-ios" name="arrow-back" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            {{'BACK_BUTTON_TEXT' | translate}}
+        </button>
+    </ion-nav>
+</ion-header>
+
+<ion-content padding>
+    <baidu-map [options]="options">
+        <marker [point]="point" (clicked)="showWindow($event)"></marker>
+        <control type="navigation" [options]="navOptions"></control>
+    </baidu-map>
+</ion-content>

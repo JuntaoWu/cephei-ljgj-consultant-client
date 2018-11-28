@@ -1,0 +1,61 @@
+page-user-info{
+    .userinfo-bg{
+        position: relative;
+        background: url('../assets/img/bg_top_green.png') no-repeat transparent;
+        background-size: cover;
+        height: 35%;
+        z-index: 1;
+        background-repeat: repeat-x;
+        animation: animatedBackground 40s linear infinite;
+    }
+    .userinfo-info {
+        position: relative;
+        z-index: 2;
+        margin-top: -200px;
+        text-align: center;
+      }
+      
+    .userinfo-logo {
+        margin: auto;
+        background: url("../assets/img/icon_logo_my.png") repeat transparent;
+        background-size: 100%;
+        width: 140px;
+        height: 140px;
+    }
+    .userinfo-tile{
+        margin-top: 20px;
+        font-weight: bold;
+        color: white;
+        font-size: 16px;
+    }
+    .text-input-ios{
+        text-align: right;
+    }
+    .text-input-md{
+        text-align: right;
+    }
+    .scroll-content{
+        background-color:#f7f7f7
+    }
+    .div-radius{
+        margin-top: 60px;
+        margin-right: 20px;
+        margin-left: 20px;
+        border: 1px solid #e8e5e5;
+        -moz-border-radius: 15px;
+        border-radius: 15px;
+        text-align: center;
+        padding: 5px;
+        -webkit-border-radius: 15px;
+    }
+    .ion-label-font{
+        font-family: "Microsoft YaHei" ! important;
+        color: silver;
+    }
+    .adduser-bt{
+        width: 90%;
+        margin: auto;
+        margin-top: 40px
+    }
+      
+}

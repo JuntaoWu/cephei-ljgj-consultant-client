@@ -1,0 +1,18 @@
+page-add-task {
+    .scroll-content {
+        padding: 0px !important;
+        background: #f7f7f7;
+    }
+
+    ion-item-divider {
+        min-height: 15px;
+    }
+
+    .item-inner {
+        border-bottom: none !important;
+    }
+
+    text-area {
+        height: 100%;
+    }
+}

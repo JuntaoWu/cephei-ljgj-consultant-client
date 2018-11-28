@@ -1,0 +1,9 @@
+<!-- <ion-nav>
+</ion-nav> -->
+<ion-tabs [ngSwitch]="clientType">
+  <ion-tab [root]="tab1Root" [tabTitle]="'TAB_CURRENT_TASK_TITLE' | translate" tabIcon="paper" tabsHideOnSubPages="true" [rootParams]="rootParams"></ion-tab>
+  <ion-tab *ngSwitchCase="'Client'" [root]="tab2Root" [tabTitle]="'TAB_MY_TASK_TITLE' | translate" tabIcon="information-circle" tabsHideOnSubPages="true" [rootParams]="rootParams"></ion-tab>
+  <ion-tab *ngSwitchCase="'Management'" [root]="tab4Root" [tabTitle]="'TAB_USER_LIST_TITLE' | translate" tabIcon="person" tabsHideOnSubPages="true" [rootParams]="rootParams"></ion-tab>
+  <ion-tab *ngSwitchCase="'Client'" [root]="tab3Root" [tabTitle]="'TAB_ADD_TASK_TITLE' | translate" tabIcon="add" tabsHideOnSubPages="true" [rootParams]="rootParams"></ion-tab>
+  <ion-tab *ngSwitchCase="'Management'" [root]="tab5Root" [tabTitle]="'TAB_TASK_LIST_TITLE' | translate" tabIcon="list" tabsHideOnSubPages="true" [rootParams]="rootParams"></ion-tab>
+</ion-tabs>

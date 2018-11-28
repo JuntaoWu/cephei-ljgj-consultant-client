@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-nav>
+    <button class="force-back" ion-button="bar-button" (click)="navigateToHome()">
+      <ion-icon class="back-button-icon-ios" name="arrow-back" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      {{'BACK_BUTTON_TEXT' | translate}}
+    </button>
+    <ion-title>{{'TAB5_TITLE' | translate}}</ion-title>
+  </ion-nav>
+
+</ion-header>
+<ion-content>
+  <div style="width:100%">
+    <ion-toolbar class="toolbar toolbar-ios">
+      <!--todo: ion-segment-->
+      <!-- <ion-segment padding style="background-color:white;width:100%" [(ngModel)]="selectType" class="segment segment-ios ng-untouched ng-pristine ng-valid">
+        <ion-segment-button value="partition" style="max-width:50%" (ionSelect)="selectPartition()">
+          分区查询
+        </ion-segment-button>
+        <ion-segment-button value="whole" style="max-width:50%" (ionSelect)="selectWhole()">
+          全部查询
+        </ion-segment-button>
+      </ion-segment> -->
+    </ion-toolbar>
+  </div>
+  <div style="width:100%; height:90%;position:fixed;overflow:auto">
+    <ion-slides (ionSlideDidChange)="sildeChanged()" class="ion-slides">
+      <ion-slide>
+        <ion-content padding>
+          <ion-refresher (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content></ion-refresher-content>
+          </ion-refresher>
+          <ion-list>
+            <!--todo: ion-item ngFor-->
+            <!-- <ion-item *ngFor="let row of areaklist; let i=index" (click)="navigateToWorkList(row)" style="padding-left: 0px">
+              <ion-avatar item-start style="padding-top: 8px;margin-right: 0px;">
+                <div>
+                  <span class="circle-outside">
+                    <span class="circle-inside">{{i+1}}</span>
+                  </span>
+                </div>
+              </ion-avatar>
+              <h2>{{row.name}}</h2>
+            </ion-item> -->
+          </ion-list>
+        </ion-content>
+      </ion-slide>
+      <ion-slide>
+        <ion-content padding>
+          <ion-refresher (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content></ion-refresher-content>
+          </ion-refresher>
+          <div style="width:100%">
+            <ion-grid style="padding:0px">
+              <ion-row>
+                <ion-col col-4 style="border: 1px solid #faf7f7;min-height: 20px;height: 30px;background-color: #faf7f7;padding: 0px">
+                  <!-- <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="starttime" placeholder="开始时间" style="padding:0px;"></ion-datetime> -->
+                </ion-col>
+                <ion-col style="padding: 0px">
+                  -
+                </ion-col>
+                <ion-col col-4 style="border: 1px solid #faf7f7;min-height: 20px;height: 30px;background-color: #faf7f7;padding: 0px">
+                  <!-- <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="endtime" placeholder="结束时间" style="padding:0px;"></ion-datetime> -->
+                </ion-col>
+                <ion-col col-3 style="padding: 0px">
+                  <button ion-button color="secondary" style="height:25px;width:60px;" (click)="search()">确定</button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+          <!-- <ion-list [virtualScroll]="worklist">
+            <ion-item *virtualItem="let row" style="padding-left: 0px" (click)="navigateToCurrentTask(row)">
+              <h2 [ngClass]="{'workcompleted' : isNotWorkCompleted(row)}">{{row.ogname}}</h2>
+              <br/>
+              <p [ngClass]="{'workcompleted' : isNotWorkCompleted(row)}">{{row.title}}</p>
+              <div>
+                <span [ngClass]="{'workcompleted' : isNotWorkCompleted(row)}">{{row.createddate}}</span>
+                <img src="assets/img/star_unselect.png" style="float: right;width: 4%;" *ngFor="let i of generateUnSelectedArry(row)">
+                <img src="assets/img/star_selected.png" style="float: right;width: 4%;" *ngFor="let i of generateSelectedArray(row)">
+              </div>
+            </ion-item>
+          </ion-list> -->
+        </ion-content>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-nav>
+    <button class="force-back" ion-button="bar-button" (click)="navigateToHome()">
+      <ion-icon class="back-button-icon-ios" name="arrow-back" ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      {{'BACK_BUTTON_TEXT' | translate}}
+    </button>
+    <ion-title>{{'TAB2_TITLE' | translate}}</ion-title>
+  </ion-nav>
+</ion-header>
+
+<ion-content padding>
+  <!--<button ion-fab [navPush]="detailPage">
+        <div>
+            <ion-icon name="camera"></ion-icon>
+            <label>现场勘察</label>
+        </div>
+    </button>-->
+  <ion-refresher (ionRefresh)="doRefresh($event)" (ionPull)="doPulling($event)">
+    <ion-refresher-content pullingText="下拉刷新..." refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item *ngFor="let row of myworklist; let i=index" (click)="navigateToCurrentTask(row)" style="padding-left: 0px">
+      <ion-avatar item-start style="margin-right: 0px;">
+        <div>
+          <span class="circle-outside">
+            <span class="circle-inside">{{i+1}}</span>
+          </span>
+        </div>
+      </ion-avatar>
+      <h2 [ngClass]="{'workcompleted' : isWorkCompleted(row)}">{{row.title}}</h2>
+      <p>{{row.address}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

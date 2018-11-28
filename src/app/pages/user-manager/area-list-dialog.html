@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-nav style="text-align: center;font-size: 18px;">
+        <span style="line-height: 40px;">请选择地区</span>
+    </ion-nav>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item *ngFor="let row of userAreaList; let i=index" (click)="selectItem(row)" style="padding-left: 0px">
+            <ion-avatar item-start style="padding-top: 8px;margin-right: 0px;">
+                <div>
+                    <span class="circle-outside">
+                        <span class="circle-inside">{{i+1}}</span>
+                    </span>
+                </div>
+            </ion-avatar>
+            <h2>{{row.name}}</h2>
+        </ion-item>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,25 @@
+page-work-list{
+   .label-ios{
+        margin-top:15px;
+        margin-bottom:5px;
+   }
+   .workcompleted{
+        color: red;
+    }
+    .circle-outside{
+        border-radius: 50%;    
+        height: 20px;    
+        width: 20px;    
+        display: inline-block;    
+        background: #35c6aa;      
+        vertical-align: top;
+    }
+    .circle-inside{
+        display: block;    
+        color: #FFFFFF;   
+        height: 20px;    
+        line-height: 20px;    
+        text-align: center; 
+        font-size:14px
+    }
+}

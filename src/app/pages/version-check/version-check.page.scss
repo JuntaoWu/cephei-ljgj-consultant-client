@@ -1,0 +1,49 @@
+page-version-check{
+    .splash-bg {
+        position: relative;
+        background: url('/src/assets/img/splash_green.png') no-repeat transparent;
+        background-size: cover;
+        height: 100%;
+        z-index: 1;
+        background-repeat: repeat-x;
+        animation: animatedBackground 40s linear infinite;
+    }
+    .splash-info {
+        position: relative;
+        z-index: 2;
+        margin-top: -560px;
+        text-align: center;
+    }
+    .splash-logo-management {
+        margin: auto;
+        background: url('/src/assets/img/login_logo_green.png') no-repeat transparent;
+        background-size: 100%;
+        width: 190px;
+        height: 250px;
+    }
+    .splash-logo-client {
+        margin: auto;
+        background: url('/src/assets/img/logo_green.png') no-repeat transparent;
+        background-size: 100%;
+        width: 190px;
+        height: 250px;
+    }
+    .version-label{
+        z-index: 2;
+        color: white;
+        margin: auto;
+        position: relative;
+        text-align: center;
+        margin-top: 250px;
+        font-size: 14px;
+    }
+    .company-label{
+        z-index: 2;
+        color: white;
+        margin: auto;
+        position: relative;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+}

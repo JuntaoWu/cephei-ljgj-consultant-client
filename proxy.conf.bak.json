@@ -1,0 +1,26 @@
+{
+    "/api/*": {
+        "target": "http://119.23.75.5:8003/index.php/Home/Index/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/managementApi/*": {
+        "target": "http://119.23.75.5:8003/index.php/Home/Admin/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/Uploads/*": {
+        "target": "http://119.23.75.5:8003/Uploads",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/VoiceUploads/*": {
+        "target": "http://119.23.75.5:8003/VoiceUploads",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

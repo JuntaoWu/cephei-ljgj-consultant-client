@@ -1,0 +1,11 @@
+<ion-content scroll="false" style="height:100%">
+    <div class="splash-bg">
+    </div>
+    <div class="splash-info">
+        <div *ngIf="management" class="splash-logo-management"></div>
+        <div *ngIf="client" class="splash-logo-client"></div>
+        <div class="splash-logo-bottom" style="margin-top:75px !important"></div>
+    </div>
+    <ion-label class="label label-ios version-label" >{{versionLabel}}</ion-label>
+    <ion-label class="label label-ios company-label" >成都中安电气有限公司</ion-label>
+</ion-content>

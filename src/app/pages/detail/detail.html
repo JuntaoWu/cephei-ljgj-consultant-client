@@ -1,0 +1,68 @@
+<ion-header>
+    <ion-nav>
+        {{name}}
+        <ion-buttons end *ngIf="isUpdate">
+            <button ion-button color="white" (click)="saveTaskDetail()">
+                保存
+            </button>
+        </ion-buttons>
+    </ion-nav>
+</ion-header>
+<ion-content [class.greybg]="!step.notice">
+    <ion-item class="detail-content">
+        <ion-textarea placeholder="备注信息填写" [(ngModel)]="detail.content"></ion-textarea>
+    </ion-item>
+    <ul class="upload-area" style="margin:0px">
+        <ion-slides>
+            <ion-slide *ngFor="let img of images" style="max-width:90px;max-height:90px;margin:5px 5px">
+                <img [src]="img.src" (click)="showPicture(img)" (pressUp)="pressed(img)">
+            </ion-slide>
+            <ion-slide style="max-width:90px;max-height:90px;margin:5px 5px" *ngIf="clientType != 'Management'">
+                <img src="assets/img/icon_add_green.png" (click)="showActionSheets()">
+            </ion-slide>
+        </ion-slides>
+    </ul>
+    <ion-item-divider></ion-item-divider>
+
+    <ul class="upload-area" style="margin:0px" *ngIf="reviewimages && reviewimages.length">
+        <ion-slides>
+            <ion-slide *ngFor="let img of reviewimages" style="max-width:90px;max-height:90px;margin:5px 5px">
+                <img [src]="img.src" (click)="showPicture(img)" (pressUp)="pressed(img.src)">
+            </ion-slide>
+        </ion-slides>
+    </ul>
+    <ion-item-divider *ngIf="reviewimages && reviewimages.length"></ion-item-divider>
+
+    <geolocation-bar [(currentlat)]="detail.lat" [(currentlng)]="detail.lng" [(address)]="detail.address" [readonly]="!isUpdate"></geolocation-bar>
+
+    <ion-item *ngIf="isClientCamera">
+        <ion-avatar item-start style="margin: 0;min-width: 20px;min-height: 20px;">
+            <img src="assets/img/icon_time_green.png" style="width: 20px;height: 20px;margin-right: 5px;" />
+        </ion-avatar>
+        <h2 style="font-weight:400">{{clientCameraTime}}</h2>
+    </ion-item>
+
+    <ion-item *ngIf="isManagerCamera">
+        <ion-avatar item-start style="margin: 0;min-width: 20px;min-height: 20px;">
+            <img src="assets/img/icon_time_green.png" style="width: 20px;height: 20px;margin-right: 5px;" />
+        </ion-avatar>
+        <h2 style="font-weight:400">管理拍照时间: {{managerCameraTime}}</h2>
+    </ion-item>
+
+    <ion-item *ngFor="let row of recordingList; let i=index">
+        <ion-avatar item-start style="margin: 0;min-width: 20px;min-height: 20px;">
+            <img src="assets/img/voice_video.png" style="width: 20px;height: 20px;margin-right: 5px;" (click)="playAudio(row)" />
+        </ion-avatar>
+        <h2 style="font-weight:400">音频文件{{i+1}}</h2>
+    </ion-item>
+
+    <ion-item-divider *ngIf="!!step.notice"></ion-item-divider>
+    <ion-item class="attention" *ngIf="!!step.notice">
+        <h2>注意事项
+            <ion-icon ios="ios-information-circle-outline" md="ios-information-circle-outline"></ion-icon>
+        </h2>
+    </ion-item>
+    <p>
+        {{step.notice}}
+    </p>
+</ion-content>

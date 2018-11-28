@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-nav>
+      <span style="line-height: 40px;">{{areaName}}</span>
+    </ion-nav>
+  </ion-header>
+  
+  <ion-content padding>
+      <!--<button ion-fab [navPush]="detailPage">
+          <div>
+              <ion-icon name="camera"></ion-icon>
+              <label>现场勘察</label>
+          </div>
+      </button>-->
+    <ion-list>
+        <ion-item  *ngFor="let row of worklist let i=index" style="padding-left: 0px" (click)="navigateToCurrentTask(row)">
+            <ion-avatar item-start style="margin-right: 0px;">    
+                <div>
+                    <span class="circle-outside">  
+                        <span class="circle-inside">{{i+1}}</span>  
+                    </span>  
+                </div>
+            </ion-avatar>
+            <h4 [ngClass]="{'workcompleted' : isNotWorkCompleted(row)}">{{row.title}}</h4>
+            <p></p>
+            <div>
+                <span style="font-size:12px" [ngClass]="{'workcompleted' : isNotWorkCompleted(row)}">{{row.createddate}}</span>
+                <span style="font-size:12px" [ngClass]="{'workcompleted' : isNotWorkCompleted(row)}" *ngIf="isShowType">{{generateType(row)}}</span>
+                <img src="assets/img/star_unselect.png" style="float: right;width: 4%;" *ngFor="let i of generateUnSelectedArry(row)">
+                <img src="assets/img/star_selected.png" style="float: right;width: 4%;" *ngFor="let i of generateSelectedArray(row)">
+            </div>
+        </ion-item>
+    </ion-list>
+
+  </ion-content>
