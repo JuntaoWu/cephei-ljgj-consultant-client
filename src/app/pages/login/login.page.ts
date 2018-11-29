@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
 
     public getVerificationCodeText: string = "获取验证码";
     private timeLimit: number = 60;
-    private hasSentVerificationCode: boolean = false;
+    public hasSentVerificationCode: boolean = false;
 
     constructor(public navCtrl: NavController,
         public router: Router,
@@ -49,6 +49,10 @@ export class LoginPage implements OnInit {
         if (this.logon.rememberMe) {
             this.logon.phoneNo = await this.settings.getValue('phone');
         }
+    }
+
+    async createUnifiedOrder() {
+        window.open(`${environment.host}/api/wxuser/authorize`);
     }
 
     async login() {

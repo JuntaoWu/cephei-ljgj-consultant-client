@@ -4,14 +4,16 @@ import { IonicModule } from '@ionic/angular';
 
 import { WorkListPage } from './work-list';
 import { WorkListService } from './work-list.service';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     declarations: [
         WorkListPage,
     ],
     imports: [
+        SharedModule,
         IonicModule,
-      TranslateModule.forChild()
+        TranslateModule.forChild()
     ],
     exports: [
         WorkListPage
@@ -19,5 +21,5 @@ import { WorkListService } from './work-list.service';
     providers: [
         WorkListService
     ]
-  })
-  export class WorkListPageModule { }
+})
+export class WorkListPageModule { }

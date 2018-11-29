@@ -29,7 +29,6 @@ import { CurrentTaskService } from './pages/current-task/current-task.service';
 import { Animation } from 'angular2-baidu-map';
 import { IonicGestureConfig } from './core/ionic-gesture.config';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -50,7 +49,6 @@ export function provideSettings(storage: Storage) {
 @NgModule({
     imports: [
         BrowserModule,
-        FormsModule,
         HttpClientModule,
         TranslateModule.forRoot({
             loader: {

@@ -25,7 +25,7 @@ export class WorkListPage implements OnInit {
     public enddate: Date;
     private ordertype: TaskType;
     private areaId: string;
-    private areaName: string;
+    public areaName: string;
     private taskConfig: any = TaskConfig;
     private isShowType:boolean = false;
 

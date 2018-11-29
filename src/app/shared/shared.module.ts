@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { GeolocationBarComponent } from './geolocation-bar/geolocation-bar.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,7 +8,6 @@ import { FormsModule } from '@angular/forms';
         GeolocationBarComponent
     ],
     imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
     ],

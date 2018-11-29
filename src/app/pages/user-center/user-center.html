@@ -13,59 +13,63 @@
         <div class="splash-logo"></div>
     </div>
 
-    <ion-list [formGroup]='usercenterForm'> 
-        <ion-item-divider>
-            基本信息
-        </ion-item-divider>
-        <ion-item style="padding-left: 10px;">
-            <ion-label class="ion-label-font">
-                <img src="assets/img/icon_phone_green.png" style="height:20px;margin-right:10px">手机号
-            </ion-label>
-            <ion-input type="text" [value]="phone" readonly=true placeholder="请输入手机号"></ion-input>
-        </ion-item>
-        <ion-item style="padding-left: 10px;">
-            <ion-label class="ion-label-font">
-                <img src="assets/img/icon_user_new.png" style="height:20px;margin-right:10px">用户名
-            </ion-label>
-            <ion-input type="text" [value]="username" readonly=true placeholder="请输入用户名"></ion-input>
-        </ion-item>
-        <ion-item style="padding-left: 10px;">
-            <ion-label class="ion-label-font">
-                <img src="assets/img/icon_location_green.png" style="height:20px;margin-right:10px">地区
-            </ion-label>
-            <ion-input type="text" [value]="areaname" readonly=true placeholder="请输入地区"></ion-input>
-        </ion-item>
-        <ion-item-divider>
-            账户安全
-        </ion-item-divider>
-        <ion-item style="padding-left: 10px;">
-            <ion-label class="ion-label-font">
-                <img src="assets/img/icon_pwd_new.png" style="height:20px;margin-right:10px">密码
-            </ion-label>
-            <ion-input type="password" placeholder="密码" formControlName='password' [(ngModel)] = "password" ></ion-input>
-        </ion-item>
-        <div *ngIf="usercenterForm.controls['password'].invalid && (usercenterForm.controls['password'].dirty)" style="color: red;
+    <form [formGroup]='usercenterForm'>
+        <ion-list>
+            <ion-item-divider>
+                基本信息
+            </ion-item-divider>
+            <ion-item style="padding-left: 10px;">
+                <ion-label class="ion-label-font">
+                    <img src="assets/img/icon_phone_green.png" style="height:20px;margin-right:10px">手机号
+                </ion-label>
+                <ion-input type="text" formControlName="phone" readonly=true placeholder="请输入手机号"></ion-input>
+            </ion-item>
+            <ion-item style="padding-left: 10px;">
+                <ion-label class="ion-label-font">
+                    <img src="assets/img/icon_user_new.png" style="height:20px;margin-right:10px">用户名
+                </ion-label>
+                <ion-input type="text" formControlName="username" readonly=true placeholder="请输入用户名"></ion-input>
+            </ion-item>
+            <ion-item style="padding-left: 10px;">
+                <ion-label class="ion-label-font">
+                    <img src="assets/img/icon_location_green.png" style="height:20px;margin-right:10px">地区
+                </ion-label>
+                <ion-input type="text" formControlName="areaname" readonly=true placeholder="请输入地区"></ion-input>
+            </ion-item>
+            <ion-item-divider>
+                账户安全
+            </ion-item-divider>
+            <ion-item style="padding-left: 10px;">
+                <ion-label class="ion-label-font">
+                    <img src="assets/img/icon_pwd_new.png" style="height:20px;margin-right:10px">密码
+                </ion-label>
+                <ion-input type="password" placeholder="密码" formControlName='password' [(ngModel)]="password"></ion-input>
+            </ion-item>
+            <div *ngIf="usercenterForm.controls['password'].invalid && (usercenterForm.controls['password'].dirty)"
+                style="color: red;
         padding-left: 10px;">
-            <div *ngIf="usercenterForm.controls['password'].errors.required">
-                密码必须输入
+                <div *ngIf="usercenterForm.controls['password'].errors.required">
+                    密码必须输入
+                </div>
             </div>
-        </div>
-        <ion-item style="padding-left: 10px;">
-            <ion-label class="ion-label-font">
-                <img src="assets/img/icon_pwd_new.png" style="height:20px;margin-right:10px">确认密码
-            </ion-label>
-            <ion-input type="password" placeholder="密码" formControlName='confirmpassword' [(ngModel)] = "confirmpassword" ></ion-input>
-        </ion-item>
-        <div *ngIf="usercenterForm.controls['confirmpassword'].invalid && (usercenterForm.controls['confirmpassword'].dirty)" style="color: red;
+            <ion-item style="padding-left: 10px;">
+                <ion-label class="ion-label-font">
+                    <img src="assets/img/icon_pwd_new.png" style="height:20px;margin-right:10px">确认密码
+                </ion-label>
+                <ion-input type="password" placeholder="密码" formControlName='confirmpassword' [(ngModel)]="confirmpassword"></ion-input>
+            </ion-item>
+            <div *ngIf="usercenterForm.controls['confirmpassword'].invalid && (usercenterForm.controls['confirmpassword'].dirty)"
+                style="color: red;
         padding-left: 10px;">
-            <div *ngIf="usercenterForm.controls['confirmpassword'].errors.required">
-                密码必须输入
+                <div *ngIf="usercenterForm.controls['confirmpassword'].errors.required">
+                    密码必须输入
+                </div>
+                <div *ngIf="usercenterForm.controls['confirmpassword'].errors.IsSameForPassword">
+                    {{usercenterForm.controls['confirmpassword'].errors.IsSameForPassword.message}}
+                </div>
             </div>
-            <div *ngIf="usercenterForm.controls['confirmpassword'].errors.IsSameForPassword">
-                {{usercenterForm.controls['confirmpassword'].errors.IsSameForPassword.message}}
-            </div>
-        </div>
-    </ion-list>
-    <button ion-button block class="adduser-bt" [disabled]="!usercenterForm.valid" (click)="updateUserInfo()">确认修改</button>
-    <button ion-button block class="adduser-bt" (click)="exitApp()">退出账号</button>
+        </ion-list>
+        <button ion-button block class="adduser-bt" [disabled]="!usercenterForm.valid" (click)="updateUserInfo()">确认修改</button>
+        <button ion-button block class="adduser-bt" (click)="exitApp()">退出账号</button>
+    </form>
 </ion-content>

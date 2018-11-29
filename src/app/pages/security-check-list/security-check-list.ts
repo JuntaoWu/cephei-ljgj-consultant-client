@@ -15,8 +15,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 })
 export class SecurityCheckListPage implements OnInit {
 
-    private name: string;
-    private informations: any[] = [{ id: 1, open: false }, { id: 2, open: false }, { id: 3, open: false }]
+    public name: string;
+    public informations: any[] = [{ id: 1, open: false }, { id: 2, open: false }, { id: 3, open: false }]
     private workId: string;
     private process: number;
     private taskType: TaskType;

@@ -3,6 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 
 import { CurrentTaskMonitoring } from './current-task-monitoring';
+import { SharedModule } from '../../shared/shared.module';
 // import { CurrentTaskService } from './current-task.service';
 
 @NgModule({
@@ -10,6 +11,7 @@ import { CurrentTaskMonitoring } from './current-task-monitoring';
     CurrentTaskMonitoring,
   ],
   imports: [
+    SharedModule,
     IonicModule,
     TranslateModule.forChild()
   ],

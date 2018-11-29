@@ -10,9 +10,9 @@ import { SharedModule } from '../../shared/shared.module';
     UserManagerPage,
   ],
   imports: [
+    SharedModule,
     IonicModule,
     TranslateModule.forChild(),
-    SharedModule
   ],
   exports: [    
     UserManagerPage

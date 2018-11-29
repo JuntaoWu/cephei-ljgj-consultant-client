@@ -5,17 +5,20 @@ import { IonicModule } from '@ionic/angular';
 import { CurrentTaskPage } from './current-task';
 import { SharedModule } from '../../shared/shared.module';
 // import { CurrentTaskService } from './current-task.service';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     CurrentTaskPage,
   ],
   imports: [
+    CommonModule,
+    SharedModule,
     IonicModule,
     TranslateModule.forChild(),
-    SharedModule,
   ],
   exports: [
+    CommonModule,
     CurrentTaskPage,
   ],
   providers: [

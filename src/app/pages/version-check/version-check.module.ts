@@ -9,6 +9,7 @@ import { VersionCheckService } from './version-check.service';
 
 @NgModule({
   imports: [
+    SharedModule,
     IonicModule,
     TranslateModule.forChild(),
     RouterModule.forChild([
@@ -17,7 +18,6 @@ import { VersionCheckService } from './version-check.service';
         component: VersionCheckPage
       }
     ]),
-    SharedModule
   ],
   declarations: [
     VersionCheckPage,

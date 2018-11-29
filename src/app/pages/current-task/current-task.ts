@@ -24,7 +24,7 @@ export class CurrentTaskPage implements OnInit, OnDestroy {
     //public enums
     public TaskType = TaskType;
 
-    protected taskType: TaskType = TaskType.Fixing;
+    public taskType: TaskType = TaskType.Fixing;
     protected taskConfig: any = TaskConfig;
 
     protected totalStep: number;
@@ -175,7 +175,7 @@ export class CurrentTaskPage implements OnInit, OnDestroy {
         return `${init + Math.floor(index / 2) * this.unit * 2}px`;
     }
 
-    protected get progressUrl(): string {
+    public get progressUrl(): string {
         throw "progressUrl should be implemented in subclass.";
     }
 

@@ -3,6 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 
 import { CurrentTaskWalking } from './current-task-walking';
+import { SharedModule } from '../../shared/shared.module';
 // import { CurrentTaskService } from './current-task.service';
 
 @NgModule({
@@ -10,6 +11,7 @@ import { CurrentTaskWalking } from './current-task-walking';
     CurrentTaskWalking,
   ],
   imports: [
+    SharedModule,
     IonicModule,
     TranslateModule.forChild()
   ],

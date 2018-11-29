@@ -10,9 +10,9 @@ import {UserManagerService} from './user-manager.service';
     UserInfoPage,
   ],
   imports: [
+    SharedModule,
     IonicModule,
     TranslateModule.forChild(),
-    SharedModule
   ],
   exports: [    
     UserInfoPage  

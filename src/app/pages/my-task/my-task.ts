@@ -81,10 +81,6 @@ export class MyTaskPage implements OnInit {
         });
     }
 
-    doPulling() {
-
-    }
-
     navigateToHome() {
         throw "not impl";
         // this.appCtrl.getRootNavs()[0].setRoot(MainPage);

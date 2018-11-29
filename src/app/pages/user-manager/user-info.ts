@@ -18,13 +18,13 @@ export class UserInfoPage implements OnInit {
     public userInfo: any;
     public areaInfo: any;
     private userId: string;
-    private fullName: string;
-    private userName: string;
-    private departmentId: string;
-    private departmentName: string;
-    private password: string;
-    private title: string;
-    private show: boolean;
+    public fullName: string;
+    public userName: string;
+    public departmentId: string;
+    public departmentName: string;
+    public password: string;
+    public title: string;
+    public show: boolean;
 
     constructor(public navCtrl: NavController,
         public router: Router,

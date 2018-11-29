@@ -28,6 +28,7 @@
             </ion-item>
         </ion-list>
         <ion-button type="submit" [disabled]="!loginForm.form.valid" expand="full">登录</ion-button>
+        <ion-button color="secondary" expand="full" (click)="createUnifiedOrder()">前往支付</ion-button>
     </form>
     <ion-label class="label version-label">{{versionLabel}}</ion-label>
     <ion-label class="label company-label">Your company label here</ion-label>
