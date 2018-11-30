@@ -71,6 +71,10 @@ export class UserService {
         return seq;
     }
 
+    unifiedOrder() {
+        return this.api.post('payments/unifiedOrder');
+    }
+
     /**
      * Log the user out, which forgets the session
      */

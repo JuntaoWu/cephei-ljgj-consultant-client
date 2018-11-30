@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
     }
 
     async createUnifiedOrder() {
-        window.open(`${environment.host}/api/wxuser/authorize`);
+        this.userService.createUnifiedOrder(`/`)
     }
 
     async login() {

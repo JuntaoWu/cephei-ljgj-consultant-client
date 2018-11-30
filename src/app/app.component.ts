@@ -8,6 +8,8 @@ import { Settings } from './services/providers';
 import { OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
+import { environment } from '../environments/environment';
+import { ɵparseCookieValue as parseCookieValue } from '@angular/common';
 
 @Component({
     selector: 'app-root',
@@ -15,6 +17,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
+    private wxOpenId: string;
     private phone: string;
     private startUrl: string;
 
@@ -33,9 +36,42 @@ export class AppComponent implements OnInit {
 
     async ngOnInit() {
         await this.settings.load();
+
+        if (this.isWxBrowser()) {
+            this.wxOpenId = await this.settings.getValue('wxOpenId');
+            if (!this.wxOpenId) {
+                const wxOpenId = parseCookieValue(document.cookie, "wxOpenId");
+
+                if (wxOpenId) {
+                    this.wxOpenId = wxOpenId;
+                    this.settings.setValue('wxOpenId', wxOpenId);
+                }
+                else {
+                    location.href = `${environment.endpoint}/wxuser/authorize?state=${location.pathname}`;
+                    return;
+                }
+            }
+        }
+
+        const user = await this.settings.getValue('user');
         this.phone = await this.settings.getValue('phone');
-        this.startUrl = this.phone ? 'version-check' : 'login';
+
+        if (user && location.pathname && location.pathname != "/") {
+            return;
+        }
+
+        if (user) {
+            this.startUrl = 'home';
+        }
+        else {
+            this.startUrl = this.phone ? 'version-check' : 'login';
+        }
         this.navigateToHome();
+    }
+
+    isWxBrowser() {
+        const agent = navigator.userAgent.toLowerCase();
+        return /MicroMessenger/i.test(agent);
     }
 
     initTranslate() {

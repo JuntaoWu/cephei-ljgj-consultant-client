@@ -7,7 +7,7 @@ export class environment {
 
   public static maxRetryCount = 3;
   public static clientEndpoint = "/api";
-  public static managementEndpoint = "/managementApi";
+  public static managementEndpoint = "/api";
   public static endpoint = environment.clientType == "Client" ? environment.clientEndpoint : environment.managementEndpoint;
   public static host = "";
   public static GetUserInfo = "GetUserInfo";
