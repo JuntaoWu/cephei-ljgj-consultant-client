@@ -4,13 +4,14 @@ import { IonicModule } from '@ionic/angular';
 
 import { HomePage } from './home.page';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
     HomePage,
   ],
   imports: [
-    IonicModule,
+    SharedModule,
     TranslateModule.forChild(),
     RouterModule.forChild([
       {

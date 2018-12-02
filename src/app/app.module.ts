@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
@@ -29,6 +29,7 @@ import { CurrentTaskService } from './pages/current-task/current-task.service';
 import { Animation } from 'angular2-baidu-map';
 import { IonicGestureConfig } from './core/ionic-gesture.config';
 import { AppRoutingModule } from './app-routing.module';
+import { MyHttpInterceptor } from './services/my-http-interceptor';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -75,6 +76,7 @@ export function provideSettings(storage: Storage) {
     ],
     bootstrap: [AppComponent],
     providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true },
         Api,
         UserService,
         TaskStore,

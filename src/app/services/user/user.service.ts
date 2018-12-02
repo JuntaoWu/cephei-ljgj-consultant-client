@@ -71,8 +71,11 @@ export class UserService {
         return seq;
     }
 
-    unifiedOrder() {
-        return this.api.post('payments/unifiedOrder');
+    createUnifiedOrder(wxOpenId: string, orderId: string) {
+        return this.api.post(`payments/createUnifiedOrder`, {
+            wxOpenId: wxOpenId,
+            orderId: orderId,
+        });
     }
 
     /**
@@ -88,5 +91,8 @@ export class UserService {
     loggedIn(user) {
         this.user = user;
         this.settings.setValue('user', this.user);
+        if (this.user && this.user.token) {
+            localStorage.setItem('token', this.user.token);
+        }
     }
 }

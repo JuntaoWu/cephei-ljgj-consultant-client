@@ -25,6 +25,8 @@ export class LoginPage implements OnInit {
     private timeLimit: number = 60;
     public hasSentVerificationCode: boolean = false;
 
+    public isWxBrowser: boolean = false;
+
     constructor(public navCtrl: NavController,
         public router: Router,
         private userService: UserService,
@@ -37,6 +39,9 @@ export class LoginPage implements OnInit {
     }
 
     async ngOnInit() {
+        const agent = navigator.userAgent.toLowerCase();
+        this.isWxBrowser = /MicroMessenger/i.test(agent);
+
         if (environment.clientType == "Client") {
             this.client = true;
         } else {
@@ -45,14 +50,16 @@ export class LoginPage implements OnInit {
 
         this.versionLabel = `当前版本${environment.version}`;
 
-        this.logon.rememberMe = await this.settings.getValue('rememberPassword');
+        this.logon.rememberMe = await this.settings.getValue('rememberMe');
         if (this.logon.rememberMe) {
             this.logon.phoneNo = await this.settings.getValue('phone');
         }
     }
 
-    async createUnifiedOrder() {
-        this.userService.createUnifiedOrder(`/`)
+    async authorize() {
+        // first clear storedWxOpenId.
+        this.settings.setValue('wxOpenId', '');
+        location.href = `${environment.endpoint}/wxuser/authorize?state=${location.pathname}`;
     }
 
     async login() {
@@ -64,25 +71,27 @@ export class LoginPage implements OnInit {
         this.userService.login({
             "phoneNo": this.logon.phoneNo,
             "verificationCode": this.logon.verificationCode,
-        }).subscribe((res: any) => {
-            loading.dismiss();
-            if (!res || res.code !== 0) {
-                this.toastService.show(res && res.message || "登录失败");
-                return;
-            }
+        }).subscribe(
+            (res) => {
+                loading.dismiss();
+                if (!res || res.code !== 0) {
+                    this.toastService.show(res && res.message || "登录失败");
+                    return;
+                }
 
-            if (res.data) {
-                this.settings.setValue('phone', this.logon.phoneNo);
+                if (res.data) {
+                    this.settings.setValue('phone', this.logon.phoneNo);
 
-                this.settings.setValue('rememberMe', this.logon.rememberMe);
-            }
+                    this.settings.setValue('rememberMe', this.logon.rememberMe);
+                }
 
-            this.router.navigate(['/home']);
-
-        }, (error) => {
-            loading.dismiss();
-            this.toastService.show(error.message);
-        });
+                this.navCtrl.navigateForward(['/home']);
+                //this.router.navigate(['/home']);
+            },
+            (err) => {
+                loading.dismiss();
+                this.toastService.show(err.error && err.error.message || err.message);
+            });
     }
 
     async getVerificationCode() {
@@ -93,7 +102,7 @@ export class LoginPage implements OnInit {
         this.hasSentVerificationCode = true;
 
         this.userService.getVerificationCode(this.logon.phoneNo).subscribe((res: any) => {
-            if(!res || res.code !== 0) {
+            if (!res || res.code !== 0) {
                 this.toastService.show(res.message || "获取验证码失败");
                 return;
             }

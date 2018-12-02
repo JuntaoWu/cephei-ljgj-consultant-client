@@ -1,0 +1,23 @@
+{
+    "name": "CepheiIonicSuper",
+    "short_name": "CISuper",
+    "description": "Cephei Ionic Super is a Template",
+    "lang": "cn",
+    "start_url": ".",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "theme_color": "#35c6aa",
+    "background_color": "#35c6aa",
+    "icons": [
+        {
+            "src": "/assets/imgs/icon-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/assets/imgs/icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

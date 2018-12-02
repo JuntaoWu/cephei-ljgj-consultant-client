@@ -1,49 +1,36 @@
 <ion-header>
-    <ion-nav align-title="center">
-        <ion-title>{{'HOME_TITLE' | translate}}</ion-title>
-    </ion-nav>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button default-href="/login"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Home</ion-title>
+    </ion-toolbar>
 </ion-header>
-
-<ion-content scroll="false">
+<ion-content>
     <div class="splash-bg">
-        <!--<button ion-button icon-only style="float: right; background-color: transparent; box-shadow: none;">
-            <div>
-                <ion-icon name="person-outline"></ion-icon>
-                <label style="display: block; font-size: x-small;" (click)="navigateToUserCenter()">用户中心</label>
-            </div>
-        </button>-->
-        <div class="splash-user-logo" (click)="navigateToUserCenter()"></div>
-        <div class="splash-company-logo"></div>
     </div>
     <div class="splash-info">
-        <div class="splash-logo"></div>
+        <div *ngIf="management" class="splash-logo-management"></div>
+        <div *ngIf="client" class="splash-logo-client"></div>
+        <div class="splash-logo-bottom" style="margin-top:55px !important"></div>
     </div>
-    <div padding style="position: relative; z-index: 3;">
-        <ul>
-            <li>
-                <img src="assets/img/step_1_function_green.png" routerLink="/tabs/fixing" />
-                <!-- <button ion-fab [navPush]="tabsRoot" [navParams]="fixing">
-                    <ion-icon name="hammer-outline"></ion-icon>
-                </button>检修作业 -->
-            </li>
-            <li style="margin-top: 65px; margin-right: 15px;">
-                <img src="assets/img/step_2_function_green.png" routerLink="/tabs/inspectInspection" />
-                <!-- <button ion-fab [navPush]="tabsRoot" [navParams]="inspectInspection">
-                    <ion-icon name="map-outline"></ion-icon>
-                </button>巡视检查 -->
-            </li>
-            <li style="margin-top: 65px; margin-left: 15px;">
-                <img src="assets/img/step_3_function_green.png" routerLink="/tabs/supervisedCheck" />
-                <!-- <button ion-fab [navPush]="tabsRoot" [navParams]="supervisedCheck">
-                    <ion-icon name="eye-outline"></ion-icon>
-                </button>监督检查 -->
-            </li>
-            <li>
-                <img src="assets/img/step_4_function_green.png" routerLink="/tabs/switchingOperation" />
-                <!-- <button ion-fab [navPush]="tabsRoot" [navParams]="switchingOperation">
-                    <ion-icon name="cog-outline"></ion-icon>
-                </button>倒闸操作 -->
-            </li>
-        </ul>
-    </div>
+    <form (ngSubmit)="createUnifiedOrder()" #payForm="ngForm">
+        <ion-list style="position: relative">
+            <ion-item>
+                <ion-label class="ion-label-font">
+                    <img src="assets/img/icon_user_new.png" style="height:20px;">
+                </ion-label>
+                <ion-input required name="orderId" type="text" placeholder="订单编号" [(ngModel)]='orderId'></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label class="ion-label-font">
+                    <ion-icon name="finger-print"></ion-icon>
+                </ion-label>
+                <ion-input required name="wxOpenId" type="text" placeholder="override wxOpenId" [(ngModel)]='wxOpenId'></ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-button type="submit" [disabled]="!payForm.form.valid" expand="full">前往支付</ion-button>
+    </form>
+    <ion-label class="label version-label">{{versionLabel}}</ion-label>
+    <ion-label class="label company-label">Your company label here</ion-label>
 </ion-content>

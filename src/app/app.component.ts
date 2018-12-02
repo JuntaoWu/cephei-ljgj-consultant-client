@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Config, Platform, Nav } from '@ionic/angular';
+import { Config, Platform, Nav, ToastController, AlertController } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
     private startUrl: string;
 
     constructor(private translate: TranslateService,
+        private toast: ToastController,
+        private alertController: AlertController,
         private router: Router,
         private config: Config, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private settings: Settings) {
         platform.ready().then(() => {
@@ -44,6 +46,9 @@ export class AppComponent implements OnInit {
 
                 if (wxOpenId) {
                     this.wxOpenId = wxOpenId;
+
+                    this.alertMessage("Received WeChat openId via cookie", wxOpenId);
+
                     this.settings.setValue('wxOpenId', wxOpenId);
                 }
                 else {
@@ -67,6 +72,31 @@ export class AppComponent implements OnInit {
             this.startUrl = this.phone ? 'version-check' : 'login';
         }
         this.navigateToHome();
+    }
+
+    async alertMessage(label: string, message: string) {
+        const alert = await this.alertController.create({
+            header: 'Information',
+            message: label,
+            inputs: [
+                {
+                    name: 'message',
+                    type: 'text',
+                    placeholder: 'message',
+                    value: message
+                }
+            ],
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: () => {
+                        console.log('Confirm OK');
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
     }
 
     isWxBrowser() {
