@@ -30,6 +30,4 @@
         <ion-button type="submit" [disabled]="!loginForm.form.valid" expand="full">登录</ion-button>
         <ion-button *ngIf="isWxBrowser" color="secondary" expand="full" (click)="authorize()">重新授权</ion-button>
     </form>
-    <ion-label class="label version-label">{{versionLabel}}</ion-label>
-    <ion-label class="label company-label">Your company label here</ion-label>
 </ion-content>
