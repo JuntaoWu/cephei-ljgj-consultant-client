@@ -78,6 +78,10 @@ export class UserService {
         });
     }
 
+    getSignature(data) {
+        return this.api.post(`payments/getWxSignature`, data);
+    }
+
     /**
      * Log the user out, which forgets the session
      */

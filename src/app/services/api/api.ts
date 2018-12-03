@@ -20,7 +20,7 @@ export class Api {
   constructor(public http: HttpClient, public nativeHttp: HTTP, private platform: Platform) {
   }
 
-  get(endpoint: string, params?: any, reqOpts?: any) {
+  get(endpoint: string, params?: any, reqOpts?: any): Observable<any> {
     if (!reqOpts) {
       reqOpts = {
         params: new HttpParams()
@@ -50,6 +50,7 @@ export class Api {
       }));
     }
     else {
+      return this.http.post(url, body, reqOpts);
       if (body instanceof FormData) {
         return this.http.post(url, body, reqOpts);
       }
