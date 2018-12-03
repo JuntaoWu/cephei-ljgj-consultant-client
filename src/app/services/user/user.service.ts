@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Api } from '../api/api';
 import { Settings } from '../settings/settings';
 import { environment } from '../../../environments/environment';
-import { share } from 'rxjs/operators';
+import { share, map } from 'rxjs/operators';
 
 /**
  * Most apps have the concept of a User. This is a simple provider
@@ -79,7 +79,9 @@ export class UserService {
     }
 
     getSignature(data) {
-        return this.api.post(`payments/getWxSignature`, data);
+        return this.api.post(`payments/getWxSignature`, data).pipe(map(res => {
+            return res.data;
+        }));
     }
 
     /**

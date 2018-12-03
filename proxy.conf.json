@@ -1,6 +1,6 @@
 {
     "/api/*": {
-        "target": "http://localhost:4040",
+        "target": "http://gdjzj.hzsdgames.com:8096",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true

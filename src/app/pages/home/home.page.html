@@ -26,7 +26,7 @@
                 <ion-label class="ion-label-font">
                     <ion-icon name="finger-print"></ion-icon>
                 </ion-label>
-                <ion-input required name="wxOpenId" type="text" placeholder="override wxOpenId" [(ngModel)]='wxOpenId'></ion-input>
+                <ion-input name="wxOpenId" type="text" placeholder="override wxOpenId" [(ngModel)]='wxOpenId'></ion-input>
             </ion-item>
         </ion-list>
         <ion-button type="submit" [disabled]="!payForm.form.valid" expand="full">前往支付</ion-button>
