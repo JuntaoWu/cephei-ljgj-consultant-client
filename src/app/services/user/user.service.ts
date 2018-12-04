@@ -78,7 +78,13 @@ export class UserService {
         });
     }
 
-    getSignature(data) {
+    createWxConfig(data) {
+        return this.api.post(`payments/createWxConfig`, data).pipe(map(res => {
+            return res.data;
+        }));
+    }
+
+    getWxSignature(data) {
         return this.api.post(`payments/getWxSignature`, data).pipe(map(res => {
             return res.data;
         }));
