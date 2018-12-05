@@ -72,7 +72,7 @@ export function provideSettings(storage: Storage) {
         AppRoutingModule,
     ],
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     bootstrap: [AppComponent],
     providers: [

@@ -10,6 +10,8 @@ import { environment } from '../../../environments/environment';
 import { Toast } from '@ionic-native/toast/ngx';
 import * as _ from 'lodash';
 import { map } from 'rxjs/operators';
+import { OrderStatus } from '../../types/order-status.enum';
+import { OrderPaymentStatus } from '../../types/order-payment-status.enum';
 
 declare var wx: any;
 declare var WeixinJSBridge: any;
@@ -36,7 +38,7 @@ export class HomePage implements OnInit {
             async (res) => {
                 this.orderItems = res.map(item => {
                     item.orderThumbUrl = item.orderThumbUrl || "/assets/imgs/default.png";
-                    item.shouldBePaid = +item.orderAmount && (item.paymentStatus == "待支付" || item.paymentStatus == "已预付款项");
+                    item.shouldBePaid = +item.orderAmount && (item.paymentStatus == OrderPaymentStatus.Waiting || item.paymentStatus == OrderPaymentStatus.Exception);
                     return item;
                 });
             }
