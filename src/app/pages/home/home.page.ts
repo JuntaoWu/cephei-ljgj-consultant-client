@@ -21,42 +21,28 @@ declare var WeixinJSBridge: any;
 })
 export class HomePage implements OnInit {
 
-    private tabsRoot;
-    private fixing: any;
-    private inspectInspection: any;
-    private supervisedCheck: any;
-    private switchingOperation: any;
-    private result: any;
-
-    public client: boolean = false;
-    public management: boolean = false;
-    public versionLabel: string;
-
-    public orderId: string;
-    public wxOpenId: string;
+    public wxOpenId: string;  // bind to UI for testing.
+    public orderItems: any[];
 
     constructor(public navCtrl: NavController,
         private settings: Settings,
         private toast: ToastController,
         private userService: UserService, private loadingCtrl: LoadingController, private area: AreaStore) {
-        this.tabsRoot = TabsPage;
-        this.fixing = { taskType: TaskType.Fixing };
-        this.inspectInspection = { taskType: TaskType.Walking };
-        this.supervisedCheck = { taskType: TaskType.Monitoring };
-        this.switchingOperation = { taskType: TaskType.Switching };
+
     }
 
     async ngOnInit() {
-        if (environment.clientType == "Client") {
-            this.client = true;
-        } else {
-            this.management = true;
-        }
-
-        this.versionLabel = `当前版本${environment.version}`;
+        this.userService.getMyOrderItems().subscribe(
+            async (res) => {
+                this.orderItems = res.map(item => {
+                    item.orderThumbUrl = item.orderThumbUrl || "/assets/imgs/default.png";
+                    return item;
+                });
+            }
+        );
     }
 
-    async createUnifiedOrder() {
+    async createUnifiedOrder(orderItem: any) {
         // Step 1. Get wx.config params for WeChat JS-SDK via POST /api/payments/createWxConfig { url }
         const configParams = await this.userService.createWxConfig({
             url: encodeURIComponent(location.href.split("#")[0])
@@ -87,7 +73,7 @@ export class HomePage implements OnInit {
         toast.present();
 
         // Step 3. createUnifiedOrder via POST /api/payments/createUnifiedOrder { wxOpenId, orderId }.
-        this.userService.createUnifiedOrder(wxOpenId, this.orderId).subscribe(
+        this.userService.createUnifiedOrder(wxOpenId, orderItem.orderid).subscribe(
             async (res) => {
                 console.log(res);
                 if (!res || res.code !== 0) {
@@ -111,9 +97,10 @@ export class HomePage implements OnInit {
                             }
                         });
                 }
-
-                // Step 4. chooseWXPay via WeChat JS-SDK.
-                //const wxRes = await this.chooseWXPay(res.data);
+                else {
+                    // Step 4. chooseWXPay via WeChat JS-SDK.
+                    const wxRes = await this.chooseWXPay(res.data);
+                }
             },
             (err) => {
                 console.error(err);
@@ -153,10 +140,6 @@ export class HomePage implements OnInit {
                 },
             });
         });
-    }
-
-    navigateToUserCenter() {
-        this.navCtrl.navigateForward(UserCenterPage);
     }
 
 }

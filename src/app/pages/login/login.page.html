@@ -27,7 +27,9 @@
                 <ion-checkbox name="rememberMe" [checked]="logon.rememberMe" [(ngModel)]="logon.rememberMe"></ion-checkbox>
             </ion-item>
         </ion-list>
-        <ion-button type="submit" [disabled]="!loginForm.form.valid" expand="full">登录</ion-button>
+        <ion-button *ngIf="!isLoggedIn || phone.dirty || phone.touched" type="submit" [disabled]="!loginForm.form.valid"
+            expand="full">登录</ion-button>
+        <ion-button *ngIf="isLoggedIn && (!phone.dirty && !phone.touched)" (click)="navigateToHome()" expand="full">我的订单</ion-button>
         <ion-button *ngIf="isWxBrowser" color="secondary" expand="full" (click)="authorize()">重新授权</ion-button>
     </form>
 </ion-content>

@@ -1,5 +1,3 @@
-
-
 import { Injectable } from '@angular/core';
 
 import { Api } from '../api/api';
@@ -7,26 +5,7 @@ import { Settings } from '../settings/settings';
 import { environment } from '../../../environments/environment';
 import { share, map } from 'rxjs/operators';
 
-/**
- * Most apps have the concept of a User. This is a simple provider
- * with stubs for login/signup/etc.
- *
- * This User provider makes calls to our API at the `login` and `signup` endpoints.
- *
- * By default, it expects `login` and `signup` to return a JSON object of the shape:
- *
- * ```json
- * {
- *   code: 0,
- *   message: 'ok',
- *   data: {
- *     // User fields your app needs, like "id", "name", "email", etc.
- *   }
- * }Ø
- * ```
- *
- * If the `status` field is not `success`, then an error is detected and returned.
- */
+
 @Injectable()
 export class UserService {
     phoneNo: string;
@@ -48,10 +27,6 @@ export class UserService {
         });
     }
 
-    /**
-     * Send a POST request to our login endpoint with the data
-     * the user entered on the form.
-     */
     login(accountInfo: any) {
         this.phoneNo = accountInfo && accountInfo.phoneNo;
 
@@ -71,35 +46,33 @@ export class UserService {
         return seq;
     }
 
+    getMyOrderItems() {
+        return this.api.get(`order/getMyOrders`);
+    }
+
     createUnifiedOrder(wxOpenId: string, orderId: string) {
-        return this.api.post(`payments/createUnifiedOrder`, {
+        return this.api.post(`payment/createUnifiedOrder`, {
             wxOpenId: wxOpenId,
             orderId: orderId,
         });
     }
 
     createWxConfig(data) {
-        return this.api.post(`payments/createWxConfig`, data).pipe(map(res => {
+        return this.api.post(`payment/createWxConfig`, data).pipe(map(res => {
             return res.data;
         }));
     }
 
     getWxSignature(data) {
-        return this.api.post(`payments/getWxSignature`, data).pipe(map(res => {
+        return this.api.post(`payment/getWxSignature`, data).pipe(map(res => {
             return res.data;
         }));
     }
 
-    /**
-     * Log the user out, which forgets the session
-     */
     logout() {
         this.user = null;
     }
 
-    /**
-     * Process a login/signup response to store user data
-     */
     loggedIn(user) {
         this.user = user;
         this.settings.setValue('user', this.user);

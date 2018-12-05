@@ -26,6 +26,7 @@ export class LoginPage implements OnInit {
     public hasSentVerificationCode: boolean = false;
 
     public isWxBrowser: boolean = false;
+    public isLoggedIn: boolean = false;
 
     constructor(public navCtrl: NavController,
         public router: Router,
@@ -54,6 +55,10 @@ export class LoginPage implements OnInit {
         if (this.logon.rememberMe) {
             this.logon.phoneNo = await this.settings.getValue('phone');
         }
+
+        let token = localStorage.getItem("token");
+
+        this.isLoggedIn = !!token;
     }
 
     async authorize() {
@@ -85,8 +90,7 @@ export class LoginPage implements OnInit {
                     this.settings.setValue('rememberMe', this.logon.rememberMe);
                 }
 
-                this.navCtrl.navigateForward(['/home']);
-                //this.router.navigate(['/home']);
+                this.navigateToHome();
             },
             (err) => {
                 loading.dismiss();
@@ -120,6 +124,10 @@ export class LoginPage implements OnInit {
         };
 
         getVerificationCodeTick();
+    }
+
+    navigateToHome() {
+        this.navCtrl.navigateForward(['/home']);
     }
 
 }
