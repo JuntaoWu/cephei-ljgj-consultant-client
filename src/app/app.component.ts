@@ -36,22 +36,33 @@ export class AppComponent implements OnInit {
         this.initTranslate();
     }
 
+    isWxBrowser() {
+        const agent = navigator.userAgent.toLowerCase();
+        return /MicroMessenger/i.test(agent);
+    }
+
+    // Check wxOpenId globally and try authorize user.
     async ngOnInit() {
         await this.settings.load();
 
+        // Check if running in WxBrowser.
         if (this.isWxBrowser()) {
+            // Check wxOpenId from Storage.
             this.wxOpenId = await this.settings.getValue('wxOpenId');
+
             if (!this.wxOpenId) {
+                // Check wxOpenId via Cookie then.
                 const wxOpenId = parseCookieValue(document.cookie, "wxOpenId");
 
                 if (wxOpenId) {
                     this.wxOpenId = wxOpenId;
-
                     this.alertMessage("Received WeChat openId via cookie", wxOpenId);
-
                     this.settings.setValue('wxOpenId', wxOpenId);
                 }
                 else {
+                    // ***If cannot find wxOpenId anywhere, redirect to /api/wxuser/authorize?state=${location.pathname}
+                    // ***We'll redirect back to current location.pathname after authorized.
+                    // ***After authorized, we'll get back to this ngOnInit again, and findAndSave wxOpenId via Cookie.
                     location.href = `${environment.endpoint}/wxuser/authorize?state=${location.pathname}`;
                     return;
                 }
@@ -97,11 +108,6 @@ export class AppComponent implements OnInit {
         });
 
         await alert.present();
-    }
-
-    isWxBrowser() {
-        const agent = navigator.userAgent.toLowerCase();
-        return /MicroMessenger/i.test(agent);
     }
 
     initTranslate() {

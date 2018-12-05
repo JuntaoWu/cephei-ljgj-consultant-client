@@ -36,6 +36,7 @@ export class HomePage implements OnInit {
             async (res) => {
                 this.orderItems = res.map(item => {
                     item.orderThumbUrl = item.orderThumbUrl || "/assets/imgs/default.png";
+                    item.shouldBePaid = +item.orderAmount && (item.paymentStatus == "待支付" || item.paymentStatus == "已预付款项");
                     return item;
                 });
             }
@@ -43,7 +44,7 @@ export class HomePage implements OnInit {
     }
 
     async createUnifiedOrder(orderItem: any) {
-        // Step 1. Get wx.config params for WeChat JS-SDK via POST /api/payments/createWxConfig { url }
+        // ***Step 1. Get wx.config params for WeChat JS-SDK via POST /api/payments/createWxConfig { url }
         const configParams = await this.userService.createWxConfig({
             url: encodeURIComponent(location.href.split("#")[0])
         }).toPromise();
@@ -62,31 +63,25 @@ export class HomePage implements OnInit {
             jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表
         });
 
-        // Step 2. Prepare openId & orderId.
+        // ***Step 2. Prepare openId & orderId.
         const storedWxOpenId = await this.settings.getValue('wxOpenId');
         const wxOpenId = this.wxOpenId || storedWxOpenId;
-        const toast = await this.toast.create({
-            message: wxOpenId,
-            duration: 2000,
-            translucent: true,
-        });
-        toast.present();
 
-        // Step 3. createUnifiedOrder via POST /api/payments/createUnifiedOrder { wxOpenId, orderId }.
+        // ***Step 3. createUnifiedOrder via POST /api/payments/createUnifiedOrder { wxOpenId, orderId }.
         this.userService.createUnifiedOrder(wxOpenId, orderItem.orderid).subscribe(
             async (res) => {
-                console.log(res);
                 if (!res || res.code !== 0) {
                     return console.error(res.message);
                 }
 
+                // Step 4. Use WeixinJSBridge Internal Object.
                 if (WeixinJSBridge) {
                     WeixinJSBridge.invoke(
                         'getBrandWCPayRequest', res.data,
                         (wxRes) => {
                             if (wxRes.err_msg == "get_brand_wcpay_request:ok") {
                                 // 使用以上方式判断前端返回,微信团队郑重提示：
-                                //wxRes.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+                                // wxRes.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
                                 // todo: check success
                                 this.toast.create({
                                     message: "支付完成",
@@ -94,11 +89,13 @@ export class HomePage implements OnInit {
                                     position: "middle",
                                     translucent: true,
                                 }).then(toast => toast.present());
+                                // Now we can refresh the order status via getMyOrders/getOrderDetail api.
                             }
                         });
                 }
                 else {
-                    // Step 4. chooseWXPay via WeChat JS-SDK.
+                    // Step 4. Or use chooseWXPay via WeChat JS-SDK.
+                    // todo: Not tested yet.
                     const wxRes = await this.chooseWXPay(res.data);
                 }
             },
@@ -114,16 +111,17 @@ export class HomePage implements OnInit {
 
     async chooseWXPay(paymentParams) {
         return new Promise(async (resolve, reject) => {
-            /** passed in paymentParams:
+            /** received paymentParams:
              *  
              *  appId: paymentParams.appId,
-                timestamp: paymentParams.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                timeStamp: paymentParams.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
                 nonceStr: paymentParams.nonceStr, // 支付签名随机串，不长于 32 位
                 package: paymentParams.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
                 signType: paymentParams.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                 paySign: paymentParams.paySign, // 支付签名
              */
             wx.chooseWXPay({
+                // ***Note: if we're using chooseWXPay api, 'timeStamp' in paymentParams might need to be changed to 'timestamp'.
                 ...paymentParams,
                 success: function (res) {
                     // 支付成功后的回调函数

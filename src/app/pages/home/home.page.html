@@ -22,7 +22,9 @@
                 </ion-card-header>
                 <ion-card-content>
                     <p>订单编号: {{item.orderid}}</p>
-                    <p *ngIf="+item.orderAmount">
+                    <p>订单状态: {{item.orderStatus}}</p>
+                    <p>支付状态: {{item.paymentStatus}}</p>
+                    <p *ngIf="item.shouldBePaid">
                         <ion-button color="primary" expand="full" (click)="createUnifiedOrder(item)">前往支付</ion-button>
                     </p>
                 </ion-card-content>
