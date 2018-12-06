@@ -39,11 +39,17 @@ export class HomePage implements OnInit {
     }
 
     async ngOnInit() {
+        this.showPaidAlreadyButton = await this.settings.getValue('showPaidAlreadyButton');
+        await this.refresh();
+    }
+
+    public async reload() {
+        this.showPaidAlreadyButton = false;
         await this.refresh();
     }
 
     public async refresh() {
-        this.showPaidAlreadyButton = false;
+        this.settings.setValue('showPaidAlreadyButton', false);
         this.userService.getMyOrderItems().subscribe(
             async (res) => {
                 this.orderItems = res.map(item => {
@@ -79,10 +85,10 @@ export class HomePage implements OnInit {
                 if (!res || res.code !== 0) {
                     return console.error(res.message);
                 }
-                if (res.mweb_url) {
-                    window.open(res.mweb_url);
+                if (res.data && res.data.mweb_url) {
                     // after that display a button to query current page again once payment completed.
-                    this.showPaidAlreadyButton = true;
+                    this.settings.setValue('showPaidAlreadyButton', true);
+                    location.href = res.data.mweb_url;
                     return;
                 }
             },
