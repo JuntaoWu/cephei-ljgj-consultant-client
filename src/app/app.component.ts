@@ -10,12 +10,15 @@ import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
 import { ɵparseCookieValue as parseCookieValue } from '@angular/common';
+import * as VConsole from 'vconsole';
 
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
+    
+    vConsole = new VConsole();
 
     private wxOpenId: string;
     private phone: string;
