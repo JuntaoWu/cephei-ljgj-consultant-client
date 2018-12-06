@@ -26,18 +26,24 @@ export class HomePage implements OnInit {
     public wxOpenId: string;  // bind to UI for testing.
     public orderItems: any[];
 
+    public isWxBrowser: boolean;
+    public showPaidAlreadyButton: boolean;
+
     constructor(public navCtrl: NavController,
         private settings: Settings,
         private toast: ToastController,
         private userService: UserService, private loadingCtrl: LoadingController, private area: AreaStore) {
 
+        const agent = navigator.userAgent.toLowerCase();
+        this.isWxBrowser = /MicroMessenger/i.test(agent);
     }
 
     async ngOnInit() {
         await this.refresh();
     }
 
-    async refresh() {
+    public async refresh() {
+        this.showPaidAlreadyButton = false;
         this.userService.getMyOrderItems().subscribe(
             async (res) => {
                 this.orderItems = res.map(item => {
@@ -49,7 +55,50 @@ export class HomePage implements OnInit {
         );
     }
 
-    async createUnifiedOrder(orderItem: any) {
+    public async weChatPay(orderItem) {
+        if (this.isWxBrowser) {
+            // 公众号支付
+            await this.wxBrowserPay(orderItem);
+        }
+        else {
+            // H5支付
+            await this.browserPay(orderItem);
+        }
+    }
+
+    private async browserPay(orderItem: any) {
+        // For testing purpose only. Fill in wxOpenId to call wxBrowserPay in normal browser.
+        if (this.wxOpenId) {
+            return await this.wxBrowserPay(orderItem);
+        }
+
+        const orderId = orderItem.orderid;
+
+        this.userService.createUnifiedOrder(orderId, null, 'MWEB').subscribe(
+            async (res) => {
+                if (!res || res.code !== 0) {
+                    return console.error(res.message);
+                }
+                if (res.mweb_url) {
+                    window.open(res.mweb_url);
+                    // after that display a button to query current page again once payment completed.
+                    this.showPaidAlreadyButton = true;
+                    return;
+                }
+            },
+            (err) => {
+                console.error(err);
+                this.toast.create({
+                    message: err.error && err.error.message || err.message,
+                    duration: 2000,
+                    translucent: true,
+                }).then(toast => toast.present());
+            }
+        );
+
+    }
+
+    private async wxBrowserPay(orderItem: any) {
         // ***Step 1. Get wx.config params for WeChat JS-SDK via POST /api/payments/createWxConfig { url }
         const configParams = await this.userService.createWxConfig({
             url: encodeURIComponent(location.href.split("#")[0])
@@ -70,11 +119,12 @@ export class HomePage implements OnInit {
         });
 
         // ***Step 2. Prepare openId & orderId.
+        const orderId = orderItem.orderid;
         const storedWxOpenId = await this.settings.getValue('wxOpenId');
         const wxOpenId = this.wxOpenId || storedWxOpenId;
 
-        // ***Step 3. createUnifiedOrder via POST /api/payments/createUnifiedOrder { wxOpenId, orderId }.
-        this.userService.createUnifiedOrder(wxOpenId, orderItem.orderid).subscribe(
+        // ***Step 3. createUnifiedOrder via POST /api/payments/createUnifiedOrder { orderId, wxOpenId }.
+        this.userService.createUnifiedOrder(orderId, wxOpenId, "JSAPI").subscribe(
             async (res) => {
                 if (!res || res.code !== 0) {
                     return console.error(res.message);
@@ -117,7 +167,8 @@ export class HomePage implements OnInit {
             });
     }
 
-    async chooseWXPay(paymentParams) {
+    // api in JS-SDK
+    private async chooseWXPay(paymentParams) {
         return new Promise(async (resolve, reject) => {
             /** received paymentParams:
              *  

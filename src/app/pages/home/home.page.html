@@ -25,10 +25,11 @@
                     <p>订单状态: {{item.orderStatus | orderStatus}}</p>
                     <p>支付状态: {{item.paymentStatus | orderPaymentStatus}}</p>
                     <p *ngIf="item.shouldBePaid">
-                        <ion-button color="primary" expand="full" (click)="createUnifiedOrder(item)">前往支付</ion-button>
+                        <ion-button color="primary" expand="full" (click)="weChatPay(item)">前往支付</ion-button>
                     </p>
                 </ion-card-content>
             </ion-card>
         </ion-item>
     </ion-list>
+    <ion-button color="primary" expand="full" *ngIf="showPaidAlreadyButton" (click)="refresh()">浏览器支付已完成</ion-button>
 </ion-content>

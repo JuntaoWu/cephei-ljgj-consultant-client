@@ -50,10 +50,11 @@ export class UserService {
         return this.api.get(`order/getMyOrders`);
     }
 
-    createUnifiedOrder(wxOpenId: string, orderId: string) {
+    createUnifiedOrder(orderId: string, wxOpenId: string, tradeType: "JSAPI" | "MWEB" = "JSAPI") {
         return this.api.post(`payment/createUnifiedOrder`, {
-            wxOpenId: wxOpenId,
             orderId: orderId,
+            wxOpenId: wxOpenId,
+            tradeType: tradeType
         });
     }
 
