@@ -34,6 +34,10 @@ export class HomePage implements OnInit {
     }
 
     async ngOnInit() {
+        await this.refresh();
+    }
+
+    async refresh() {
         this.userService.getMyOrderItems().subscribe(
             async (res) => {
                 this.orderItems = res.map(item => {
@@ -92,6 +96,7 @@ export class HomePage implements OnInit {
                                     translucent: true,
                                 }).then(toast => toast.present());
                                 // Now we can refresh the order status via getMyOrders/getOrderDetail api.
+                                setTimeout(this.refresh, 2000);
                             }
                         });
                 }
@@ -99,6 +104,7 @@ export class HomePage implements OnInit {
                     // Step 4. Or use chooseWXPay via WeChat JS-SDK.
                     // todo: Not tested yet.
                     const wxRes = await this.chooseWXPay(res.data);
+                    setTimeout(this.refresh, 2000);
                 }
             },
             (err) => {
