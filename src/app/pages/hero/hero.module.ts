@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { HeroPage } from './hero.page';
+import { SharedModule } from '../../../app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -16,9 +17,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   declarations: [HeroPage]

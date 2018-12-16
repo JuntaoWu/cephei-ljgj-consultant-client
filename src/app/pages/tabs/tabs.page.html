@@ -1,19 +1,25 @@
 <ion-tabs>
-  <ion-tab tab="home">Home Content</ion-tab>
-  <ion-tab tab="settings">Settings Content</ion-tab>
+
+  <ion-tab tab="home">
+    <ion-router-outlet name="home"></ion-router-outlet>
+  </ion-tab>
+  <ion-tab tab="hero">
+    <ion-router-outlet name="hero"></ion-router-outlet>
+  </ion-tab>
+
 
   <ion-tab-bar slot="bottom">
 
-    <ion-tab-button tab="home">
-      <ion-label>Home</ion-label>
-      <ion-icon name="home"></ion-icon>
-      <ion-badge>6</ion-badge>
+    <ion-tab-button tab="home" href="/tabs/root/(home:home)">
+      <ion-icon name="flash"></ion-icon>
+      <ion-label>Tab One</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="settings">
-      <ion-label>Settings</ion-label>
-      <ion-icon name="settings"></ion-icon>
+    <ion-tab-button tab="hero" href="/tabs/root/(hero:hero)">
+      <ion-icon name="apps"></ion-icon>
+      <ion-label>Tab Two</ion-label>
     </ion-tab-button>
 
   </ion-tab-bar>
+
 </ion-tabs>

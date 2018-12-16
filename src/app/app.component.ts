@@ -80,7 +80,7 @@ export class AppComponent implements OnInit {
         }
 
         if (user) {
-            this.startUrl = 'home';
+            this.startUrl = 'tabs';
         }
         else {
             this.startUrl = this.phone ? 'version-check' : 'login';

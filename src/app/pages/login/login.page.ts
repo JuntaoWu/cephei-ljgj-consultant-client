@@ -127,7 +127,7 @@ export class LoginPage implements OnInit {
     }
 
     navigateToHome() {
-        this.navCtrl.navigateForward(['/home']);
+        this.navCtrl.navigateForward(['/tabs']);
     }
 
 }

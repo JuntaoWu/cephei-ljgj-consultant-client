@@ -31,6 +31,8 @@ import { IonicGestureConfig } from './core/ionic-gesture.config';
 import { AppRoutingModule } from './app-routing.module';
 import { MyHttpInterceptor } from './services/my-http-interceptor';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {
@@ -50,6 +52,7 @@ export function provideSettings(storage: Storage) {
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         TranslateModule.forRoot({
             loader: {
