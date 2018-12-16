@@ -1,50 +1,19 @@
-<!-- <ion-nav>
-</ion-nav> -->
-<ion-tabs [ngSwitch]="clientType">
-  <ion-tab name="current-task" tabsHideOnSubPages="true">
-    <ion-router-outlet name="current-task"></ion-router-outlet>
-  </ion-tab>
-  <ion-tab *ngSwitchCase="'Client'" name="'TAB_MY_TASK_TITLE' | translate" tabIcon="information-circle"
-    tabsHideOnSubPages="true">
-    <ion-router-outlet name="tab2Root"></ion-router-outlet>
-  </ion-tab>
-  <ion-tab *ngSwitchCase="'Management'" name="'TAB_USER_LIST_TITLE' | translate" tabIcon="person" tabsHideOnSubPages="true">
-    <ion-router-outlet name="tab4Root"></ion-router-outlet>
-  </ion-tab>
-  <ion-tab *ngSwitchCase="'Client'" name="'TAB_ADD_TASK_TITLE' | translate" tabIcon="add" tabsHideOnSubPages="true">
-    <ion-router-outlet name="tab3Root"></ion-router-outlet>
-  </ion-tab>
-  <ion-tab *ngSwitchCase="'Management'" name="'TAB_TASK_LIST_TITLE' | translate" tabIcon="list" tabsHideOnSubPages="true">
-    <ion-router-outlet name="tab5Root"></ion-router-outlet>
-  </ion-tab>
+<ion-tabs>
+  <ion-tab tab="home">Home Content</ion-tab>
+  <ion-tab tab="settings">Settings Content</ion-tab>
 
-  <ion-tab-bar [ngSwitch]="clientType" slot="bottom">
+  <ion-tab-bar slot="bottom">
 
-    <ion-tab-button tab="current-task" href="/tabs/(home:home)">
-      <ion-icon name="paper"></ion-icon>
-      <ion-label>{{'TAB_CURRENT_TASK_TITLE' | translate}}</ion-label>
+    <ion-tab-button tab="home">
+      <ion-label>Home</ion-label>
+      <ion-icon name="home"></ion-icon>
+      <ion-badge>6</ion-badge>
     </ion-tab-button>
 
-    <ion-tab-button *ngSwitchCase="'Client'" tab="my-task" href="/tabs/(about:about)">
-      <ion-icon name="information-circle"></ion-icon>
-      <ion-label>{{'TAB_MY_TASK_TITLE' | translate}}</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button *ngSwitchCase="'Management'" tab="user-list" href="/tabs/(contact:contact)">
-      <ion-icon name="person"></ion-icon>
-      <ion-label>{{'TAB_USER_LIST_TITLE' | translate}}</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button *ngSwitchCase="'Client'" tab="add-task" href="/tabs/(contact:contact)">
-      <ion-icon name="add"></ion-icon>
-      <ion-label>{{'TAB_ADD_TASK_TITLE' | translate}}</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button *ngSwitchCase="'Management'" tab="task-list" href="/tabs/(contact:contact)">
-      <ion-icon name="list"></ion-icon>
-      <ion-label>{{'TAB_TASK_LIST_TITLE' | translate}}</ion-label>
+    <ion-tab-button tab="settings">
+      <ion-label>Settings</ion-label>
+      <ion-icon name="settings"></ion-icon>
     </ion-tab-button>
 
   </ion-tab-bar>
-
 </ion-tabs>
