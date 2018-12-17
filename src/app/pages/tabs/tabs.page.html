@@ -1,7 +1,7 @@
 <ion-tabs>
 
   <ion-tab tab="home">
-    <ion-router-outlet name="home"></ion-router-outlet>
+    <ion-router-outlet name="order"></ion-router-outlet>
   </ion-tab>
   <ion-tab tab="hero">
     <ion-router-outlet name="hero"></ion-router-outlet>
@@ -10,9 +10,8 @@
 
   <ion-tab-bar slot="bottom">
 
-    <ion-tab-button tab="home" href="/tabs/root/(home:home)">
-      <ion-icon name="flash"></ion-icon>
-      <ion-label>Tab One</ion-label>
+    <ion-tab-button tab="order" href="/tabs/root/(order:order)">
+      <ion-label>订单</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="hero" href="/tabs/root/(hero:hero)">
