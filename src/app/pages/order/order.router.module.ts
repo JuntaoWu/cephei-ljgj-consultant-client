@@ -12,6 +12,9 @@ const routes: Routes = [
         children:[
             {   path:'',
                 component:OrderListPage,
+            },
+            {   path:'orderId',
+                component:OrderDetailPage,
             }
         ],
     }

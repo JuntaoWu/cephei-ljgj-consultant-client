@@ -1,0 +1,17 @@
+.order-list-title{
+    background-color: #f44336;
+    color:white;
+    font-size: 20px
+}
+:host{
+    ::ng-deep .mat-tab-label{
+        padding: 0;
+    }
+    ::ng-deep .mat-ink-bar{
+        background-color:#f44336 !important;
+    }
+    ::ng-deep .mat-tab-label-active{
+        background-color: #f44336;
+    }
+    
+}
