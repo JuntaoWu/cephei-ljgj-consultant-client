@@ -10,7 +10,7 @@
       <ion-card *ngFor="let item of orderItems; let index = index" style="margin-left:0px;margin-right:0px;margin-bottom: 0px">
         <ion-item href="/tabs/root/(order:order/{{item.orderId}})">
           <ion-label style="font-weight:bold">{{item.orderName}}</ion-label>
-          <ion-label color="danger" style="text-align: right;margin-right: 0px;">状态:{{item.orderStatus}}</ion-label>
+          <ion-label color="danger" style="text-align: right;margin-right: 0px;font-size: 14px">状态:{{item.orderStatus}}</ion-label>
         </ion-item>
         <ion-card-content>
           <p><ion-label>订单编号:{{item.orderNo}}</ion-label></p>

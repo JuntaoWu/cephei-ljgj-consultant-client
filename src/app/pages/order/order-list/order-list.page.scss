@@ -1,5 +1,5 @@
 .order-list-title{
-    background-color: #f44336;
+    background-color: #df2719;
     color:white;
     font-size: 20px
 }
@@ -8,10 +8,9 @@
         padding: 0;
     }
     ::ng-deep .mat-ink-bar{
-        background-color:#f44336 !important;
+        background-color:#df2719 !important;
     }
     ::ng-deep .mat-tab-label-active{
-        background-color: #f44336;
+        background-color: #df2719;
     }
-    
 }
