@@ -9,12 +9,17 @@ const routes: Routes = [
     {
         path: '',
         component: OrderPage,
-        children:[
-            {   path:'',
-                component:OrderListPage,
-            }
+        children: [
+            {
+                path: ':orderId',
+                component: OrderDetailPage,
+            },
+            {
+                path: '',
+                component: OrderListPage,
+            },
         ],
-    }
+    },
 ]
 @NgModule({
     imports: [RouterModule.forChild(routes)],

@@ -9,6 +9,6 @@ export class environment {
   public static managementEndpoint = "/api";
   public static endpoint = environment.clientType == "Client" ? environment.clientEndpoint : environment.managementEndpoint;
   public static host = "";
-  public static GetUserInfo = "http://gdjzj.hzsdgames.com:8096/api/index.php/Home/Index/GetUserInfo";
-  public static UpdateUserInfo = "http://gdjzj.hzsdgames.com:8096/api/Home/Admin/ChangeAdminInfo";
+  public static GetUserInfo = "http://gdjzj.hzsdgames.com:8101/api/index.php/Home/Index/GetUserInfo";
+  public static UpdateUserInfo = "http://gdjzj.hzsdgames.com:8101/api/Home/Admin/ChangeAdminInfo";
 }

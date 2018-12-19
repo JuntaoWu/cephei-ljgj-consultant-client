@@ -1,12 +1,12 @@
 {
     "/api/*": {
-        "target": "http://gdjzj.hzsdgames.com:8096",
+        "target": "http://gdjzj.hzsdgames.com:8101",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
     "/managementApi/*": {
-        "target": "http://localhost:4040",
+        "target": "http://localhost:8101",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
