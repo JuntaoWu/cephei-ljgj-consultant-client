@@ -1,5 +1,16 @@
-:host {
-    ::ng-deep .mat-tab-label {
+.order-list-title{
+    background-color: #df2719;
+    color:white;
+    font-size: 20px
+}
+:host{
+    ::ng-deep .mat-tab-label{
         padding: 0;
+    }
+    ::ng-deep .mat-ink-bar{
+        background-color:#df2719 !important;
+    }
+    ::ng-deep .mat-tab-label-active{
+        background-color: #df2719;
     }
 }
