@@ -1,5 +1,6 @@
 
 export enum OrderStatus {
+    All = 0,
     Initializing = 1,
     Preparing = 2,
     InProgress = 3,

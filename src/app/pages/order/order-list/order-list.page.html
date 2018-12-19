@@ -5,21 +5,33 @@
 </ion-header>
 
 <ion-content padding>
-  <mat-tab-group  (selectedIndexChange)="changeType($event)"animationDuration="0ms">
-    <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
-      <ion-card *ngFor="let item of orderItems; let index = index" style="margin-left:0px;margin-right:0px;margin-bottom: 0px">
-        <ion-item href="/tabs/root/(order:order/{{item.orderId}})">
-          <ion-label style="font-weight:bold">{{item.orderName}}</ion-label>
-          <ion-label color="danger" style="text-align: right;margin-right: 0px;font-size: 14px">状态:{{item.orderStatus}}</ion-label>
-        </ion-item>
-        <ion-card-content>
-          <p><ion-label>订单编号:{{item.orderNo}}</ion-label></p>
-          <p><ion-label>客户姓名:{{item.customerName}}</ion-label></p>
-          <p><ion-label>客户电话:{{item.customerPhone}}</ion-label></p>
-          <p><ion-label>下单时间:{{item.orderTime}}</ion-label></p>
-          <p><ion-label>订单地址:{{item.orederAddress}}</ion-label></p>
-        </ion-card-content>
-    </ion-card>
+  <mat-tab-group (selectedIndexChange)="changeType($event)" animationDuration="0ms">
+    <mat-tab *ngFor="let tab of tabs; let tabIndex = index" [label]="tab">
+      <ng-template matTabContent>
+        <ion-card *ngFor="let item of orderItems$[tabIndex] | async; let orderIndex = index">
+          <ion-item href="/tabs/root/(order:order/{{item.orderId}})">
+            <ion-label style="font-weight: bold;">{{item.orderName}}</ion-label>
+            <ion-label class="order-status" color="danger">状态: {{item.orderStatus | orderStatus}}</ion-label>
+          </ion-item>
+          <ion-card-content>
+            <p>
+              <ion-label>订单编号: {{item.orderNo}}</ion-label>
+            </p>
+            <p>
+              <ion-label>客户姓名: {{item.customerName}}</ion-label>
+            </p>
+            <p>
+              <ion-label>客户电话: <a href="tel://{{item.customerPhone}}">{{item.customerPhone}}</a></ion-label>
+            </p>
+            <p>
+              <ion-label>下单时间: {{item.orderTime | date: 'yyyy-MM-dd HH:mm:ss' }}</ion-label>
+            </p>
+            <p>
+              <ion-label>订单地址: {{item.orderAddress}}</ion-label>
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ng-template>
     </mat-tab>
   </mat-tab-group>
 </ion-content>

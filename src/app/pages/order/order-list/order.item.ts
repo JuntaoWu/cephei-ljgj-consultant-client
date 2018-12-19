@@ -1,11 +1,11 @@
+import { OrderStatus } from "app/types/order-status.enum";
+
 export class OrderItem {
-    orderId: number;
+    orderNo: string;
     orderName: string;
-    orderStatus:string;
-    orderNo:string;
-    customerName:string;
-    customerPhone:string;
-    orderTime:string;
-    orederAddress:string
-  }
-  
+    orderStatus: OrderStatus;
+    customerName: string;
+    customerPhone: string;
+    orderTime: string;
+    orderAddress: string;
+}

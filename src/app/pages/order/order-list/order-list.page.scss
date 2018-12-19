@@ -1,16 +1,36 @@
-.order-list-title{
-    background-color: #df2719;
+
+$color: #df2719;
+
+ion-header {
+    background-color: $color;
+}
+
+.order-list-title {
+    background-color: $color;
     color:white;
     font-size: 20px
 }
-:host{
-    ::ng-deep .mat-tab-label{
+:host {
+
+    ::ng-deep .mat-tab-label {
         padding: 0;
     }
-    ::ng-deep .mat-ink-bar{
-        background-color:#df2719 !important;
+
+    ::ng-deep .mat-ink-bar {
+        background-color: $color !important;
     }
-    ::ng-deep .mat-tab-label-active{
-        background-color: #df2719;
-    }
+    // 太丑了，不要背景。
+    // ::ng-deep .mat-tab-label-active{
+    //     background-color: #df2719;
+    // }
+}
+
+ion-card {
+    margin: 10px 1px 1px 1px;
+}
+
+.order-status {
+    text-align: right;
+    margin-right: 0px;
+    font-size: 14px;
 }
