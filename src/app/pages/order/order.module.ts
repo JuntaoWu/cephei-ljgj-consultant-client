@@ -3,11 +3,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 
 import { SharedModule } from '../../shared/shared.module';
-import { OrderPageRoutingModule } from './order.router.module';
+import { OrderPageRoutingModule } from './order-routing.module';
 import { OrderPage } from './order.page';
 import { OrderListPage } from './order-list/order-list.page';
-import { OrderDetailPage } from './order-detail/order-detail.page';
-import { OrderListService } from './order-list/order-list.service';
+import { OrderService } from './order.service';
 
 @NgModule({
   imports: [
@@ -19,10 +18,9 @@ import { OrderListService } from './order-list/order-list.service';
   declarations: [
     OrderPage,
     OrderListPage,
-    OrderDetailPage
   ],
   providers: [
-    OrderListService
+    OrderService
   ]
 })
 export class OrderModule { }

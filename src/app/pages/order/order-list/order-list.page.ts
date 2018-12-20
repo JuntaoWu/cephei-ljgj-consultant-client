@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderItem } from './order.item';
+import { OrderItem } from '../order.item';
 import { OrderItems } from './moke-order-items';
 import { Observable, fromEvent, Subject, merge, BehaviorSubject, of } from 'rxjs';
-import { OrderListService } from './order-list.service';
 import { map, distinct, filter, flatMap, tap, mergeAll, mergeMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { LoadingController } from '@ionic/angular';
+import { OrderService } from '../order.service';
 
 @Component({
     selector: 'order-list',
@@ -32,7 +32,7 @@ export class OrderListPage implements OnInit {
 
     private ionInfiniteEvent: any;
 
-    constructor(private service: OrderListService, private loadingCtrl: LoadingController) {
+    constructor(private service: OrderService, private loadingCtrl: LoadingController) {
         console.log('order-list');
     }
 

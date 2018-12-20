@@ -12,7 +12,7 @@ const routes: Routes = [
         children: [
             {
                 path: ':orderId',
-                component: OrderDetailPage,
+                loadChildren: "./order-detail/order-detail.module#OrderDetailModule"
             },
             {
                 path: '',

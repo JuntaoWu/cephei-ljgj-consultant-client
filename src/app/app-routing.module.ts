@@ -7,7 +7,7 @@ const routes: Routes = [
     { path: 'tabs', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
 ];
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+    imports: [RouterModule.forRoot(routes, { enableTracing: false })],
     exports: [RouterModule]
 })
 export class AppRoutingModule { }

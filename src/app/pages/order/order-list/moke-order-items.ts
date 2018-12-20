@@ -1,4 +1,4 @@
-import { OrderItem } from './order.item';
+import { OrderItem } from '../order.item';
 import { OrderStatus } from 'app/types/order-status.enum';
 
 export const OrderItems: OrderItem[] = [

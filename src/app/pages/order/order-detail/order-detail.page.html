@@ -1,53 +1,19 @@
 <ion-header>
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
-            <ion-back-button>订单</ion-back-button>
+            <ion-back-button defaultHref="/tabs/root/(order:order)"></ion-back-button>
         </ion-buttons>
         <ion-title>订单详情</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-    <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedIndexChange)="changeType($event)" animationDuration="0ms">
-        <mat-tab label="订单详情">
-            <ion-card style="margin:0px; margin-top: 10px">
-                <ion-item>
-                    <ion-label style="font-weight: bold;">{{item.orderName}}</ion-label>
-                    <ion-label class="order-status" color="danger">状态: {{item.orderStatus | orderStatus}}</ion-label>
-                </ion-item>
-                <ion-card-content>
-                    <p>
-                        <ion-label>订单编号: {{item.orderNo}}</ion-label>
-                    </p>
-                    <p>
-                        <ion-label>下单时间: {{item.orderTime | date: 'yyyy-MM-dd HH:mm:ss' }}</ion-label>
-                    </p>
-                    <p>
-                        <ion-label>订单地址: {{item.orderAddress}}</ion-label>
-                    </p>
-                    <p>
-                        <ion-label>客户小妹:XXXXX</ion-label>
-                    </p>
-                    <p>
-                        <ion-label>订单金额: </ion-label>
-                    </p>
-                    <p>
-                        <ion-button size="default">合同
-                            <ion-icon name="add-circle-outline"></ion-icon>
-                        </ion-button>
-                    </p>
-                </ion-card-content>
-            </ion-card>
-            <div style="margin-top:10px">合同照片</div>
-            <ion-item>
-                <ion-label position="floating">施工内容</ion-label>
-                <ion-textarea></ion-textarea>
-            </ion-item>
-            <ion-button size="default" (click)="presentAlertPrompt()">添加订单内容
-                    <ion-icon name="add-circle-outline"></ion-icon>
-                </ion-button>
-        </mat-tab>
-        <mat-tab label="任务日志">任务日志</mat-tab>
-        <mat-tab label="订单金额">订单金额</mat-tab>
-    </mat-tab-group>
+
+    <nav mat-tab-nav-bar>
+        <a mat-tab-link *ngFor="let link of links" [routerLink]="link.path" (click)="activeLink = link.path" [active]="activeLink == link.path">
+            {{link.label}}
+        </a>
+    </nav>
+
+    <router-outlet></router-outlet>
 </ion-content>
