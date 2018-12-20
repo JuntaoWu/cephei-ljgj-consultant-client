@@ -1,32 +1,25 @@
 
-$color: #df2719;
-
-ion-header {
-    background-color: $color;
+ion-card {
+    margin: 10px 1px 1px 1px;
 }
 
-.order-list-title {
-    background-color: $color;
-    color:white;
-    font-size: 20px
-}
 :host {
 
-    ::ng-deep .mat-tab-label {
-        padding: 0;
+    @media (max-width: 599px) {
+        ::ng-deep .mat-tab-label {
+            padding: 0;
+            min-width: 60px;
+        }
     }
 
     ::ng-deep .mat-ink-bar {
-        background-color: $color !important;
+        background-color: var(--ion-color-primary) !important;
     }
     // 太丑了，不要背景。
-    // ::ng-deep .mat-tab-label-active{
-    //     background-color: #df2719;
+    // ::ng-deep .mat-tab-label-active {
+    //     background-color: var(--ion-color-primary);
     // }
-}
 
-ion-card {
-    margin: 10px 1px 1px 1px;
 }
 
 .order-status {
