@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { OrderDetailPage } from './order-detail.page';
 import { DetailPage } from './detail/detail.page';
-import { LogPage } from './log/log.page';
+import { BacklogPage } from './backlog/backlog.page';
 import { PaymentPage } from './payment/payment.page';
 
 const routes: Routes = [
@@ -20,8 +20,8 @@ const routes: Routes = [
         // loadChildren: './detail/detail.module#DetailPageModule'
       },
       {
-        path: 'log',
-        component: LogPage,
+        path: 'backlog',
+        component: BacklogPage,
         // loadChildren: './log/log.module#LogPageModule'
       },
       {

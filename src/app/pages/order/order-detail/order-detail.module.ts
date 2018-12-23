@@ -4,11 +4,11 @@ import { OrderDetailRoutingModule } from './order-detail-routing.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { OrderDetailPage } from './order-detail.page';
 import { DetailPage } from './detail/detail.page';
-import { LogPage } from './log/log.page';
+import { BacklogPage } from './backlog/backlog.page';
 import { PaymentPage } from './payment/payment.page';
 
 @NgModule({
-  declarations: [OrderDetailPage, DetailPage, LogPage, PaymentPage],
+  declarations: [OrderDetailPage, DetailPage, BacklogPage, PaymentPage],
   imports: [
     SharedModule,
     OrderDetailRoutingModule

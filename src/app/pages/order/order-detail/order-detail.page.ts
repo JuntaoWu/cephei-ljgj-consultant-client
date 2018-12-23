@@ -9,7 +9,7 @@ export class OrderDetailPage implements OnInit {
 
   public links = [
     { path: 'detail', label: '订单详情' },
-    { path: 'log', label: '任务日志' },
+    { path: 'backlog', label: '任务日志' },
     { path: 'payment', label: '订单金额' }
   ];
 

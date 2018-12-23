@@ -1,11 +1,11 @@
 {
-    "/api/*": {
+    "/rapi/*": {
         "target": "http://gdjzj.hzsdgames.com:8101",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
     },
-    "/managementApi/*": {
+    "/api/*": {
         "target": "http://localhost:8101",
         "secure": false,
         "logLevel": "debug",

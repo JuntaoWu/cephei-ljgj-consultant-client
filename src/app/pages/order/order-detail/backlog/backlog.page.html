@@ -1,0 +1,24 @@
+<mat-vertical-stepper [linear]="isLinear" #stepper>
+    <mat-step *ngFor="let item of backlogItems$ | async;">
+        <ng-template matStepLabel>
+            <p>{{item.backlogType | backlogType}}</p>
+            <time>{{item.updatedAt | date: 'yyyy-MM-dd HH:mm:ss'}}</time>
+        </ng-template>
+        <p>
+            {{item.backlogContent}}
+        </p>
+        <p *ngIf="item.imageUrls && item.imageUrls.length">
+            <ng-template *ngFor="let url of item.imageUrls">
+                <img [src]="url" />
+            </ng-template>
+        </p>
+    </mat-step>
+</mat-vertical-stepper>
+<ion-item *ngIf="noBacklogItems">
+    暂无可查看的任务日志
+</ion-item>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+</ion-fab>

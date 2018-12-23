@@ -9,7 +9,7 @@
     <mat-tab *ngFor="let tab of tabs; let tabIndex = index" [label]="tab">
       <ng-template matTabContent>
         <ion-card *ngFor="let item of orderItems$ | async; let orderIndex = index">
-          <ion-item href="/tabs/root/(order:order/{{item.orderId}})">
+          <ion-item href="/tabs/root/(order:order/{{item.orderNo}})">
             <ion-label style="font-weight: bold;">{{item.orderName}}</ion-label>
             <ion-label class="order-status" color="danger">状态: {{item.orderStatus | orderStatus}}</ion-label>
           </ion-item>

@@ -32,6 +32,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MyHttpInterceptor } from './services/my-http-interceptor';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BacklogTypePipe } from './pipes/backlog-type.pipe';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -75,7 +76,7 @@ export function provideSettings(storage: Storage) {
         AppRoutingModule,
     ],
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     bootstrap: [AppComponent],
     providers: [
