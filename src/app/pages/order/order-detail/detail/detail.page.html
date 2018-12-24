@@ -27,10 +27,21 @@
   </ion-card-content>
 </ion-card>
 <div style="margin-top:10px">合同照片</div>
-<ion-item>
-  <ion-label position="floating">施工内容</ion-label>
-  <ion-textarea></ion-textarea>
-</ion-item>
-<ion-button size="default" (click)="presentAlertPrompt()">添加订单内容
+<ion-card style="margin:0px; margin-top: 10px" *ngFor="let service of servicecontents let cardIndex = index">
+  <ion-card-header style="padding: 10px;background-color: #d0c9c9d1;">
+    <ion-card-title style="text-align: center;font-size: 18px;font-weight: 100;">
+      施工内容:
+      <ion-button size="small" style="float: right;margin-top: -5px;" (click)="presentEditPrompt(cardIndex)">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+      <ion-textarea disabled='true' [(ngModel)]="service"></ion-textarea>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+<ion-button size="default" (click)="presentCreatePrompt()" style="margin-top:10px">添加订单内容
   <ion-icon name="add-circle-outline"></ion-icon>
 </ion-button>

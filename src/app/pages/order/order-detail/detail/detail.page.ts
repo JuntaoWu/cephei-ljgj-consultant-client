@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderItem } from '../../order.item';
-import { AlertController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { OrderItems } from '../../order-list/moke-order-items';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DetailModalPage } from './detail-modal/detail-modal.page';
 
 @Component({
   selector: 'app-detail',
@@ -16,8 +17,9 @@ export class DetailPage implements OnInit {
   private orderId$: Observable<string>;
 
   public item: OrderItem;
+  public servicecontents:string[] = [];
 
-  constructor(public alertController: AlertController, public route: ActivatedRoute) {
+  constructor(public popoverController: PopoverController, public route: ActivatedRoute) {
 
     this.orderId$ = route.parent.paramMap.pipe(map(p => {
       return p.get("orderId");
@@ -31,69 +33,36 @@ export class DetailPage implements OnInit {
     this.item = OrderItems[0];
   }
 
-  async presentAlertPrompt() {
-    const alert = await this.alertController.create({
-      header: 'Prompt!',
-      inputs: [
-        {
-          name: 'name1',
-          type: 'text',
-          placeholder: 'Placeholder 1'
-        },
-        {
-          name: 'name2',
-          type: 'text',
-          id: 'name2-id',
-          value: 'hello',
-          placeholder: 'Placeholder 2'
-        },
-        {
-          name: 'name3',
-          value: 'http://ionicframework.com',
-          type: 'url',
-          placeholder: 'Favorite site ever'
-        },
-        // input date with min & max
-        {
-          name: 'name4',
-          type: 'date',
-          min: '2017-03-01',
-          max: '2018-01-12'
-        },
-        // input date without min nor max
-        {
-          name: 'name5',
-          type: 'date'
-        },
-        {
-          name: 'name6',
-          type: 'number',
-          min: -5,
-          max: 10
-        },
-        {
-          name: 'name7',
-          type: 'number'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: () => {
-            console.log('Confirm Ok');
-          }
-        }
-      ]
+  async presentCreatePrompt() {
+    const modal = await this.popoverController.create({
+      component:DetailModalPage,
+      translucent: true,
     });
+    modal.onDidDismiss().then((result:any)=>{
+      console.log("serviceContent: " + result.data);
+      if(result.data){
+        this.servicecontents.push(result.data);
+      }
+     
+    })
+    return await modal.present();
+  }
 
-    await alert.present();
+  async presentEditPrompt(cardIndex){
+
+    const modal = await this.popoverController.create({
+      component:DetailModalPage,
+      translucent: true,
+      componentProps:{'content':this.servicecontents[cardIndex]}
+    });
+    modal.onDidDismiss().then((result:any)=>{
+      console.log("serviceContent: " + result.data);
+      if(result.data){
+        this.servicecontents[cardIndex] = result.data;
+      }
+     
+    })
+    return await modal.present();
   }
 
 }
