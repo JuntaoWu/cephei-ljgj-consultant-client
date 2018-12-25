@@ -5,14 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { OrderStatusPipe } from '../pipes/order-status.pipe';
 import { OrderPaymentStatusPipe } from '../pipes/order-payment-status.pipe';
-import { MatTabsModule, MatStepperModule } from '@angular/material';
+import { MatTabsModule, MatStepperModule, MatFormFieldModule, MatSelectModule, MatOptionModule } from '@angular/material';
 import { BacklogTypePipe } from 'app/pipes/backlog-type.pipe';
+import { orderPaymentTypePipe } from 'app/pipes/order-payment-type.pipe';
 
 @NgModule({
     declarations: [
         GeolocationBarComponent,
         OrderStatusPipe,
         OrderPaymentStatusPipe,
+        orderPaymentTypePipe,
         BacklogTypePipe,
     ],
     imports: [
@@ -21,6 +23,9 @@ import { BacklogTypePipe } from 'app/pipes/backlog-type.pipe';
         IonicModule,
         MatTabsModule,
         MatStepperModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule
     ],
     exports: [
         GeolocationBarComponent,
@@ -29,9 +34,13 @@ import { BacklogTypePipe } from 'app/pipes/backlog-type.pipe';
         IonicModule,
         OrderStatusPipe,
         OrderPaymentStatusPipe,
+        orderPaymentTypePipe,
         BacklogTypePipe,
         MatTabsModule,
-        MatStepperModule
+        MatStepperModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule
     ]
 })
 export class SharedModule { }

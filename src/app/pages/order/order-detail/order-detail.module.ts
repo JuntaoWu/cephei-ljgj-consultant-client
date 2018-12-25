@@ -7,13 +7,14 @@ import { DetailPage } from './detail/detail.page';
 import { BacklogPage } from './backlog/backlog.page';
 import { PaymentPage } from './payment/payment.page';
 import { DetailModalPage } from './detail/detail-modal/detail-modal.page';
+import { PaymentModalPage } from './payment/payment-modal/payment-modal.page';
 
 @NgModule({
-  declarations: [OrderDetailPage, DetailPage, BacklogPage, PaymentPage,DetailModalPage],
+  declarations: [OrderDetailPage, DetailPage, BacklogPage, PaymentPage,DetailModalPage,PaymentModalPage],
   imports: [
     SharedModule,
     OrderDetailRoutingModule
   ],
-  entryComponents:[DetailModalPage]
+  entryComponents:[DetailModalPage,PaymentModalPage]
 })
 export class OrderDetailModule { }

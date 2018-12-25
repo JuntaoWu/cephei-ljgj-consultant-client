@@ -1,0 +1,46 @@
+.payment-ion-title{
+    padding: 0px;
+    text-align: left;
+    background-color: white;
+    font-size: 14px;
+    color: green;
+}
+
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.header-color {
+    background-color: #9c9b9be0;
+    text-align: center;
+    line-height: 20px;
+    font-family: Microsoft YaHei;
+}
+
+.header-color ion-col{
+    border: solid 1px white
+}
+
+.content{
+    text-align: center;
+    background-color: #e4e3e3;
+    line-height: 30px;
+    font-family: Microsoft YaHei
+}
+
+.content ion-col{
+    border: solid 1px white
+}
+
+.status-green-color {
+    color: green;
+}
+
+.status-red-color {
+    color: red;
+}
