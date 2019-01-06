@@ -1,31 +1,28 @@
-<ion-card style="margin:0px;background-color:white;">
-    <ion-card-header style="padding: 0px;background-color: white;">
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="activeHref" (click)="cancel()"></ion-back-button>
+        </ion-buttons>
+        <ion-title>添加项目款项</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-list>
         <ion-item>
-            <ion-label style="text-align: center;margin-right: 0px;">添加项目款</ion-label>
-            <ion-button fill="outline" slot="end" (click)="cancel()">
-                <ion-icon name="close"></ion-icon>
-            </ion-button>
-          </ion-item>
-    </ion-card-header>
-    <ion-card-content style="background-color: #e4e3e3;padding-left: 0px; padding-right: 0px;">
-        <ion-list>
-            <ion-item>
-                <ion-label>款项类别</ion-label>
-                <mat-form-field>
-                    <mat-select [(ngModel)]="payitem.paymentType">
-                        <mat-option *ngFor="let type of orderpaymenttypes" [value]="type">
-                            {{type | orderPaymentType}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </ion-item>
-            <ion-item>
-                <ion-label>金额</ion-label>
-                <ion-input [(ngModel)]="payitem.amount"></ion-input>
-            </ion-item>
-        </ion-list>
-        <div align="center">
-            <ion-button expand="block" fill="outline" (click)="confim()" style="margin-top:20px;width: 50%;">提交</ion-button>
-        </div>
-    </ion-card-content>
-</ion-card>
+            <ion-label>款项类别</ion-label>
+
+            <ion-select name="backlogType" placeholder="请选择" [(ngModel)]="payitem.paymentType" interface="action-sheet"
+                required>
+                <ion-select-option *ngFor="let type of orderpaymenttypes" [value]="type">{{type | orderPaymentType}}</ion-select-option>
+            </ion-select>
+
+        </ion-item>
+        <ion-item>
+            <ion-label>金额</ion-label>
+            <ion-input [(ngModel)]="payitem.amount"></ion-input>
+        </ion-item>
+    </ion-list>
+    <div align="center">
+        <ion-button expand="block" fill="outline" (click)="confim()" style="margin-top:20px;width: 50%;">提交</ion-button>
+    </div>
+</ion-content>

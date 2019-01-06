@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController, NavParams } from '@ionic/angular';
+import { PopoverController, NavParams, ModalController } from '@ionic/angular';
 import { OrderPaymentType } from '../../../../../types/order-payment-type.enum';
 import { Payment } from '../payment.model';
 import { OrderPaymentStatus } from '../../../../../types/order-payment-status.enum';
@@ -13,17 +13,14 @@ import { OrderPaymentStatus } from '../../../../../types/order-payment-status.en
 export class PaymentModalPage implements OnInit {
     public orderpaymenttypes: OrderPaymentType[] = [];
     public payitem:Payment;
-    constructor(private navParams: NavParams, public popoverController: PopoverController) {
-
+    public activeHref: string;
+    constructor(private navParams: NavParams, public modalController: ModalController) {
+        
     }
     ngOnInit() {
-        var iosstyle = document.querySelector('.popover-content.sc-ion-popover-ios');
-        iosstyle['style'].width = '80%';
-        iosstyle['left'] = '35px';
-        iosstyle['top'] = '200.275px';
-
         this.payitem = new Payment();
         this.payitem.orderId =  this.navParams && this.navParams.get('orderId');
+        this.activeHref = `/tabs/root/(order:order/${this.payitem.orderId}/payment)`;
         this.orderpaymenttypes.push(OrderPaymentType.ConstructionCost);
         this.orderpaymenttypes.push(OrderPaymentType.MaterialCost);
         this.orderpaymenttypes.push(OrderPaymentType.OtherCost);
@@ -32,10 +29,10 @@ export class PaymentModalPage implements OnInit {
 
     async confim() {
         this.payitem.paymentStatus = OrderPaymentStatus.Initializing;
-        await this.popoverController.dismiss(this.payitem);
+        await this.modalController.dismiss(this.payitem);
     }
 
     async cancel() {
-        await this.popoverController.dismiss();
+        await this.modalController.dismiss();
     }
 }

@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DetailModalPage } from './detail-modal/detail-modal.page';
-import { OrderDetailService } from './detail-service';
+import { OrderDetailService } from './detail.service';
 import { OrderDetail } from './detail.model';
 
 @Component({
