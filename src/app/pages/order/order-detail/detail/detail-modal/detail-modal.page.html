@@ -6,8 +6,8 @@
     </ion-card-header>
     <ion-card-content>
         <ion-item>
-            <ion-textarea [(ngModel)]="serviceContent" style="height: 200px;"></ion-textarea>
+            <ion-textarea [(ngModel)]="orderwork.orderWork" style="height: 200px;"></ion-textarea>
         </ion-item>
-        <div align="center"><ion-button size="small" (click)="confim()" style="margin-top:20px">提交</ion-button></div>
+        <div align="center"><ion-button size="small" (click)="confim()" style="margin-top:20px" [disabled]="orderwork.orderWork == null || orderwork.orderWork == '' ">提交</ion-button></div>
     </ion-card-content>
 </ion-card>

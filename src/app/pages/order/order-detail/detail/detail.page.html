@@ -1,23 +1,20 @@
 <ion-card style="margin:0px; margin-top: 10px">
   <ion-item>
-    <ion-label style="font-weight: bold;">{{item.orderName}}</ion-label>
-    <ion-label class="order-status" color="danger">状态: {{item.orderStatus | orderStatus}}</ion-label>
+    <ion-label style="font-weight: bold;">{{orderdetail?.orderBaseInfo?.orderContent}}</ion-label>
+    <ion-label class="order-status" color="danger">状态: {{orderdetail?.orderBaseInfo?.orderStatus | orderStatus}}</ion-label>
   </ion-item>
   <ion-card-content>
     <p>
-      <ion-label>订单编号: {{item.orderNo}}</ion-label>
+      <ion-label>订单编号: {{orderdetail?.orderid}}</ion-label>
     </p>
     <p>
-      <ion-label>下单时间: {{item.orderTime | date: 'yyyy-MM-dd HH:mm:ss' }}</ion-label>
+      <ion-label>下单时间: {{orderdetail?.orderBaseInfo?.orderTime}}</ion-label>
     </p>
     <p>
-      <ion-label>订单地址: {{item.orderAddress}}</ion-label>
+      <ion-label>订单地址: {{orderdetail?.orderBaseInfo?.orderAddress}}</ion-label>
     </p>
     <p>
-      <ion-label>客户小妹:XXXXX</ion-label>
-    </p>
-    <p>
-      <ion-label>订单金额: </ion-label>
+      <ion-label>订单金额:{{orderdetail?.orderAmountInfo?.orderAmount}} {{orderdetail?.orderAmountInfo?.paymentStatus | orderPaymentStatus}}</ion-label>
     </p>
     <p>
       <ion-button size="default">合同
@@ -26,19 +23,20 @@
     </p>
   </ion-card-content>
 </ion-card>
+
 <div style="margin-top:10px">合同照片</div>
-<ion-card style="margin:0px; margin-top: 10px" *ngFor="let service of servicecontents let cardIndex = index">
+<ion-card style="margin:0px; margin-top: 10px" *ngFor="let item of orderdetail?.orderWorkList let cardIndex = index">
   <ion-card-header style="padding: 10px;background-color: #d0c9c9d1;">
     <ion-card-title style="text-align: center;font-size: 18px;font-weight: 100;">
       施工内容:
-      <ion-button size="small" style="float: right;margin-top: -5px;" (click)="presentEditPrompt(cardIndex)">
+      <ion-button size="small" style="float: right;margin-top: -5px;" (click)="presentEditPrompt(item,cardIndex)">
         <ion-icon name="create"></ion-icon>
       </ion-button>
     </ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-item>
-      <ion-textarea disabled='true' [(ngModel)]="service"></ion-textarea>
+    <ion-item style="height: 100px;overflow: scroll;">
+      <pre style="margin: 0px">{{item.orderWork}}</pre>
     </ion-item>
   </ion-card-content>
 </ion-card>

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderItem } from '../../order.item';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, ToastController } from '@ionic/angular';
 import { OrderItems } from '../../order-list/moke-order-items';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DetailModalPage } from './detail-modal/detail-modal.page';
+import { OrderDetailService } from './detail-service';
+import { OrderDetail } from './detail.model';
 
 @Component({
   selector: 'app-detail',
@@ -14,55 +16,77 @@ import { DetailModalPage } from './detail-modal/detail-modal.page';
 })
 export class DetailPage implements OnInit {
 
-  private orderId$: Observable<string>;
+  //private orderId$: Observable<string>;
+  private orderId
 
-  public item: OrderItem;
-  public servicecontents:string[] = [];
+  public orderdetail: OrderDetail;
+  public servicecontents: string[] = [];
 
-  constructor(public popoverController: PopoverController, public route: ActivatedRoute) {
+  constructor(public popoverController: PopoverController, public route: ActivatedRoute, public service: OrderDetailService, public toastController: ToastController) {
 
-    this.orderId$ = route.parent.paramMap.pipe(map(p => {
+    /*this.orderId$ = route.parent.paramMap.pipe(map(p => {
       return p.get("orderId");
     }));
     this.orderId$.subscribe(orderId => {
       console.log('order-detail: orderId from parent:', orderId);
-    }).unsubscribe();
+    }).unsubscribe();*/
   }
 
   ngOnInit() {
-    this.item = OrderItems[0];
+    this.route.parent.paramMap.subscribe(p => {
+      this.orderId = p.get("orderId");
+    });
+    this.service.get(this.orderId).subscribe(res => {
+      console.log("res: " + JSON.stringify(res));
+      this.orderdetail = res;
+      console.log(this.orderdetail.orderWorkList)
+    })
+
   }
 
   async presentCreatePrompt() {
     const modal = await this.popoverController.create({
-      component:DetailModalPage,
+      component: DetailModalPage,
       translucent: true,
     });
-    modal.onDidDismiss().then((result:any)=>{
+    modal.onDidDismiss().then((result: any) => {
       console.log("serviceContent: " + result.data);
-      if(result.data){
-        this.servicecontents.push(result.data);
+      if (result.data.orderWork) {
+        this.service.createOrderWork(this.orderId, result.data.orderWork).subscribe(res => {
+          this.orderdetail.orderWorkList.push(res);
+        }, error => this.showErrorMessage);
       }
-     
+
     })
     return await modal.present();
   }
 
-  async presentEditPrompt(cardIndex){
+  async presentEditPrompt(orderWork, cardIndex) {
 
     const modal = await this.popoverController.create({
-      component:DetailModalPage,
+      component: DetailModalPage,
       translucent: true,
-      componentProps:{'content':this.servicecontents[cardIndex]}
+      componentProps: { 'orderWork': { ...orderWork } }
     });
-    modal.onDidDismiss().then((result:any)=>{
-      console.log("serviceContent: " + result.data);
-      if(result.data){
-        this.servicecontents[cardIndex] = result.data;
+    modal.onDidDismiss().then((result: any) => {
+      console.log("serviceContent: " + result.data.orderWork);
+      if (result.data.orderWork) {
+        this.service.updateOrderWork(result.data.orderworkid, result.data.orderWork).subscribe(res => {
+          this.orderdetail.orderWorkList[cardIndex] = res;
+        }, error => this.showErrorMessage);
       }
-     
+
     })
     return await modal.present();
+  }
+
+  showErrorMessage(error) {
+    this.toastController.create({
+      message: error,
+      duration: 1500
+    }).then(totaset => {
+      totaset.present();
+    })
   }
 
 }
