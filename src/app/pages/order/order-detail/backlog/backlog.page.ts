@@ -7,6 +7,8 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 import { ModalController, ToastController } from '@ionic/angular';
 import { BacklogModalComponent } from './backlog-modal/backlog-modal.component';
 
+import * as _ from 'lodash';
+
 @Component({
     selector: 'app-backlog',
     templateUrl: './backlog.page.html',
@@ -38,7 +40,16 @@ export class BacklogPage implements OnInit {
             }),
             map(backlogs => {
                 this.noBacklogItems = !backlogs || !backlogs.length;
-                return backlogs;
+                return this.noBacklogItems ? [] : _(backlogs).sortBy("orderDiaryType").groupBy(item => item.orderDiaryType).map(backlogs => {
+                    return {
+                        orderId: this.orderId,
+                        orderDiaryType: backlogs[0].orderDiaryType,
+                        orderDiaryContent: backlogs.map(i => i.orderDiaryContent).join("\n"),
+                        createdAt: _.min(backlogs.map(i => i.createdAt)),
+                        updatedAt: _.max(backlogs.map(i => i.updatedAt)),
+                        diaryPicUrls: _(backlogs).flatMap(i => i.diaryPicUrls).value()
+                    };
+                }).value();
             })
         );
     }

@@ -11,13 +11,16 @@ export enum BacklogType {
 }
 
 export class Backlog {
+
+    public orderDiaryId?: string;
+
     public orderId: string;
 
-    public backlogType: BacklogType;
+    public orderDiaryType: BacklogType;
 
-    public backlogContent: string;
+    public orderDiaryContent: string;
 
-    public imageUrls: Array<string>;
+    public diaryPicUrls: Array<string>;
 
     public createdBy?: string;
 

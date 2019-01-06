@@ -1,16 +1,22 @@
 <mat-vertical-stepper [linear]="isLinear" #stepper>
+    <ng-template matStepperIcon="edit">
+        <ion-icon name="checkmark"></ion-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="done">
+        <ion-icon name="checkmark"></ion-icon>
+    </ng-template>
+    <ng-template matStepperIcon="number" let-index="index">
+        <ion-icon name="checkmark"></ion-icon>
+    </ng-template>
     <mat-step *ngFor="let item of backlogItems$ | async;">
         <ng-template matStepLabel>
-            <p>{{item.backlogType | backlogType}}</p>
+            <p class="step-title">{{item.orderDiaryType | backlogType}}</p>
             <time>{{item.updatedAt | date: 'yyyy-MM-dd HH:mm:ss'}}</time>
         </ng-template>
-        <p>
-            {{item.backlogContent}}
-        </p>
-        <p *ngIf="item.imageUrls && item.imageUrls.length">
-            <ng-template *ngFor="let url of item.imageUrls">
-                <img [src]="url" />
-            </ng-template>
+        <pre>{{item.orderDiaryContent}}</pre>
+        <p *ngIf="item.diaryPicUrls && item.diaryPicUrls.length">
+            <img [src]="url" *ngFor="let url of item.diaryPicUrls" />
         </p>
     </mat-step>
 </mat-vertical-stepper>

@@ -46,9 +46,9 @@ export class BacklogModalComponent implements OnInit {
 
     let dataToPost: Backlog = {
       orderId: this.orderId,
-      backlogType: this.backlogType,
-      backlogContent: this.backlogContent,
-      imageUrls: [],
+      orderDiaryType: this.backlogType,
+      orderDiaryContent: this.backlogContent,
+      diaryPicUrls: [],
     };
 
     this.service.create(this.orderId, dataToPost).subscribe(
