@@ -19,7 +19,7 @@ export class Backlog {
 
     public imageUrls: Array<string>;
 
-    public createdBy: string;
+    public createdBy?: string;
 
     public createdAt?: Date;
 

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="activeHref" (click)="cancel()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>创建日志</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <form (ngSubmit)="ok()" #heroForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">日志类型</ion-label>
+        <ion-select name="backlogType" placeholder="请选择" [(ngModel)]="backlogType" interface="action-sheet" required>
+          <ion-select-option *ngFor="let option of backlogTypeOptions;" [value]="option.value">{{option.text}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">日志内容</ion-label>
+        <ion-textarea name="backlogContent" [(ngModel)]="backlogContent" placeholder="可填写日志内容"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" expand="block" color="primary" [disabled]="!heroForm.form.valid">
+      确定
+    </ion-button>
+  </form>
+</ion-content>
