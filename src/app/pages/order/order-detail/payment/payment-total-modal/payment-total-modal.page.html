@@ -3,23 +3,14 @@
         <ion-buttons slot="start">
             <ion-back-button [defaultHref]="activeHref" (click)="cancel()"></ion-back-button>
         </ion-buttons>
-        <ion-title>添加项目款项</ion-title>
+        <ion-title>更改订单总金额</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content padding>
     <ion-list>
         <ion-item>
-            <ion-label>款项类别</ion-label>
-
-            <ion-select name="backlogType" placeholder="请选择" [(ngModel)]="payitem.fundItemType" interface="action-sheet"
-                required>
-                <ion-select-option *ngFor="let type of orderpaymenttypes" [value]="type">{{type | orderPaymentType}}</ion-select-option>
-            </ion-select>
-
-        </ion-item>
-        <ion-item>
             <ion-label>金额</ion-label>
-            <ion-input [(ngModel)]="payitem.fundItemAmount"></ion-input>
+            <ion-input [(ngModel)]="totalAmount"></ion-input>
         </ion-item>
     </ion-list>
     <div align="center">
