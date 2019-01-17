@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.orz.vosclient" version="0.3.12" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>作业流程</name>
+<widget id="fun.cepheus.ljgj.consultant" version="0.3.12" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>邻家工匠作业</name>
     <description>An awesome Ionic/Cordova app.</description>
-    <author email="wujuntaocn@outlook.com" href="http://github.com/JuntaoWu">Orz Team</author>
+    <author email="wujuntaocn@outlook.com" href="http://github.com/JuntaoWu">Cepheus Team</author>
     <content src="index.html" />
     <access minimum-tls-version="TLSv1.1" origin="https://cordova.apache.org" requires-certificate-transparency="true" requires-forward-secrecy="false" />
     <access allows-arbitrary-loads-for-media="true" allows-arbitrary-loads-in-web-content="true" allows-local-networking="true" origin="*" />
@@ -86,37 +86,37 @@
     <allow-navigation href="http://192.168.1.27:8100" />
     <allow-navigation href="http://192.168.6.100:8100" />
     <allow-navigation href="http://192.168.1.37:8100" sessionid="26ecb505" />
-    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="cordova-plugin-device" spec="^1.1.4" />
-    <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
-    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16">
+    <plugin name="cordova-plugin-ionic-webview" spec="^2.2.5">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <plugin name="cordova-plugin-camera" spec="^3.0.0">
+    <plugin name="cordova-plugin-camera" spec="^4.0.3">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="need camera access to take pictures" />
     </plugin>
-    <plugin name="com.synconset.imagepicker" spec="~2.1.8">
+    <plugin name="com.synconset.imagepicker" spec="^2.1.10">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="To pick images" />
     </plugin>
-    <plugin name="com-sarriaroman-photoviewer" spec="^1.1.11" />
+    <plugin name="com-sarriaroman-photoviewer" spec="^1.1.18" />
     <plugin name="cordova-plugin-actionsheet" spec="^2.3.3" />
-    <plugin name="cordova-plugin-advanced-http" spec="^1.9.0" />
-    <plugin name="cordova-sqlite-storage" spec="^2.1.4" />
+    <plugin name="cordova-plugin-advanced-http" spec="^1.11.1" />
+    <plugin name="cordova-sqlite-storage" spec="^2.5.2" />
+    <plugin name="cordova-plugin-media" spec="5.0.2" />
     <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
-    <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
+    <plugin name="cordova-plugin-x-toast" spec="^2.7.2" />
     <plugin name="cordova-plugin-geolocation-orz" spec="0.0.4">
         <variable name="BAIDUMAPKEY" value="Ig80XWHvwEtfvrP6HAtIrkdV4WE1HwLC" />
     </plugin>
-    <plugin name="hewz.plugins.baidu-location" spec="git+https://github.com/JuntaoWu/cordova-baidu-location.git">
-        <variable name="API_KEY" value="mUvTeKmqDcdazcuVNZQ1QZivMEV3OqrN" />
-    </plugin>
-    <plugin name="cordova-plugin-add-swift-support" spec="^1.7.2" />
-    <plugin name="cordova-plugin-file" spec="5.0.0" />
-    <plugin name="cordova-plugin-media" spec="4.0.0" />
     <plugin name="cordova-plugin-photo-library" spec="2.1.1">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <engine name="browser" spec="^5.0.4" />
-    <engine name="ios" spec="4.5.4" />
+    <plugin name="cordova-plugin-add-swift-support" spec="^1.7.2" />
+    <plugin name="cordova-plugin-file" spec="6.0.1" />
+    <plugin name="hewz.plugins.baidu-location" spec="git+https://github.com/JuntaoWu/cordova-baidu-location.git">
+        <variable name="API_KEY" value="mUvTeKmqDcdazcuVNZQ1QZivMEV3OqrN" />
+    </plugin>
+    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="cordova-plugin-device" spec="^2.0.2" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <engine name="browser" spec="5.0.4" />
+    <engine name="ios" spec="4.5.5" />
 </widget>

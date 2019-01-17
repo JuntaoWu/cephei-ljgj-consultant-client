@@ -8,3 +8,24 @@
         background-color: green;
     }
 }
+
+ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+
+    li {
+        width: 72px;
+        height: 72px;
+        text-align: center;
+
+        img {
+            width: 80%;
+            height: 80%;
+            margin: auto;
+            margin-top: 10%;
+        }
+    }
+}

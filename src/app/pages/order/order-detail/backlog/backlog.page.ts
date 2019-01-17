@@ -8,6 +8,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { BacklogModalComponent } from './backlog-modal/backlog-modal.component';
 
 import * as _ from 'lodash';
+import { environment } from 'environments/environment';
 
 @Component({
     selector: 'app-backlog',
@@ -16,9 +17,12 @@ import * as _ from 'lodash';
 })
 export class BacklogPage implements OnInit {
 
+    public isLinear = false;
     public noBacklogItems: boolean;
     public backlogItems$?: Observable<Backlog[]>;
     public orderId?: string;
+
+    public uploadUrl: string = "/api/upload/backlog";
 
     constructor(private service: BacklogService, public route: ActivatedRoute,
         private modalController: ModalController,
@@ -47,7 +51,7 @@ export class BacklogPage implements OnInit {
                         orderDiaryContent: backlogs.map(i => i.orderDiaryContent).join("\n"),
                         createdAt: _.min(backlogs.map(i => i.createdAt)),
                         updatedAt: _.max(backlogs.map(i => i.updatedAt)),
-                        diaryPicUrls: _(backlogs).flatMap(i => i.diaryPicUrls).value()
+                        diaryPicUrls: _(backlogs).flatMap(i => i.diaryPicUrls.map(p => (p && p.startsWith('http')) ? p : (environment.host + p))).value()
                     };
                 }).value();
             })
@@ -72,6 +76,14 @@ export class BacklogPage implements OnInit {
         }).then((toast) => {
             toast.present();
         });
+    }
+
+    uploadProgress($event) {
+        console.log($event);
+    }
+
+    uploadComplete($event) {
+        console.log($event);
     }
 
 }
