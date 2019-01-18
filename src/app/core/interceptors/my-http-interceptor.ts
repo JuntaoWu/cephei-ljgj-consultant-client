@@ -1,15 +1,17 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, throwError, ReplaySubject } from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
 
 @Injectable()
 export class MyHttpInterceptor implements HttpInterceptor {
-    constructor() { }
+    constructor() {
+        console.log("MyHttpInterceptor constructor.");
+    }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        console.log("intercepted request ... ");
+        console.log("MyHttpInterceptor intercepted request ... ");
 
         let token = localStorage.getItem("token");
         // Clone the request to add the new header.
@@ -20,7 +22,7 @@ export class MyHttpInterceptor implements HttpInterceptor {
         //send the newly created request
         return next.handle(authReq).pipe(
             catchError((error, caught) => {
-                //intercept the respons error and displace it to the console
+                //intercept the response error and displace it to the console
                 console.log("Error Occurred");
                 console.log(error);
                 //return the error to the method that called it

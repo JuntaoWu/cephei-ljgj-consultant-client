@@ -29,10 +29,12 @@ import { CurrentTaskService } from './pages/current-task/current-task.service';
 import { Animation } from 'angular2-baidu-map';
 import { IonicGestureConfig } from './core/ionic-gesture.config';
 import { AppRoutingModule } from './app-routing.module';
-import { MyHttpInterceptor } from './services/my-http-interceptor';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BacklogTypePipe } from './pipes/backlog-type.pipe';
+
+import { CameraMock } from './mocks/CameraMock';
+import { CoreModule } from './core/core.module';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -53,6 +55,7 @@ export function provideSettings(storage: Storage) {
 @NgModule({
     imports: [
         BrowserModule,
+        CoreModule,
         BrowserAnimationsModule,
         HttpClientModule,
         TranslateModule.forRoot({
@@ -80,7 +83,6 @@ export function provideSettings(storage: Storage) {
     ],
     bootstrap: [AppComponent],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true },
         Api,
         UserService,
         TaskStore,
@@ -94,7 +96,8 @@ export function provideSettings(storage: Storage) {
         AreaStore,
         // BaiduGeolocation,
         // BaiduGeolocationIOS,
-        Camera,
+        // Camera,
+        { provide: Camera, useClass: CameraMock },
         ImagePicker,
         PhotoViewer,
         HTTP,
@@ -108,7 +111,7 @@ export function provideSettings(storage: Storage) {
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: IonicGestureConfig
-        },
+        }
     ]
 })
 export class AppModule { }

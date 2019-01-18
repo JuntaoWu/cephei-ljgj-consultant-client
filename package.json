@@ -75,6 +75,7 @@
     "rxjs-compat": "^6.3.3",
     "save": "^2.3.3",
     "sw-toolbox": "3.6.0",
+    "uuid": "^3.3.2",
     "vconsole": "^3.2.0",
     "weixin-js-sdk": "^1.4.0-test",
     "zone.js": "~0.8.26"
@@ -93,6 +94,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash": "^4.14.118",
     "@types/node": "~10.12.0",
+    "@types/uuid": "^3.4.4",
     "codelyzer": "~4.5.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",

@@ -6,6 +6,11 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { ToastService } from 'app/services/providers';
 import { File as NativeFile } from '@ionic-native/file/ngx';
 import { ImageUploaderService } from './image-uploader.service';
+import { MulterFile } from 'app/types/multer-file';
+
+import { v4 as uuid } from 'uuid';
+import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-image-uploader',
@@ -14,6 +19,7 @@ import { ImageUploaderService } from './image-uploader.service';
 })
 export class ImageUploaderComponent implements OnInit {
 
+  @Input() prefix: string;
   @Input() url: string;
   @Output() progress: EventEmitter<number> = new EventEmitter<number>();
   @Output() complete: EventEmitter<string> = new EventEmitter<string>();
@@ -78,18 +84,18 @@ export class ImageUploaderComponent implements OnInit {
 
     this.camera.getPicture(options).then(
       async imageData => {
-        const imageResult = await this.getNormalizedImage(imageData);
-        this.service.upload(``, imageResult.file).subscribe(
+        let multerFile = await this.getNormalizedImage(imageData);
+        this.service.upload(this.url, multerFile).subscribe(
           (progress: number) => {
-            console.log(`upload ${imageResult.name} progress: ${progress}`);
+            console.log(`upload ${multerFile.filename} progress: ${progress}`);
             this.progress.emit(progress);
           },
           (error) => {
-            console.error(`upload ${imageResult.name} error:`, error);
+            console.error(`upload ${multerFile.filename} error:`, error);
           },
           () => {
-            console.log(`upload ${imageResult.name} completed.`);
-            this.complete.emit(imageResult.src);
+            console.log(`upload ${multerFile.path} completed.`);
+            this.complete.emit(multerFile.path);
           });
       },
       error => {
@@ -112,18 +118,18 @@ export class ImageUploaderComponent implements OnInit {
       results => {
         if (results && results instanceof Array) {
           results.forEach(async element => {
-            let imageResult = await this.getNormalizedImage(element);
-            this.service.upload(``, imageResult.file).subscribe(
+            let multerFile = await this.getNormalizedImage(element);
+            this.service.upload(this.url, multerFile).subscribe(
               (progress: number) => {
-                console.log(`upload ${imageResult.name} progress: ${progress}`);
+                console.log(`upload ${multerFile.filename} progress: ${progress}`);
                 this.progress.emit(progress);
               },
               (error) => {
-                console.error(`upload ${imageResult.name} error:`, error);
+                console.error(`upload ${multerFile.filename} error:`, error);
               },
               () => {
-                console.log(`upload ${imageResult.name} completed.`);
-                this.complete.emit(imageResult.src);
+                console.log(`upload ${multerFile.originalname} completed. renamed to ${multerFile.filename}.`);
+                this.complete.emit(multerFile.path);
               });
           });
         }
@@ -137,10 +143,10 @@ export class ImageUploaderComponent implements OnInit {
       });
   }
 
-  async getNormalizedImage(imageData: string) {
+  async getNormalizedImage(imageData: string): Promise<MulterFile> {
     let dataURI = "";
     let blob: Blob;
-    let filename: string = "sample-image.jpg";
+    let filename: string = `${this.prefix ? this.prefix + '-' : ''}${moment().format('YYYYMMDDHHmmss')}-${_.random(1000, 9999)}.jpg`;
 
     if (imageData.startsWith("file:///")) {
       dataURI = imageData;
@@ -156,8 +162,8 @@ export class ImageUploaderComponent implements OnInit {
 
     return {
       src: this.platform.is("ios") ? dataURI.replace(/^file:\/\//, '') : dataURI,
-      file: blob,
-      name: filename,
+      blob: blob,
+      filename: filename,
       viewSrc: dataURI
     };
   }
