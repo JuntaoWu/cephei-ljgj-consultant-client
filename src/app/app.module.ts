@@ -14,7 +14,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Settings, UserService, Api, TaskStore, AreaStore, ToastService } from './services/providers';
 
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 // import { BaiduGeolocation } from '@orz-ionic-lab/baidu-geolocation';
@@ -32,8 +31,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BacklogTypePipe } from './pipes/backlog-type.pipe';
-
-import { CameraMock } from './mocks/CameraMock';
 import { CoreModule } from './core/core.module';
 
 // The translate loader needs to know where to load i18n files
@@ -97,7 +94,6 @@ export function provideSettings(storage: Storage) {
         // BaiduGeolocation,
         // BaiduGeolocationIOS,
         // Camera,
-        { provide: Camera, useClass: CameraMock },
         ImagePicker,
         PhotoViewer,
         HTTP,

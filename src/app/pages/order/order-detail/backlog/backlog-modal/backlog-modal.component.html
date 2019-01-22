@@ -19,6 +19,10 @@
         <ion-label position="stacked">日志内容</ion-label>
         <ion-textarea name="backlogContent" [(ngModel)]="backlogContent" placeholder="可填写日志内容"></ion-textarea>
       </ion-item>
+      <ion-item>
+        <ion-label position="stacked">上传图片</ion-label>
+        <app-image-bar name="images" [(images)]="images" [uploadUrl]="uploadUrl" (imagesChange)="imagesChange($event)"></app-image-bar>
+      </ion-item>
     </ion-list>
     <ion-button type="submit" expand="block" color="primary" [disabled]="!heroForm.form.valid">
       确定

@@ -3,12 +3,13 @@ import { Backlog } from './backlog.model';
 import { BacklogService } from './backlog.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
-import { ModalController, ToastController } from '@ionic/angular';
+import { map, catchError } from 'rxjs/operators';
+import { ModalController } from '@ionic/angular';
 import { BacklogModalComponent } from './backlog-modal/backlog-modal.component';
 
 import * as _ from 'lodash';
 import { environment } from 'environments/environment';
+import { ToastService } from 'app/services/providers';
 
 @Component({
     selector: 'app-backlog',
@@ -22,24 +23,29 @@ export class BacklogPage implements OnInit {
     public backlogItems$?: Observable<Backlog[]>;
     public orderId?: string;
 
-    public uploadUrl: string = "/api/upload/backlog";
-
-    constructor(private service: BacklogService, public route: ActivatedRoute,
-        private modalController: ModalController,
-        private toastController: ToastController) {
+    constructor(private service: BacklogService,
+        private toastService: ToastService,
+        public route: ActivatedRoute,
+        private modalController: ModalController) {
 
     }
 
     ngOnInit() {
-
-        this.backlogItems$ = this.route.parent.paramMap.pipe(
-            switchMap(paramMap => {
+        this.route.parent.paramMap.subscribe(
+            (paramMap) => {
                 let orderId = paramMap.get('orderId');
                 this.orderId = orderId;
-                return this.service.get(orderId);
-            }),
+                return this.orderId;
+            }
+        );
+
+        this.postInit();
+    }
+
+    public postInit() {
+        this.backlogItems$ = this.service.get(this.orderId).pipe(
             catchError(err => {
-                this.toast(err);
+                this.toastService.show(err);
                 return throwError(err);
             }),
             map(backlogs => {
@@ -48,7 +54,7 @@ export class BacklogPage implements OnInit {
                     return {
                         orderId: this.orderId,
                         orderDiaryType: backlogs[0].orderDiaryType,
-                        orderDiaryContent: backlogs.map(i => i.orderDiaryContent).join("\n"),
+                        orderDiaryContentList: backlogs.map(i => i.orderDiaryContent),
                         createdAt: _.min(backlogs.map(i => i.createdAt)),
                         updatedAt: _.max(backlogs.map(i => i.updatedAt)),
                         diaryPicUrls: _(backlogs).flatMap(i => i.diaryPicUrls.map(p => (p && p.startsWith('http')) ? p : (environment.host + p))).value()
@@ -58,32 +64,21 @@ export class BacklogPage implements OnInit {
         );
     }
 
-    async createBacklog() {
+    public async createBacklog() {
         const modal = await this.modalController.create({
             component: BacklogModalComponent,
             componentProps: {
                 orderId: this.orderId,
-                content: "test"
             }
         });
+        modal.onDidDismiss()
+            .then((value) => {
+                value.role != 'cancel' && this.postInit();
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         return await modal.present();
-    }
-
-    toast(message) {
-        this.toastController.create({
-            duration: 1500,
-            message: message,
-        }).then((toast) => {
-            toast.present();
-        });
-    }
-
-    uploadProgress($event) {
-        console.log($event);
-    }
-
-    uploadComplete($event) {
-        console.log($event);
     }
 
 }

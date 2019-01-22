@@ -1,0 +1,11 @@
+<ul class="horizontal" *ngIf="readonly === undefined || (images && images.length)">
+  <li *ngFor="let url of images">
+    <ion-img [src]="url" (click)="showImage(url)"></ion-img>
+  </li>
+  <li *ngIf="uploading">
+    <img [src]="uploadingImage" [style.clipPath]="uploadingClipPath" />
+  </li>
+  <li *ngIf="readonly === undefined">
+    <app-image-upload [url]="uploadUrl" (progress)="uploadProgress($event)" (complete)="uploadComplete($event)" (error)="uploadError($event)"></app-image-upload>
+  </li>
+</ul>

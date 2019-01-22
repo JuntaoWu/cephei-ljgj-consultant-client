@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { BacklogService } from '../backlog.service';
 import { Backlog, BacklogType } from '../backlog.model';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { ToastService } from 'app/services/providers';
 
 @Component({
   selector: 'app-backlog-modal',
@@ -16,6 +18,10 @@ export class BacklogModalComponent implements OnInit {
   @Input() backlogContent: string;
   public backlogType: BacklogType;
 
+  public uploadUrl: string = "/api/upload/backlog";
+
+  public images: any[] = [];
+
   public backlogTypeOptions: any[] = [
     { text: '联系用户', value: BacklogType.ContactUser },
     { text: '上门查看', value: BacklogType.VisitUser },
@@ -27,7 +33,8 @@ export class BacklogModalComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private modal: ModalController,
-    private toastController: ToastController,
+    private toastService: ToastService,
+    private photoViewer: PhotoViewer,
     private service: BacklogService) {
 
   }
@@ -38,7 +45,8 @@ export class BacklogModalComponent implements OnInit {
 
   cancel() {
     this.modal.dismiss({
-      result: "cancel"
+      result: "cancel",
+      role: "cancel",
     });
   }
 
@@ -48,7 +56,7 @@ export class BacklogModalComponent implements OnInit {
       orderId: this.orderId,
       orderDiaryType: this.backlogType,
       orderDiaryContent: this.backlogContent,
-      diaryPicUrls: [],
+      diaryPicUrls: this.images,
     };
 
     this.service.create(this.orderId, dataToPost).subscribe(
@@ -58,17 +66,17 @@ export class BacklogModalComponent implements OnInit {
         });
       },
       (err) => {
-        this.toast(err);
+        this.toastService.show(err);
       });
   }
 
-  toast(message) {
-    this.toastController.create({
-      duration: 1500,
-      message: message,
-    }).then((toast) => {
-      toast.present();
-    });
+  public imagesChange($event) {
+    console.log($event);
+    console.log(this.images && this.images.length);
+  }
+
+  public showImage(url: string) {
+    this.photoViewer.show(url);
   }
 
 }

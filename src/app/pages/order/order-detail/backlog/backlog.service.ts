@@ -34,7 +34,8 @@ export class BacklogService {
             catchError((err) => {
                 console.error(err);
                 return throwError("获取日志失败");
-            })
+            }),
+            share(),
         );
     }
 

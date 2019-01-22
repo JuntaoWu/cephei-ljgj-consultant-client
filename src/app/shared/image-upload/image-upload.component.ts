@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { ActionSheetController, ToastController, Platform } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { ToastService } from 'app/services/providers';
 import { File as NativeFile } from '@ionic-native/file/ngx';
-import { ImageUploaderService } from './image-uploader.service';
+import { ImageUploadService } from './image-upload.service';
 import { MulterFile } from 'app/types/multer-file';
 
 import { v4 as uuid } from 'uuid';
@@ -13,25 +13,28 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-image-uploader',
-  templateUrl: './image-uploader.component.html',
-  styleUrls: ['./image-uploader.component.scss']
+  selector: 'app-image-upload',
+  templateUrl: './image-upload.component.html',
+  styleUrls: ['./image-upload.component.scss']
 })
-export class ImageUploaderComponent implements OnInit {
+export class ImageUploadComponent implements OnInit {
 
   @Input() prefix: string;
   @Input() url: string;
-  @Output() progress: EventEmitter<number> = new EventEmitter<number>();
+  @Output() progress: EventEmitter<MulterFile> = new EventEmitter<MulterFile>();
   @Output() complete: EventEmitter<string> = new EventEmitter<string>();
+  @Output() error: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private actionSheetController: ActionSheetController,
+  @ViewChild('btnChooseFileMock') btnChooseFileMock: ElementRef;
+
+  constructor(
+    private actionSheetController: ActionSheetController,
     private toastService: ToastService,
     private camera: Camera,
     private imagePicker: ImagePicker,
-    private photoViewer: PhotoViewer,
     private nativeFile: NativeFile,
     private platform: Platform,
-    private service: ImageUploaderService) {
+    private service: ImageUploadService) {
 
   }
 
@@ -52,9 +55,9 @@ export class ImageUploaderComponent implements OnInit {
         },
         {
           text: '从相册选取',
-          icon: 'album',
+          icon: 'albums',
           handler: () => {
-            console.log('Album clicked');
+            console.log('Albums clicked');
             this.choosePhoto();
           }
         },
@@ -85,18 +88,7 @@ export class ImageUploaderComponent implements OnInit {
     this.camera.getPicture(options).then(
       async imageData => {
         let multerFile = await this.getNormalizedImage(imageData);
-        this.service.upload(this.url, multerFile).subscribe(
-          (progress: number) => {
-            console.log(`upload ${multerFile.filename} progress: ${progress}`);
-            this.progress.emit(progress);
-          },
-          (error) => {
-            console.error(`upload ${multerFile.filename} error:`, error);
-          },
-          () => {
-            console.log(`upload ${multerFile.path} completed.`);
-            this.complete.emit(multerFile.path);
-          });
+        this.uploadFile(multerFile);
       },
       error => {
         console.error(`Failed to load Camera ${error && error.message || error}`);
@@ -106,6 +98,11 @@ export class ImageUploaderComponent implements OnInit {
   }
 
   choosePhoto() {
+
+    if (!this.platform.is('cordova')) {
+      return this.choosePhotoMock();
+    }
+
     const options: ImagePickerOptions = {
       maximumImagesCount: 9,
       width: 1280,
@@ -119,18 +116,7 @@ export class ImageUploaderComponent implements OnInit {
         if (results && results instanceof Array) {
           results.forEach(async element => {
             let multerFile = await this.getNormalizedImage(element);
-            this.service.upload(this.url, multerFile).subscribe(
-              (progress: number) => {
-                console.log(`upload ${multerFile.filename} progress: ${progress}`);
-                this.progress.emit(progress);
-              },
-              (error) => {
-                console.error(`upload ${multerFile.filename} error:`, error);
-              },
-              () => {
-                console.log(`upload ${multerFile.originalname} completed. renamed to ${multerFile.filename}.`);
-                this.complete.emit(multerFile.path);
-              });
+            this.uploadFile(multerFile);
           });
         }
         else if (results && results == 'OK') {
@@ -143,28 +129,88 @@ export class ImageUploaderComponent implements OnInit {
       });
   }
 
-  async getNormalizedImage(imageData: string): Promise<MulterFile> {
-    let dataURI = "";
+  choosePhotoMock() {
+    const choosePhotoMockChangeCallback = async (event) => {
+      if (event && event.target && event.target.files && event.target.files.length) {
+        const file = event.target.files[0];
+        let multerFile = await this.getNormalizedImage(file);
+        this.uploadFile(multerFile);
+      }
+    };
+    this.btnChooseFileMock.nativeElement.eventListeners().forEach(listener => {
+      this.btnChooseFileMock.nativeElement.removeEventListener("change", listener);
+    });
+    this.btnChooseFileMock.nativeElement.addEventListener("change", choosePhotoMockChangeCallback);
+    this.btnChooseFileMock.nativeElement.click();
+  }
+
+  private uploadFile(multerFile: MulterFile) {
+    this.service.upload(this.url, multerFile).subscribe(
+      (progress: number) => {
+        console.log(`upload ${multerFile.originalname} progress: ${progress}`);
+        this.progress.emit({
+          src: multerFile.src,
+          progress: progress
+        });
+      },
+      (error) => {
+        console.error(`upload ${multerFile.originalname} error:`, error);
+        const message = `上传资源${multerFile && multerFile.originalname}失败`;
+        this.toastService.show(message);
+        this.error.emit(message);
+      },
+      () => {
+        this.btnChooseFileMock.nativeElement.value = "";
+        console.log(`upload ${multerFile.originalname} completed. renamed to ${multerFile.filename}.`);
+        this.complete.emit(multerFile.path);
+      });
+  }
+
+  async getNormalizedImage(imageData: any): Promise<MulterFile> {
+    let dataURI = '';
     let blob: Blob;
     let filename: string = `${this.prefix ? this.prefix + '-' : ''}${moment().format('YYYYMMDDHHmmss')}-${_.random(1000, 9999)}.jpg`;
+    let originalname: string;
 
-    if (imageData.startsWith("file:///")) {
+    if (imageData instanceof File) {
+      const reader = new FileReader();
+      reader.readAsDataURL(imageData);
+
+      return new Promise<MulterFile>((resolve, reject) => {
+        reader.onload = function (event) {
+          var res = (event.target as any).result;
+          return resolve({
+            src: res,
+            blob: imageData,
+            filename: filename,
+            originalname: imageData.name,
+          });
+        };
+      });
+    }
+    else if (imageData.startsWith("file:///")) {
       dataURI = imageData;
       let directory = imageData.substr(0, imageData.lastIndexOf("/"));
-      filename = imageData.substr(imageData.lastIndexOf("/") + 1);
-      let arrayBuffer = await this.nativeFile.readAsArrayBuffer(directory, filename);
+      originalname = imageData.substr(imageData.lastIndexOf("/") + 1);
+      let arrayBuffer = await this.nativeFile.readAsArrayBuffer(directory, originalname);
       blob = new Blob([arrayBuffer], { type: "image/jpeg" });
+    }
+    else if (imageData.startsWith("data:image")) {
+      dataURI = imageData;
+      blob = this.dataURIToBlob(dataURI);
+      originalname = filename;
     }
     else {
       dataURI = 'data:image/jpeg;base64,' + imageData;
       blob = this.dataURIToBlob(dataURI);
+      originalname = filename;
     }
 
     return {
       src: this.platform.is("ios") ? dataURI.replace(/^file:\/\//, '') : dataURI,
       blob: blob,
       filename: filename,
-      viewSrc: dataURI
+      originalname: originalname,
     };
   }
 

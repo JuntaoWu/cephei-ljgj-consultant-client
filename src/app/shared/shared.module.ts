@@ -8,7 +8,8 @@ import { OrderPaymentStatusPipe } from '../pipes/order-payment-status.pipe';
 import { MatTabsModule, MatStepperModule, MatFormFieldModule, MatSelectModule, MatOptionModule } from '@angular/material';
 import { BacklogTypePipe } from 'app/pipes/backlog-type.pipe';
 import { orderPaymentTypePipe } from 'app/pipes/order-payment-type.pipe';
-import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { ImageBarComponent } from './image-bar/image-bar.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
         OrderPaymentStatusPipe,
         orderPaymentTypePipe,
         BacklogTypePipe,
-        ImageUploaderComponent,
+        ImageUploadComponent,
+        ImageBarComponent,
     ],
     imports: [
         CommonModule,
@@ -31,7 +33,8 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
     ],
     exports: [
         GeolocationBarComponent,
-        ImageUploaderComponent,
+        ImageUploadComponent,
+        ImageBarComponent,
         CommonModule,
         FormsModule,
         IonicModule,

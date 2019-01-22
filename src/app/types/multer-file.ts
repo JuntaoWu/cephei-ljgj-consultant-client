@@ -5,5 +5,6 @@ export class MulterFile {
     public originalname?: string;
     public filename?: string;
     public path?: string;
-    public viewSrc?: string;
+
+    public progress?: number;
 }

@@ -9,7 +9,7 @@ import { MulterFile } from 'app/types/multer-file';
 @Injectable({
   providedIn: 'root'
 })
-export class ImageUploaderService {
+export class ImageUploadService {
 
   constructor(public httpClient: HttpClient) { }
 
@@ -41,7 +41,6 @@ export class ImageUploaderService {
           console.log("HTTPResponse returned.");
           const body = event.body as any;
           if (body && body.code === 0 && body.data) {
-            file.originalname = body.data.originalname;
             file.filename = body.data.filename;
             file.path = body.data.path;
             return EMPTY;

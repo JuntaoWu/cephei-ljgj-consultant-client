@@ -18,9 +18,11 @@ export class Backlog {
 
     public orderDiaryType: BacklogType;
 
-    public orderDiaryContent: string;
+    public orderDiaryContent?: string;
 
     public diaryPicUrls: Array<string>;
+
+    public orderDiaryContentList?: string[];
 
     public createdBy?: string;
 
