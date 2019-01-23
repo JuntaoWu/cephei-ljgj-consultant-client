@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams } from '@ionic/angular';
 import { MainPage } from "../pages";
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
@@ -32,7 +32,6 @@ export class WorkListPage implements OnInit {
     constructor(public navCtrl: NavController,
         public router: Router,
         public navParams: NavParams,
-        public appCtrl: App,
         public api: WorkListService,
         private userService: UserService,
         private toastService: ToastService,

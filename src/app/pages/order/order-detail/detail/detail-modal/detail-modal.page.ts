@@ -13,10 +13,10 @@ export class DetailModalPage implements OnInit {
 
     }
   ngOnInit() {
-    var iosstyle = document.querySelector('.popover-content.sc-ion-popover-ios');
-    iosstyle['style'].width = '80%';
-    iosstyle['left'] = '35px';
-    iosstyle['top'] = '200.275px';
+    // var iosstyle = document.querySelector('.popover-content.sc-ion-popover-ios');
+    // iosstyle['style'].width = '80%';
+    // iosstyle['left'] = '35px';
+    // iosstyle['top'] = '200.275px';
 
     this.orderwork = this.navParams && this.navParams.get('orderWork') || {};
   }

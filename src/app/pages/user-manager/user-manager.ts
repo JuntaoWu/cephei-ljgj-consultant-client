@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { App, NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams } from '@ionic/angular';
 import { MainPage, UserInfoPage } from '../pages';
 import { TaskType } from '../../shared/task-type';
 import { UserService, TaskStore } from '../../services/providers';
@@ -15,8 +15,7 @@ import { UserAreaListPage } from "../pages";
 export class UserManagerPage implements OnInit{
     private tasktype:TaskType = TaskType.Fixing;
     constructor(public navCtrl: NavController, 
-        public navParams: NavParams,
-        public appCtrl: App){
+        public navParams: NavParams){
         this.tasktype = this.navParams.data && this.navParams.data.taskType || TaskType.Fixing;
     }
 

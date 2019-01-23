@@ -48,13 +48,26 @@ export class DetailPage implements OnInit {
     const modal = await this.popoverController.create({
       component: DetailModalPage,
       translucent: true,
+      cssClass: 'popover-form'
     });
     modal.onDidDismiss().then((result: any) => {
+      if (!result || !result.data) {
+        return;
+      }
+
+      if (result.role === 'cancel') {
+        return;
+      }
+
       console.log("serviceContent: " + result.data);
       if (result.data.orderWork) {
-        this.service.createOrderWork(this.orderId, result.data.orderWork).subscribe(res => {
-          this.orderdetail.orderWorkList.push(res);
-        }, error => this.showErrorMessage);
+        this.service.createOrderWork(this.orderId, result.data.orderWork).subscribe(
+          res => {
+            this.orderdetail.orderWorkList.push(res);
+          },
+          error => {
+            this.showErrorMessage(error)
+          });
       }
 
     })
@@ -66,14 +79,27 @@ export class DetailPage implements OnInit {
     const modal = await this.popoverController.create({
       component: DetailModalPage,
       translucent: true,
-      componentProps: { 'orderWork': { ...orderWork } }
+      componentProps: { 'orderWork': { ...orderWork } },
+      cssClass: 'popover-form'
     });
     modal.onDidDismiss().then((result: any) => {
+      if (!result || !result.data) {
+        return;
+      }
+
+      if (result.role === 'cancel') {
+        return;
+      }
+
       console.log("serviceContent: " + result.data.orderWork);
       if (result.data.orderWork) {
-        this.service.updateOrderWork(result.data.orderworkid, result.data.orderWork).subscribe(res => {
-          this.orderdetail.orderWorkList[cardIndex] = res;
-        }, error => this.showErrorMessage);
+        this.service.updateOrderWork(result.data.orderworkid, result.data.orderWork).subscribe(
+          res => {
+            this.orderdetail.orderWorkList[cardIndex] = res;
+          },
+          error => {
+            this.showErrorMessage(error)
+          });
       }
 
     })

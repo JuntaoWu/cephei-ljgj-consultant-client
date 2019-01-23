@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { App, NavController, NavParams, Platform, LoadingController } from '@ionic/angular';
+import { NavController, NavParams, Platform, LoadingController } from '@ionic/angular';
 import { MainPage, UserInfoPage, LoginPage } from '../pages';
 
 import { TaskType } from '../../shared/task-type';
@@ -27,7 +27,6 @@ export class UserCenterPage implements OnInit {
     public areaname:string;
     constructor(public navCtrl: NavController,
         private navParams: NavParams,
-        private appCtrl: App,
         private platform: Platform,
         private userService: UserService,
         private api: UserCenterService,

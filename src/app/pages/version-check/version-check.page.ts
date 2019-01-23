@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { App, AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { TaskType } from '../../shared/task-type';
 import { VersionCheckService } from './version-check.service';
 import { environment } from '../../../environments/environment';
@@ -21,7 +21,6 @@ export class VersionCheckPage implements OnInit {
     
     constructor(private api: VersionCheckService,
         private router: Router,
-        private appCtrl: App,
         private alertCtrl: AlertController,
         private settings: Settings,
         private toastService: ToastService) {

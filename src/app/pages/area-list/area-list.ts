@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams } from '@ionic/angular';
 import { MainPage } from "../pages";
 import { WorkListPage } from "../pages";
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
@@ -10,7 +10,7 @@ import { UserService, ToastService, AreaStore, TaskStore } from '../../services/
 import { TaskType } from '../../shared/task-type';
 import { LoadingController } from '@ionic/angular';
 import { ViewChild } from '@angular/core';
-import { Slides } from '@ionic/angular';
+import { IonSlides as Slides } from '@ionic/angular';
 import { TaskConfig } from '../current-task/task.config';
 import * as moment from 'moment';
 
@@ -35,7 +35,6 @@ export class AreaListPage implements OnInit {
     private taskConfig: any = TaskConfig;
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
-        public appCtrl: App,
         public api: AreaListService,
         private userService: UserService,
         private toastService: ToastService,

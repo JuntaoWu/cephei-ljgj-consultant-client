@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PaymentModalPage } from './payment-modal/payment-modal.page';
 import { PaymentService } from './payment.service';
 import { PaymentTotalModalPage } from './payment-total-modal/payment-total-modal.page';
+import { ToastService } from 'app/services/providers';
 
 
 @Component({
@@ -17,16 +18,20 @@ import { PaymentTotalModalPage } from './payment-total-modal/payment-total-modal
 export class PaymentPage implements OnInit {
   public orderId: string;
   public totalAmount: Number;
-  constructor(public service: PaymentService, public route: ActivatedRoute, public modalController: ModalController) { }
+  constructor(public service: PaymentService, public toastService: ToastService, public route: ActivatedRoute, public modalController: ModalController) { }
   public payment: Payment;
   ngOnInit() {
     this.route.parent.paramMap.subscribe(p => {
       this.orderId = p.get("orderId");
     });
 
-    this.service.get(this.orderId).subscribe(res => {
-      this.payment = res;
-    })
+    this.service.get(this.orderId).subscribe(
+      (res) => {
+        this.payment = res;
+      },
+      (error) => {
+        this.toastService.show(error);
+      });
   }
 
   generateColor(item): string {
@@ -59,6 +64,9 @@ export class PaymentPage implements OnInit {
       componentProps: { 'orderId': this.orderId }
     });
     modal.onDidDismiss().then((result: any) => {
+      if (result.role === 'cancel') {
+        return;
+      }
       this.service.get(this.orderId).subscribe(res => {
         this.payment = res;
       });
@@ -74,6 +82,9 @@ export class PaymentPage implements OnInit {
         componentProps: { 'orderId': this.orderId }
       });
       modal.onDidDismiss().then((result: any) => {
+        if (result.role === 'cancel') {
+          return;
+        }
         this.service.get(this.orderId).subscribe(res => {
           this.payment = res;
         });

@@ -9,10 +9,13 @@ import { MatProgressSpinnerModule } from '@angular/material';
 import { Camera } from '@ionic-native/camera/ngx';
 import { CameraMock } from 'app/mocks/CameraMock';
 import { isPlatform } from '@ionic/core';
+import { environment } from 'environments/environment';
+import { RouteReuseStrategy } from '@angular/router';
+import { IonicRouteStrategy } from '@ionic/angular';
 
 const cameraProvider = {
   provide: Camera,
-  useClass: isPlatform(window, 'cordova') ? Camera : CameraMock
+  useClass: environment.production ? Camera : CameraMock
 };
 
 @NgModule({
@@ -27,6 +30,7 @@ const cameraProvider = {
   providers: [
     httpInterceptorProviders,
     cameraProvider,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ]
 })
 export class CoreModule {

@@ -10,10 +10,10 @@
     <ion-list>
         <ion-item>
             <ion-label>金额</ion-label>
-            <ion-input [(ngModel)]="totalAmount"></ion-input>
+            <ion-input type="number" [(ngModel)]="totalAmount"></ion-input>
         </ion-item>
     </ion-list>
     <div align="center">
-        <ion-button expand="block" fill="outline" (click)="confim()" style="margin-top:20px;width: 50%;">提交</ion-button>
+        <ion-button expand="block" fill="outline" (click)="confirm()" style="margin-top:20px;width: 50%;">提交</ion-button>
     </div>
 </ion-content>

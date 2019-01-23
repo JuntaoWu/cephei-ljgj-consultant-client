@@ -11,14 +11,14 @@ const routes: Routes = [
         path: 'root',
         component: TabsPage,
         children: [
-            { path: 'order', outlet: 'order', loadChildren: "../order/order.module#OrderModule" },
-            { path: 'hero', outlet: 'hero', component: HeroPage },
-            { path: '', redirectTo: '/tabs/root/(order:order)', pathMatch: 'full' }
+            { path: 'order', loadChildren: "../order/order.module#OrderModule" },
+            { path: 'hero', component: HeroPage },
+            { path: '', redirectTo: '/tabs/root/order', pathMatch: 'full' }
         ],
     },
     {
         path: '',
-        redirectTo: '/tabs/root/(order:order)',
+        redirectTo: '/tabs/root/order',
         pathMatch: 'full'
     }
 ];

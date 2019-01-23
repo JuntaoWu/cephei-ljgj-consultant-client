@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, NavController,NavParams, Refresher } from '@ionic/angular';
+import { NavController, NavParams, IonRefresher as Refresher } from '@ionic/angular';
 import { MainPage } from "../pages";
 import { DetailPage } from "../detail/detail";
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
@@ -17,16 +17,15 @@ import { TaskConfig } from '../current-task/task.config';
     templateUrl: 'my-task.html'
 })
 export class MyTaskPage implements OnInit {
-    
-    private taskType:TaskType = TaskType.Fixing;
+
+    private taskType: TaskType = TaskType.Fixing;
 
     private detailPage;
 
     public myworklist: any[];
 
-    constructor(public navCtrl: NavController, 
+    constructor(public navCtrl: NavController,
         public navParams: NavParams,
-        public appCtrl: App,
         public api: MyTaskService,
         private userService: UserService,
         private toastService: ToastService,
@@ -38,7 +37,7 @@ export class MyTaskPage implements OnInit {
         this.taskType = this.navParams.data && this.navParams.data.taskType || TaskType.Fixing;
     }
 
-    async ngOnInit(){
+    async ngOnInit() {
         if (!this.userService.user) {
             console.log("User unauthenticated.");
             return;
@@ -49,15 +48,15 @@ export class MyTaskPage implements OnInit {
         });
 
         loading.present().then(() => {
-            this.api.getMyWorkList(this.userService.phoneNo, this.userService.user.userid,this.taskType.toString()).subscribe((resp: any) => {
-                    console.log("get my current task");
-                    loading.dismiss();
-                    this.toastService.show(resp.msg);
+            this.api.getMyWorkList(this.userService.phoneNo, this.userService.user.userid, this.taskType.toString()).subscribe((resp: any) => {
+                console.log("get my current task");
+                loading.dismiss();
+                this.toastService.show(resp.msg);
 
-                    if (resp.list && resp.list.length) {
-                         this.myworklist = resp.list;
-                    }
-                } ,
+                if (resp.list && resp.list.length) {
+                    this.myworklist = resp.list;
+                }
+            },
                 (error) => {
                     loading.dismiss();
                     this.toastService.show(error && error.message || error || "获取任务单失败");
@@ -66,19 +65,19 @@ export class MyTaskPage implements OnInit {
     }
 
     doRefresh(refresher: Refresher) {
-        this.api.getMyWorkList(this.userService.phoneNo, this.userService.user.userid,this.taskType.toString()).subscribe((resp: any) => {
+        this.api.getMyWorkList(this.userService.phoneNo, this.userService.user.userid, this.taskType.toString()).subscribe((resp: any) => {
             console.log("get my current task");
             this.toastService.show(resp.msg);
 
             if (resp.list && resp.list.length) {
-                 this.myworklist = resp.list;
+                this.myworklist = resp.list;
             }
             refresher.complete();
-        } ,
-        (error) => {
-            this.toastService.show(error && error.message || error || "获取任务单失败");
-            refresher.complete();
-        });
+        },
+            (error) => {
+                this.toastService.show(error && error.message || error || "获取任务单失败");
+                refresher.complete();
+            });
     }
 
     navigateToHome() {
@@ -86,32 +85,32 @@ export class MyTaskPage implements OnInit {
         // this.appCtrl.getRootNavs()[0].setRoot(MainPage);
     }
 
-    navigateToCurrentTask(row){
+    navigateToCurrentTask(row) {
         this.taskStore.setCurrentTask(row);
         throw "not impl";
         // this.navCtrl.parent.select(0);  //change selected workId & select the 1st tab
     }
 
-    isWorkCompleted(row){
+    isWorkCompleted(row) {
         let flag = false;
-        switch(row.ordertype){
+        switch (row.ordertype) {
             case TaskType.Fixing.toString():
-                if(row.process < 7){
+                if (row.process < 7) {
                     flag = true;
                 };
                 break;
             case TaskType.Walking.toString():
-                if(row.process != 3 || row.findcount < row.listcount){
+                if (row.process != 3 || row.findcount < row.listcount) {
                     flag = true;
                 };
                 break;
             case TaskType.Monitoring.toString():
-                if(row.process < 6){
+                if (row.process < 6) {
                     flag = true;
                 };
                 break;
             case TaskType.Switching.toString():
-                if(row.process < 4){
+                if (row.process < 4) {
                     flag = true;
                 }
                 break;

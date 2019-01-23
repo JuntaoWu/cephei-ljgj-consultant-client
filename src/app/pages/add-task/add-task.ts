@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { App, NavController, NavParams, ModalController, AlertController, LoadingController } from '@ionic/angular';
+import { NavController, NavParams, ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { DetailPage } from '../detail/detail';
 import { MainPage, TabsPage } from '../pages';
 import { TaskType } from '../../shared/task-type';
@@ -35,7 +35,6 @@ export class AddTaskPage implements OnInit {
 
     constructor(public navCtrl: NavController,
         public router: Router,
-        public appCtrl: App,
         public navParams: NavParams,
         public modalCtrl: ModalController,
         private userService: UserService,

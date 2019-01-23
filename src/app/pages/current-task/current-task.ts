@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { DetailPage } from '../pages';
 import { MainPage } from '../pages';
 import { OnInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
@@ -46,7 +46,6 @@ export class CurrentTaskPage implements OnInit, OnDestroy {
     protected loading: any;
 
     constructor(public navCtrl: NavController,
-        public appCtrl: App,
         public api: CurrentTaskService,
         protected userService: UserService,
         protected toastService: ToastService,

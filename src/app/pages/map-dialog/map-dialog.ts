@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { App, NavController,NavParams,ModalController  } from '@ionic/angular';
+import { NavController,NavParams,ModalController  } from '@ionic/angular';
 
 import { BaiduMapModule } from 'angular2-baidu-map';
 import { ControlAnchor, MapOptions, NavigationControlOptions, NavigationControlType, Point } from 'angular2-baidu-map';

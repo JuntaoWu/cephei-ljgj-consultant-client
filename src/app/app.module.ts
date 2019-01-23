@@ -25,12 +25,10 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Toast } from '@ionic-native/toast/ngx';
 import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 import { CurrentTaskService } from './pages/current-task/current-task.service';
-import { Animation } from 'angular2-baidu-map';
 import { IonicGestureConfig } from './core/ionic-gesture.config';
 import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BacklogTypePipe } from './pipes/backlog-type.pipe';
 import { CoreModule } from './core/core.module';
 
 // The translate loader needs to know where to load i18n files
@@ -62,13 +60,7 @@ export function provideSettings(storage: Storage) {
                 deps: [HttpClient]
             }
         }),
-        IonicModule.forRoot({
-            backButtonText: '返回',
-            backButtonIcon: 'ios-arrow-back',
-            // modalEnter: 'modal-slide-in',
-            // modalLeave: 'modal-slide-out',
-            tabButtonLayout: 'icon-bottom'
-        }),
+        IonicModule.forRoot(),
         IonicStorageModule.forRoot({
             name: '__vosdb',
             driverOrder: ['sqlite', 'websql', 'indexeddb']
@@ -80,11 +72,11 @@ export function provideSettings(storage: Storage) {
     ],
     bootstrap: [AppComponent],
     providers: [
+        StatusBar,
+        SplashScreen,
         Api,
         UserService,
         TaskStore,
-        StatusBar,
-        SplashScreen,
         {
             provide: Settings,
             useFactory: provideSettings,

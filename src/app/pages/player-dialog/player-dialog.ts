@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { App, NavController, NavParams, ModalController, LoadingController } from '@ionic/angular';
+import { NavController, NavParams, ModalController, LoadingController } from '@ionic/angular';
 
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { Platform } from '@ionic/angular';

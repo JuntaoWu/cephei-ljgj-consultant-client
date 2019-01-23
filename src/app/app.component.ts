@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Config, Platform, Nav, ToastController, AlertController } from '@ionic/angular';
+import { Config, Platform, ToastController, AlertController } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,7 +17,7 @@ import * as VConsole from 'vconsole';
     templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
-    
+
     // vConsole = new VConsole();
 
     private wxOpenId: string;
@@ -25,23 +25,15 @@ export class AppComponent implements OnInit {
     private startUrl: string;
 
     constructor(private translate: TranslateService,
-        private toast: ToastController,
+        private platform: Platform,
+        private statusBar: StatusBar,
+        private splashScreen: SplashScreen,
         private alertController: AlertController,
         private router: Router,
-        private config: Config, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private settings: Settings) {
-        platform.ready().then(() => {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
-            statusBar.styleDefault();
-            splashScreen.hide();
-        });
+        private config: Config, private settings: Settings) {
 
+        this.initializeApp();
         this.initTranslate();
-    }
-
-    isWxBrowser() {
-        const agent = navigator.userAgent.toLowerCase();
-        return /MicroMessenger/i.test(agent);
     }
 
     // Check wxOpenId globally and try authorize user.
@@ -88,7 +80,34 @@ export class AppComponent implements OnInit {
         this.navigateToHome();
     }
 
-    async alertMessage(label: string, message: string) {
+    private initializeApp() {
+        this.platform.ready().then(() => {
+            this.statusBar.styleDefault();
+            this.splashScreen.hide();
+        });
+    }
+
+    private initTranslate() {
+        // Set the default language for translation strings, and the current language.
+        this.translate.setDefaultLang('cn');
+
+        if (this.translate.getBrowserLang() !== undefined) {
+            this.translate.use(this.translate.getBrowserLang());
+        } else {
+            this.translate.use('cn'); // Set your language here
+        }
+
+        this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
+            this.config.set('backButtonText', values.BACK_BUTTON_TEXT);
+        });
+    }
+
+    private isWxBrowser() {
+        const agent = navigator.userAgent.toLowerCase();
+        return /MicroMessenger/i.test(agent);
+    }
+
+    private async alertMessage(label: string, message: string) {
         const alert = await this.alertController.create({
             header: 'Information',
             message: label,
@@ -113,22 +132,7 @@ export class AppComponent implements OnInit {
         await alert.present();
     }
 
-    initTranslate() {
-        // Set the default language for translation strings, and the current language.
-        this.translate.setDefaultLang('cn');
-
-        if (this.translate.getBrowserLang() !== undefined) {
-            this.translate.use(this.translate.getBrowserLang());
-        } else {
-            this.translate.use('cn'); // Set your language here
-        }
-
-        this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
-            this.config.set('backButtonText', values.BACK_BUTTON_TEXT);
-        });
-    }
-
-    navigateToHome() {
+    public navigateToHome() {
         this.router.navigate([this.startUrl]);
     }
 }

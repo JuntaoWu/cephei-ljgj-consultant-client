@@ -72,8 +72,11 @@ export class BacklogPage implements OnInit {
             }
         });
         modal.onDidDismiss()
-            .then((value) => {
-                value.role != 'cancel' && this.postInit();
+            .then((result) => {
+                if (!result || result.role === 'cancel') {
+                    return;
+                }
+                this.postInit();
             })
             .catch((error) => {
                 console.error(error);

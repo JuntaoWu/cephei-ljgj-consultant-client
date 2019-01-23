@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, ModalController, Platform, AlertController, PopoverController, Slides } from '@ionic/angular';
+import { NavController, ModalController, Platform, AlertController, PopoverController, IonSlides as Slides } from '@ionic/angular';
 
 import { OnInit } from '@angular/core';
 import { UserService, ToastService } from '../../services/providers';

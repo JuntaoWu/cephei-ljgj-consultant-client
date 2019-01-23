@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { App, NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams } from '@ionic/angular';
 import { MainPage } from '../pages';
 import { TaskType } from '../../shared/task-type';
 import { UserService, TaskStore, ToastService } from '../../services/providers';
@@ -20,7 +20,6 @@ export class UserListPage implements OnInit{
     private areaName:string;
     constructor(public navCtrl: NavController, 
         public navParams: NavParams,
-        public appCtrl: App,
         public api: UserManagerService,
         private userService: UserService,
         private toastService: ToastService,

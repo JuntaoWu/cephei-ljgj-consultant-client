@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, NavController, NavParams, LoadingController } from '@ionic/angular';
+import { NavController, NavParams, LoadingController } from '@ionic/angular';
 import { TaskType } from '../../shared/task-type';
 import { UserService, ToastService, TaskStore } from '../../services/providers';
 import { OnInit, OnDestroy } from '@angular/core';

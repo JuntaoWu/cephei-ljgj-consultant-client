@@ -6,6 +6,7 @@ import { map, distinct, filter, flatMap, tap, mergeAll, mergeMap } from 'rxjs/op
 import * as _ from 'lodash';
 import { LoadingController } from '@ionic/angular';
 import { OrderService } from '../order.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'order-list',
@@ -32,7 +33,7 @@ export class OrderListPage implements OnInit {
 
     private ionInfiniteEvent: any;
 
-    constructor(private service: OrderService, private loadingCtrl: LoadingController) {
+    constructor(private service: OrderService, private loadingCtrl: LoadingController, private router: Router) {
         console.log('order-list');
     }
 
@@ -96,14 +97,18 @@ export class OrderListPage implements OnInit {
             );
     }
 
-    async changeType(index) {
+    public async changeType(index) {
         console.log("selectedIndex:", this.selectedIndex, index);
         this.changeTypeSubject$.next(index);
     }
 
-    loadMore(event) {
+    public loadMore(event) {
         console.log("loadMore called.");
         this.ionInfiniteEvent = event;
         this.loadMoreSubject$.next(event);
+    }
+
+    public detail(orderNo: string) {
+        this.router.navigateByUrl(`/tabs/root/order/${orderNo}`);
     }
 }

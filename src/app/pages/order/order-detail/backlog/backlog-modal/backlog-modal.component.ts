@@ -40,14 +40,11 @@ export class BacklogModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activeHref = `/tabs/root/(order:order/${this.orderId}/backlog)`;
+    this.activeHref = `/tabs/root/order/${this.orderId}/backlog`;
   }
 
   cancel() {
-    this.modal.dismiss({
-      result: "cancel",
-      role: "cancel",
-    });
+    this.modal.dismiss(null, 'cancel');
   }
 
   ok() {
@@ -61,9 +58,7 @@ export class BacklogModalComponent implements OnInit {
 
     this.service.create(this.orderId, dataToPost).subscribe(
       (res) => {
-        this.modal.dismiss({
-          result: "ok"
-        });
+        this.modal.dismiss(res);
       },
       (err) => {
         this.toastService.show(err);

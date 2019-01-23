@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, App } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { UserService, ToastService, AreaStore, Settings } from '../../services/providers';
 import { LoadingController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
@@ -33,7 +33,6 @@ export class LoginPage implements OnInit {
         private userService: UserService,
         private loadingCtrl: LoadingController,
         private area: AreaStore,
-        public appCtrl: App,
         private settings: Settings,
         private toastService: ToastService) {
 
