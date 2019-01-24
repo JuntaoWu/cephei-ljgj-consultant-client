@@ -8,6 +8,9 @@
   <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedIndexChange)="changeType($event)" animationDuration="0ms">
     <mat-tab *ngFor="let tab of tabs; let tabIndex = index" [label]="tab">
       <ng-template matTabContent>
+          <ion-refresher slot="relative" (ionRefresh)="doRefresh($event)">
+              <ion-refresher-content></ion-refresher-content>
+            </ion-refresher>
         <ion-card *ngFor="let item of orderItems$ | async; let orderIndex = index" (click)="detail(item.orderNo)">
           <ion-item>
             <ion-label style="font-weight: bold;">{{item.orderName}}</ion-label>

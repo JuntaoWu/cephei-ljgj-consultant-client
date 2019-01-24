@@ -20,6 +20,7 @@ export class OrderListPage implements OnInit {
 
     private loadMoreSubject$: BehaviorSubject<any> = new BehaviorSubject<any>(0);
     private changeTypeSubject$: BehaviorSubject<any> = new BehaviorSubject(0);
+    private refreshSubject$: BehaviorSubject<any> = new BehaviorSubject(1);
 
     private pageByChangeType$: Observable<number>;
     private pageByLoadMore$: Observable<number>;
@@ -35,6 +36,16 @@ export class OrderListPage implements OnInit {
 
     constructor(private service: OrderService, private loadingCtrl: LoadingController, private router: Router) {
         console.log('order-list');
+    }
+
+    doRefresh($event) {
+        this.cacheByStatus[this.selectedIndex] = [];
+        this.currentPageByStatus[this.selectedIndex] = 1;
+        this.refreshSubject$.next(1);
+        setTimeout(() => {
+            console.log('Async operation has ended');
+            $event.target.complete();
+        }, 1000);
     }
 
     ngOnInit() {
@@ -63,7 +74,7 @@ export class OrderListPage implements OnInit {
             })
         );
 
-        this.pageToLoad$ = merge(this.pageByChangeType$, this.pageByLoadMore$).pipe(
+        this.pageToLoad$ = merge(this.pageByChangeType$, this.pageByLoadMore$, this.refreshSubject$).pipe(
             distinct(),
             // filter(page => !this.cacheByStatus[this.selectedIndex] || !this.cacheByStatus[this.selectedIndex][page - 1])
         );
