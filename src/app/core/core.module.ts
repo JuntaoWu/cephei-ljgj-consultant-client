@@ -12,6 +12,7 @@ import { isPlatform } from '@ionic/core';
 import { environment } from 'environments/environment';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicRouteStrategy } from '@ionic/angular';
+import { HttpClientModule } from '@angular/common/http';
 
 const cameraProvider = {
   provide: Camera,
@@ -22,6 +23,7 @@ const cameraProvider = {
   declarations: [SpinnerComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     MatProgressSpinnerModule,
   ],
   exports: [

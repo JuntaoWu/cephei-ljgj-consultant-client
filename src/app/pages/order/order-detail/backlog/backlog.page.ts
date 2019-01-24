@@ -57,7 +57,7 @@ export class BacklogPage implements OnInit {
                         orderDiaryContentList: backlogs.map(i => i.orderDiaryContent),
                         createdAt: _.min(backlogs.map(i => i.createdAt)),
                         updatedAt: _.max(backlogs.map(i => i.updatedAt)),
-                        diaryPicUrls: _(backlogs).flatMap(i => i.diaryPicUrls.map(p => (p && p.startsWith('http')) ? p : (environment.host + p))).value()
+                        diaryPicUrls: _(backlogs).flatMap(i => (i.diaryPicUrls || []).map(p => (p && p.startsWith('http')) ? p : (environment.host + p))).value()
                     };
                 }).value();
             })

@@ -1,5 +1,5 @@
 <ul class="horizontal" *ngIf="readonly === undefined || (images && images.length)">
-  <li *ngFor="let url of images">
+  <li *ngFor="let url of normalizedImages">
     <ion-img [src]="url" (click)="showImage(url)"></ion-img>
   </li>
   <li *ngIf="uploading">

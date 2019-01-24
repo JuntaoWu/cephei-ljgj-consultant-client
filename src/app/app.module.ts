@@ -48,11 +48,13 @@ export function provideSettings(storage: Storage) {
 }
 
 @NgModule({
+    declarations: [AppComponent],
+    entryComponents: [],
     imports: [
         BrowserModule,
+        IonicModule.forRoot(),
         CoreModule,
         BrowserAnimationsModule,
-        HttpClientModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -60,17 +62,12 @@ export function provideSettings(storage: Storage) {
                 deps: [HttpClient]
             }
         }),
-        IonicModule.forRoot(),
         IonicStorageModule.forRoot({
-            name: '__vosdb',
+            name: '__ljgjdb',
             driverOrder: ['sqlite', 'websql', 'indexeddb']
         }),
         AppRoutingModule,
     ],
-    declarations: [
-        AppComponent,
-    ],
-    bootstrap: [AppComponent],
     providers: [
         StatusBar,
         SplashScreen,
@@ -100,6 +97,7 @@ export function provideSettings(storage: Storage) {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: IonicGestureConfig
         }
-    ]
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

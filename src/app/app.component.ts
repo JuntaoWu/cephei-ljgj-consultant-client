@@ -18,7 +18,7 @@ import * as VConsole from 'vconsole';
 })
 export class AppComponent implements OnInit {
 
-    // vConsole = new VConsole();
+    vConsole = new VConsole();
 
     private wxOpenId: string;
     private phone: string;

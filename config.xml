@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="fun.cepheus.ljgj.consultant" version="0.3.12" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="fun.cepheus.ljgj.consultant" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>邻家工匠作业</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="wujuntaocn@outlook.com" href="http://github.com/JuntaoWu">Cepheus Team</author>
     <content src="index.html" />
     <access minimum-tls-version="TLSv1.1" origin="https://cordova.apache.org" requires-certificate-transparency="true" requires-forward-secrecy="false" />
     <access allows-arbitrary-loads-for-media="true" allows-arbitrary-loads-in-web-content="true" allows-local-networking="true" origin="*" />
+    <access origin="*" />
     <allow-navigation href="*" />
     <allow-navigation href="http://*/*" />
     <allow-navigation href="https://*/*" />
@@ -17,7 +18,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="ScrollEnabled" value="false" />
-    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-minSdkVersion" value="23" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
@@ -89,14 +90,9 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^3.1.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="need camera access to take pictures" />
     </plugin>
-    <plugin name="com.synconset.imagepicker" spec="^2.1.10">
-        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="To pick images" />
-    </plugin>
-    <plugin name="com-sarriaroman-photoviewer" spec="^1.2.0" />
     <plugin name="cordova-plugin-actionsheet" spec="^2.3.3" />
     <plugin name="cordova-plugin-advanced-http" spec="^2.0.4" />
     <plugin name="cordova-sqlite-storage" spec="^2.6.0" />
@@ -111,12 +107,14 @@
     </plugin>
     <plugin name="cordova-plugin-add-swift-support" spec="^1.7.2" />
     <plugin name="cordova-plugin-file" spec="6.0.1" />
-    <plugin name="hewz.plugins.baidu-location" spec="git+https://github.com/JuntaoWu/cordova-baidu-location.git">
-        <variable name="API_KEY" value="mUvTeKmqDcdazcuVNZQ1QZivMEV3OqrN" />
-    </plugin>
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-telerik-imagepicker" spec="2.2.3" />
+    <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
+    <plugin name="com-sarriaroman-photoviewer" spec="1.2.0" />
     <engine name="browser" spec="5.0.4" />
     <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="7.1.4" />
 </widget>

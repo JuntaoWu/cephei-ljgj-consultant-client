@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, Sanitizer, SecurityCont
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { MulterFile } from 'app/types/multer-file';
 import { DomSanitizer, SafeStyle, SafeUrl } from '@angular/platform-browser';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-image-bar',
@@ -12,9 +13,11 @@ export class ImageBarComponent implements OnInit {
 
   @Input() readonly;
   @Input() uploadUrl: string;
-  @Input() images: string[];
+  @Input() images: string[] = [];
 
   @Output() imagesChange: EventEmitter<string[]> = new EventEmitter<string[]>();
+
+  public normalizedImages: string[] = [];
 
   public uploading = false;
   public uploadingImage: SafeUrl;
@@ -24,6 +27,9 @@ export class ImageBarComponent implements OnInit {
   constructor(private photoViewer: PhotoViewer, private sanitization: DomSanitizer) { }
 
   ngOnInit() {
+    this.normalizedImages = (this.images || []).map(url => {
+      return url.startsWith('http') ? url : environment.host + url;
+    });
   }
 
   public uploadProgress($event: MulterFile) {
@@ -50,7 +56,11 @@ export class ImageBarComponent implements OnInit {
   public uploadComplete($event) {
     console.log($event);
     this.uploading = false;
+    this.images = this.images || [];
     this.images.push($event);
+    this.normalizedImages = this.images.map(url => {
+      return url.startsWith('http') ? url : environment.host + url;
+    });
     this.imagesChange && this.imagesChange.emit(this.images);
   }
 

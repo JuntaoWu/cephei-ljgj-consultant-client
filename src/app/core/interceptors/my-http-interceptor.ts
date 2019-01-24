@@ -2,10 +2,12 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable, throwError, ReplaySubject } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
+import { ToastService } from 'app/services/providers';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class MyHttpInterceptor implements HttpInterceptor {
-    constructor() {
+    constructor(private toastService: ToastService) {
         console.log("MyHttpInterceptor constructor.");
     }
 
@@ -23,9 +25,14 @@ export class MyHttpInterceptor implements HttpInterceptor {
         return next.handle(authReq).pipe(
             catchError((error, caught) => {
                 //intercept the response error and displace it to the console
-                console.log("Error Occurred");
-                console.log(error);
+                console.error("Error Occurred", error);
                 //return the error to the method that called it
+                if(!environment.production) {
+                    this.toastService.show(error.message || error);
+                }
+                else {
+                    this.toastService.show(`${error.status || error.statusText} - 数据加载失败`);
+                }
                 return throwError(error);
             })
         );

@@ -5,6 +5,7 @@ import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { HttpRequest, HttpClient, HttpEventType, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { switchMap, flatMap, map, tap } from 'rxjs/operators';
 import { MulterFile } from 'app/types/multer-file';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ImageUploadService {
     let form = new FormData();
     form.append("timestamp", Date.now().toString());
     form.append("file", file.blob, file.filename);
-    const req = new HttpRequest('POST', url,
+    const req = new HttpRequest('POST', url.startsWith('http') ? url : environment.host + url,
       form,
       {
         reportProgress: true,
