@@ -20,10 +20,12 @@ export class OrderListPage implements OnInit {
 
     private loadMoreSubject$: BehaviorSubject<any> = new BehaviorSubject<any>(0);
     private changeTypeSubject$: BehaviorSubject<any> = new BehaviorSubject(0);
-    private refreshSubject$: BehaviorSubject<any> = new BehaviorSubject(1);
+    private refreshSubject$: BehaviorSubject<any> = new BehaviorSubject(0);
 
     private pageByChangeType$: Observable<number>;
     private pageByLoadMore$: Observable<number>;
+    private pageByRefresh$: Observable<number>;
+
     private pageToLoad$: Observable<any>;
 
     private itemsPerPage: number = 10;
@@ -39,8 +41,12 @@ export class OrderListPage implements OnInit {
     }
 
     doRefresh($event) {
+        // clear current cached data.
+        this.refreshSubject$.next(0);
         this.cacheByStatus[this.selectedIndex] = [];
         this.currentPageByStatus[this.selectedIndex] = 1;
+
+        // now doRefresh:
         this.refreshSubject$.next(1);
         setTimeout(() => {
             console.log('Async operation has ended');
@@ -56,6 +62,7 @@ export class OrderListPage implements OnInit {
 
         this.pageByChangeType$ = this.changeTypeSubject$.pipe(
             map((status) => {
+                console.log("pageByChangeType$", this.currentPageByStatus[status]);
                 return Math.ceil(this.currentPageByStatus[status]);
             })
         );
@@ -70,17 +77,27 @@ export class OrderListPage implements OnInit {
                 return shouldLoadMore;
             }),
             map((event) => {
+                console.log("pageByLoadMore$", this.currentPageByStatus[this.selectedIndex] + 1);
                 return Math.ceil(this.currentPageByStatus[this.selectedIndex] + 1);
             })
         );
 
-        this.pageToLoad$ = merge(this.pageByChangeType$, this.pageByLoadMore$, this.refreshSubject$).pipe(
+        this.pageByRefresh$ = this.refreshSubject$.pipe(
             distinct(),
-            // filter(page => !this.cacheByStatus[this.selectedIndex] || !this.cacheByStatus[this.selectedIndex][page - 1])
+            map((event) => {
+                console.log("pageByRefresh$", event);
+                return Math.ceil(this.currentPageByStatus[this.selectedIndex]);
+            })
         );
+
+        this.pageToLoad$ = merge(merge(this.pageByChangeType$, this.pageByLoadMore$).pipe(distinct()), this.pageByRefresh$);
 
         this.orderItems$ = this.pageToLoad$
             .pipe(
+                filter((page: number) => {
+                    console.log("filter", page);
+                    return page > 0;
+                }),
                 mergeMap((page: number) => {
                     if (!this.cacheByStatus[this.selectedIndex] || !this.cacheByStatus[this.selectedIndex][page - 1]) {
                         // get my orderItems via service.
