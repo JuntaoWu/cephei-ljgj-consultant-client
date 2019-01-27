@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Payment } from './payment.model';
 import { OrderPaymentType } from '../../../../types/order-payment-type.enum';
 import { OrderPaymentStatus } from '../../../../types/order-payment-status.enum';
-import { PopoverController, ModalController } from '@ionic/angular';
+import { PopoverController, ModalController, ToastController, IonList } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentModalPage } from './payment-modal/payment-modal.page';
 import { PaymentService } from './payment.service';
@@ -18,8 +18,14 @@ import { ToastService } from 'app/services/providers';
 export class PaymentPage implements OnInit {
   public orderId: string;
   public totalAmount: Number;
-  constructor(public service: PaymentService, public toastService: ToastService, public route: ActivatedRoute, public modalController: ModalController) { }
+  constructor(public service: PaymentService, 
+              public toastService: ToastService, 
+              public route: ActivatedRoute, 
+              public modalController: ModalController,
+              public toastController: ToastController) { }
   public payment: Payment;
+  @ViewChild(IonList) list: IonList;
+
   ngOnInit() {
     this.route.parent.paramMap.subscribe(p => {
       this.orderId = p.get("orderId");
@@ -102,6 +108,37 @@ export class PaymentPage implements OnInit {
     } else {
       false;
     }
+  }
+
+  testA(){
+    console.log('Test A');
+  }
+
+  Obsolete(fundItemId){
+    this.service.updateFundItemStatus(fundItemId).subscribe(
+      res => {
+       this.toastService.show("作废预付款成功");
+       this.list.closeSlidingItems();
+       this.service.get(this.orderId).subscribe(
+        (res) => {
+          this.payment = res;
+        },
+        (error) => {
+          this.toastService.show(error);
+        });
+      },
+      error => {
+        this.showErrorMessage(error)
+      });
+  }
+
+  showErrorMessage(error) {
+    this.toastController.create({
+      message: error,
+      duration: 1500
+    }).then(totaset => {
+      totaset.present();
+    })
   }
 
 }

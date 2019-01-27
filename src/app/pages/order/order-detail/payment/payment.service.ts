@@ -78,5 +78,28 @@ export class PaymentService{
                 return throwError("新增预付款失败");
             })
         );
-    } 
+    }
+    
+    updateFundItemStatus(fundItemId){
+        return this.api.post(`order/revokeOrderFundItem`, { fundItemId:fundItemId}).pipe(
+            map(res => {
+                console.log(res.message);
+                if (res.code !== 0) {
+                    console.error(res.message);
+                    throw new Error(res.message);
+                }
+
+                if (!res.data) {
+                    console.error("Invalid data response.");
+                    throw new Error("Invalid data response.");
+                }
+
+                return res.data;
+            }),
+            catchError((err) => {
+                console.error(err);
+                return throwError("预付款作废失败");
+            })
+        );
+    }
 }

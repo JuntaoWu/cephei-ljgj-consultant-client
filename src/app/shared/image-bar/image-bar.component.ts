@@ -33,7 +33,7 @@ export class ImageBarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: { [propName: string]: SimpleChange }) {
-    if(changes["images"].currentValue !== changes["images"].previousValue) {
+    if (changes["images"].currentValue !== changes["images"].previousValue) {
       this.normalizedImages = (this.images || []).map(url => {
         return url.startsWith('http') ? url : environment.host + url;
       });

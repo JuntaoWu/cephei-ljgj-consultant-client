@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { DetailModalPage } from './detail-modal/detail-modal.page';
 import { OrderDetailService } from './detail.service';
 import { OrderDetail } from './detail.model';
+import { ToastService } from 'app/services/providers';
 
 @Component({
   selector: 'app-detail',
@@ -22,7 +23,11 @@ export class DetailPage implements OnInit {
   public orderdetail: OrderDetail;
   public servicecontents: string[] = [];
 
-  constructor(public popoverController: PopoverController, public route: ActivatedRoute, public service: OrderDetailService, public toastController: ToastController) {
+  public uploadUrl: string = "/api/upload/backlog";
+
+  public images: any[] = [];
+
+  constructor(public popoverController: PopoverController, public route: ActivatedRoute, public service: OrderDetailService, public toastController: ToastController,public toastService:ToastService) {
 
     /*this.orderId$ = route.parent.paramMap.pipe(map(p => {
       return p.get("orderId");
@@ -39,6 +44,7 @@ export class DetailPage implements OnInit {
     this.service.get(this.orderId).subscribe(res => {
       console.log("res: " + JSON.stringify(res));
       this.orderdetail = res;
+      this.images = this.orderdetail.orderContract;
       console.log(this.orderdetail.orderWorkList)
     })
 
@@ -113,6 +119,19 @@ export class DetailPage implements OnInit {
     }).then(totaset => {
       totaset.present();
     })
+  }
+
+  public imagesChange($event) {
+    //console.log($event);
+    //console.log(this.images && this.images.length);
+    this.service.uploadcontacts(this.orderId,this.images).subscribe(
+      res => {
+       this.toastService.show("上传合同成功");
+      },
+      error => {
+        this.showErrorMessage(error)
+      });
+    
   }
 
 }
