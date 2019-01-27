@@ -13,7 +13,7 @@
         </ion-label>
     </ion-item>
     <ion-item-sliding *ngFor="let item of payment?.fundItems" class="content" detail="false">
-        <ion-item (click)="testA()">
+        <ion-item (click)="showQurcode(item)">
             <ion-label style="text-align:left">{{item.fundItemType | orderPaymentType}} <span [ngClass]="generateColor(item)">
                     {{item.fundItemStatus | orderPaymentStatus }}</span> </ion-label>
             <ion-label slot="end" style="text-align:right">{{item.fundItemAmount | currency: 'CNY' :'symbol-narrow' }}</ion-label>

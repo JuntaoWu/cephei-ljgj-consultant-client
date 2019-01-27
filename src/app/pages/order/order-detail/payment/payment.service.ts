@@ -102,4 +102,27 @@ export class PaymentService{
             })
         );
     }
+
+    getQrcodeImage(fundItemId){
+        return this.api.post(`order/createUnifiedOrder`, { fundItemId:fundItemId}).pipe(
+            map(res => {
+                console.log(res.message);
+                if (res.code !== 0) {
+                    console.error(res.message);
+                    throw new Error(res.message);
+                }
+
+                if (!res.data) {
+                    console.error("Invalid data response.");
+                    throw new Error("Invalid data response.");
+                }
+
+                return res.data;
+            }),
+            catchError((err) => {
+                console.error(err);
+                return throwError("获取二位码失败");
+            })
+        );
+    }
 }
