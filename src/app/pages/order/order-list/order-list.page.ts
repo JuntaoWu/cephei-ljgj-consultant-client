@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { OrderItem } from '../order.item';
 import { OrderItems } from './moke-order-items';
 import { Observable, fromEvent, Subject, merge, BehaviorSubject, of } from 'rxjs';
-import { map, distinct, filter, flatMap, tap, mergeAll, mergeMap } from 'rxjs/operators';
+import { map, distinctUntilChanged, filter, flatMap, tap, mergeAll, mergeMap, distinct } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { LoadingController } from '@ionic/angular';
 import { OrderService } from '../order.service';
@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
     selector: 'order-list',
     templateUrl: './order-list.page.html',
     styleUrls: ['./order-list.page.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderListPage implements OnInit {
 
@@ -64,11 +65,12 @@ export class OrderListPage implements OnInit {
             map((status) => {
                 console.log("pageByChangeType$", this.currentPageByStatus[status]);
                 return Math.ceil(this.currentPageByStatus[status]);
-            })
+            }),
+            distinct()
         );
 
         this.pageByLoadMore$ = this.loadMoreSubject$.pipe(
-            distinct(),
+            distinctUntilChanged(),
             filter((event) => {
                 const shouldLoadMore = this.currentPageByStatus[this.selectedIndex] * this.itemsPerPage < this.totalItemsByStatus[this.selectedIndex];
                 if (!shouldLoadMore) {
@@ -83,14 +85,13 @@ export class OrderListPage implements OnInit {
         );
 
         this.pageByRefresh$ = this.refreshSubject$.pipe(
-            distinct(),
             map((event) => {
                 console.log("pageByRefresh$", event);
-                return Math.ceil(this.currentPageByStatus[this.selectedIndex]);
+                return Math.ceil(event);
             })
         );
 
-        this.pageToLoad$ = merge(merge(this.pageByChangeType$, this.pageByLoadMore$).pipe(distinct()), this.pageByRefresh$);
+        this.pageToLoad$ = merge(this.pageByChangeType$, this.pageByLoadMore$, this.pageByRefresh$).pipe(distinctUntilChanged());
 
         this.orderItems$ = this.pageToLoad$
             .pipe(
@@ -119,7 +120,7 @@ export class OrderListPage implements OnInit {
                 // eventually, just return a stream that contains the cache
                 map(() => {
                     console.log("eventually");
-                    this.ionInfiniteEvent && this.ionInfiniteEvent.target && this.ionInfiniteEvent.target.complete();
+                    this.ionInfiniteEvent && this.ionInfiniteEvent.target && this.ionInfiniteEvent.target && this.ionInfiniteEvent.target.complete();
                     return _.flatMap(this.cacheByStatus[this.selectedIndex]);
                 })
             );
