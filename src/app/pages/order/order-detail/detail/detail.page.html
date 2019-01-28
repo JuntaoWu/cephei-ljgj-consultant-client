@@ -16,15 +16,17 @@
     <p>
       <ion-label>订单金额:{{orderdetail?.orderAmountInfo?.orderAmount}} {{orderdetail?.orderAmountInfo?.paymentStatus | orderPaymentStatus}}</ion-label>
     </p>
-    <p>
-      <ion-button size="default">合同
-        <ion-icon name="add-circle-outline"></ion-icon>
-      </ion-button>
-    </p>
   </ion-card-content>
 </ion-card>
 
-<div style="margin-top:10px">合同照片</div>
+<ion-card  style="margin:0px; margin-top: 10px">
+  <ion-item>
+    <ion-label style="font-weight: bold;">上传合同照片</ion-label>
+  </ion-item>
+  <ion-card-content>
+    <app-image-bar name="images" [(images)]="images" [uploadUrl]="uploadUrl" (imagesChange)="imagesChange($event)"></app-image-bar>
+  </ion-card-content>
+</ion-card>
 <ion-card style="margin:0px; margin-top: 10px" *ngFor="let item of orderdetail?.orderWorkList let cardIndex = index">
   <ion-card-header style="padding: 10px;background-color: #d0c9c9d1;">
     <ion-card-title style="text-align: center;font-size: 18px;font-weight: 100;">
