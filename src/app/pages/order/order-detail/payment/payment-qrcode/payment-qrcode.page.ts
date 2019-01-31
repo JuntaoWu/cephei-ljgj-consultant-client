@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { FundItem } from '../payment.model';
 import { PaymentService } from '../payment.service';
+import { environment } from 'environments/environment';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class PaymentQurcodePage implements OnInit {
         this.service.getQrcodeImage(this.fundItemId).subscribe(res=>{
             //console.log('res:' + res);
             let token = localStorage.getItem("token")
-            this.imageurl = `/api/order/getQRCode/?code_url=${encodeURIComponent(res)}&token=${token}`;
+            this.imageurl = `${environment.host}/api/order/getQRCode/?code_url=${encodeURIComponent(res)}&token=${token}`;
         },
         error => {
           this.showErrorMessage(error)
