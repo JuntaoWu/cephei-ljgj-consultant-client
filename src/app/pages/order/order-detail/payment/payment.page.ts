@@ -25,6 +25,7 @@ export class PaymentPage implements OnInit {
     public modalController: ModalController,
     public toastController: ToastController) { }
   public payment: Payment;
+  public OrderPaymentStatus = OrderPaymentStatus;
   @ViewChild(IonList) list: IonList;
 
   ngOnInit() {

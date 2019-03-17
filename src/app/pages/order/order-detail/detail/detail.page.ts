@@ -9,6 +9,9 @@ import { DetailModalPage } from './detail-modal/detail-modal.page';
 import { OrderDetailService } from './detail.service';
 import { OrderDetail } from './detail.model';
 import { ToastService } from 'app/services/providers';
+import { orderPaymentTypePipe } from 'app/pipes/order-payment-type.pipe';
+import { OrderPaymentStatus } from 'app/types/order-payment-status.enum';
+import { OrderStatus } from 'app/types/order-status.enum';
 
 @Component({
   selector: 'app-detail',
@@ -99,7 +102,7 @@ export class DetailPage implements OnInit {
 
       console.log("serviceContent: " + result.data.orderWork);
       if (result.data.orderWork) {
-        this.service.updateOrderWork(result.data.orderworkid, result.data.orderWork).subscribe(
+        this.service.updateOrderWork(result.data.orderWorkid, result.data.orderWork).subscribe(
           res => {
             this.orderdetail.orderWorkList[cardIndex] = res;
           },
@@ -134,4 +137,11 @@ export class DetailPage implements OnInit {
     
   }
 
+  public paymentColor(){
+    return this.orderdetail && this.orderdetail.orderAmountInfo.paymentStatus == OrderPaymentStatus.Initializing ? 'red': 'green'
+  }
+
+  public isControlReadOnly(){
+    return this.orderdetail && this.orderdetail.orderBaseInfo.orderStatus == OrderStatus.Completed || this.orderdetail && this.orderdetail.orderBaseInfo.orderStatus == OrderStatus.Canceled ? true : undefined
+  }
 }

@@ -4,7 +4,7 @@
 
 /** Ionic CSS Variables **/
 :root {
-  --ion-color-primary: #df2719;
+  --ion-color-primary: #ee3923;
   --ion-color-primary-rgb: 223,39,25;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255,255,255;
@@ -70,4 +70,9 @@
   ion-button {
     --border-radius: 0;
   }
+
+  .action-sheet-button{
+    border-bottom: 1px solid #c8c7cc
+  }
+
 }

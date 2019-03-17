@@ -10,7 +10,7 @@ export class orderPaymentTypePipe implements PipeTransform {
         let result = "";
         switch (+value) {
             case OrderPaymentType.ConstructionCost:
-                result = "施工费";
+                result = "预付款";
                 break;
             case OrderPaymentType.MaterialCost:
                 result = "材料费";

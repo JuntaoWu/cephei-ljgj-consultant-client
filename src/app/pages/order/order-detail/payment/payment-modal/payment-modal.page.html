@@ -12,14 +12,14 @@
             <ion-label>款项类别</ion-label>
 
             <ion-select name="backlogType" placeholder="请选择" [(ngModel)]="payitem.fundItemType" interface="action-sheet"
-                required>
+                required cancelText="取消">
                 <ion-select-option *ngFor="let type of orderpaymenttypes" [value]="type">{{type | orderPaymentType}}</ion-select-option>
             </ion-select>
 
         </ion-item>
         <ion-item>
             <ion-label>金额</ion-label>
-            <ion-input [(ngModel)]="payitem.fundItemAmount"></ion-input>
+            <ion-input type="number" [(ngModel)]="payitem.fundItemAmount"></ion-input>
         </ion-item>
     </ion-list>
     <div align="center">

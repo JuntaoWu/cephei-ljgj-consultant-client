@@ -14,9 +14,19 @@
     </ion-item>
     <ion-item-sliding *ngFor="let item of payment?.fundItems" class="content" detail="false">
         <ion-item (click)="showQurcode(item)">
-            <ion-label style="text-align:left">{{item.fundItemType | orderPaymentType}} <span [ngClass]="generateColor(item)">
-                    {{item.fundItemStatus | orderPaymentStatus }}</span> </ion-label>
+            <!-- <ion-label style="text-align:left">
+                <span>{{item.fundItemType | orderPaymentType}}</span>
+                <span [ngClass]="generateColor(item)">
+                    ({{item.fundItemStatus | orderPaymentStatus }}) 
+                 
+                </span>
+            </ion-label> -->
+            <span>{{item.fundItemType | orderPaymentType}}</span>
+            <ion-icon *ngIf="item.fundItemStatus == OrderPaymentStatus.Waiting" name="alert" style="vertical-align:middle;margin-left: 5px; color: orange;"></ion-icon>
+            <ion-icon *ngIf="item.fundItemStatus == OrderPaymentStatus.Completed" name="checkmark-circle" style="vertical-align:middle;margin-left: 5px; color: green;"></ion-icon>
             <ion-label slot="end" style="text-align:right">{{item.fundItemAmount | currency: 'CNY' :'symbol-narrow' }}</ion-label>
+            <ion-icon *ngIf="item.fundItemStatus == OrderPaymentStatus.Waiting" name="arrow-forward" slot="end" style="color:#c8c7cc;margin-right: 0px"></ion-icon>
+            <ion-icon *ngIf="item.fundItemStatus != OrderPaymentStatus.Waiting" slot="end" style="margin-right:0px"></ion-icon>
         </ion-item>
         <ion-item-options side="end" *ngIf="item.fundItemStatus == 2">
             <ion-item-option (click)="Obsolete(item.fundItemId)">作废</ion-item-option>
