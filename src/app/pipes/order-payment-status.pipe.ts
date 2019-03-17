@@ -10,13 +10,13 @@ export class OrderPaymentStatusPipe implements PipeTransform {
         let result = "";
         switch (+value) {
             case OrderPaymentStatus.Initializing:
-                result = "审核中";
+                result = "未设置";
                 break;
             case OrderPaymentStatus.Waiting:
-                result = "待付款";
+                result = "未支付";
                 break;
             case OrderPaymentStatus.Completed:
-                result = "已完成";
+                result = "已支付";
                 break;
             case OrderPaymentStatus.Closed:
                 result = "已关闭";

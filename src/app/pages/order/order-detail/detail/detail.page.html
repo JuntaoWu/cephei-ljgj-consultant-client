@@ -1,7 +1,7 @@
 <ion-card style="margin:0px; margin-top: 10px">
   <ion-item>
-    <ion-label style="font-weight: bold;">{{orderdetail?.orderBaseInfo?.orderContent}}</ion-label>
-    <ion-label class="order-status" color="danger">状态: {{orderdetail?.orderBaseInfo?.orderStatus | orderStatus}}</ion-label>
+    <ion-label style="font-weight: bold;">{{orderdetail?.orderBaseInfo?.contactsUserName}}({{(orderdetail?.orderBaseInfo?.phoneNo)}})</ion-label>
+    <ion-label class="order-status" color="danger" style="max-width:60px">{{orderdetail?.orderBaseInfo?.orderStatus | orderStatus}}</ion-label>
   </ion-item>
   <ion-card-content>
     <p>
@@ -14,7 +14,8 @@
       <ion-label>订单地址: {{orderdetail?.orderBaseInfo?.orderAddress}}</ion-label>
     </p>
     <p>
-      <ion-label>订单金额:{{orderdetail?.orderAmountInfo?.orderAmount}} {{orderdetail?.orderAmountInfo?.paymentStatus | orderPaymentStatus}}</ion-label>
+      <ion-label>订单金额:
+        <span style="color:#ee3923">{{orderdetail?.orderAmountInfo?.orderAmount}}</span>(<span [style.color]="paymentColor()">{{orderdetail?.orderAmountInfo?.paymentStatus | orderPaymentStatus}})</span> </ion-label>
     </p>
   </ion-card-content>
 </ion-card>
@@ -24,7 +25,7 @@
     <ion-label style="font-weight: bold;">上传合同照片</ion-label>
   </ion-item>
   <ion-card-content>
-    <app-image-bar name="images" [(images)]="images" [uploadUrl]="uploadUrl" (imagesChange)="imagesChange($event)"></app-image-bar>
+    <app-image-bar [readonly]="isControlReadOnly()" name="images" [(images)]="images" [uploadUrl]="uploadUrl" (imagesChange)="imagesChange($event)"></app-image-bar>
   </ion-card-content>
 </ion-card>
 <ion-card style="margin:0px; margin-top: 10px" *ngFor="let item of orderdetail?.orderWorkList let cardIndex = index">
@@ -42,6 +43,6 @@
     </ion-item>
   </ion-card-content>
 </ion-card>
-<ion-button size="default" (click)="presentCreatePrompt()" style="margin-top:10px">添加订单内容
+<ion-button size="default" [disabled]="isControlReadOnly()" (click)="presentCreatePrompt()" style="margin-top:10px">添加订单内容
   <ion-icon name="add-circle-outline"></ion-icon>
 </ion-button>
