@@ -16,5 +16,11 @@
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
+    },
+    "/consultant/*": {
+        "target": "http://localhost:8101",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
     }
 }

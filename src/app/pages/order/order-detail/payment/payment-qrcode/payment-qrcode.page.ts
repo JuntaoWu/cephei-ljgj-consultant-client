@@ -15,6 +15,9 @@ export class PaymentQurcodePage implements OnInit {
     // "values" passed in componentProps
     @Input() orderId: string;
     @Input() fundItemId:string;
+    @Input() fundItemAmount: number;
+    
+    public amount: string;
     
     public imageurl: string;
     public activeHref: string;
@@ -22,6 +25,7 @@ export class PaymentQurcodePage implements OnInit {
 
     }
     ngOnInit() {
+        this.amount = (+this.fundItemAmount).toFixed(2);
         console.log('orderId: ' + this.orderId);
         console.log('fundItemId: ' + this.fundItemId);
         this.activeHref = `/tabs/root/order/${this.orderId}/payment`;

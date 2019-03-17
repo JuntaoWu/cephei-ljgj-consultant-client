@@ -23,6 +23,10 @@ ion-card {
     mat-tab-group {
         height: 100%;
     }
+
+    ::ng-deep .mat-tab-body-wrapper {
+        height: 75vh; //required height
+    }
 }
 
 .order-status {

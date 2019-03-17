@@ -15,6 +15,7 @@
         </ng-template>
         <ul class="vertical">
             <li *ngFor="let content of item.orderDiaryContentList">
+                <time>{{item.updatedAt | date: 'yyyy-MM-dd HH:mm:ss'}}</time>
                 <pre>{{content}}</pre>
             </li>
         </ul>

@@ -9,11 +9,28 @@
   .mat-step-header .mat-step-icon-state-edit {
     background-color: green;
   }
+
+  .mat-vertical-content-container {
+    border-bottom: 1px solid #c7c2c2;
+    
+  }
+
+  .mat-vertical-stepper-content {
+    background: blanchedalmond;
+  }
+}
+
+pre {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
 ul.vertical {
   padding-left: 20px;
-  list-style-type: circle;
+  list-style-type: disc;
 }
 
 ul.horizontal {

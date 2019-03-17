@@ -115,7 +115,7 @@ export class PaymentPage implements OnInit {
     if (+fundItem.fundItemStatus == OrderPaymentStatus.Waiting) {
       const modal = await this.modalController.create({
         component: PaymentQurcodePage,
-        componentProps: { 'orderId': this.orderId, 'fundItemId': fundItem.fundItemId }
+        componentProps: { 'orderId': this.orderId, 'fundItemId': fundItem.fundItemId, 'fundItemAmount': fundItem.fundItemAmount }
       });
       modal.onDidDismiss().then((result: any) => {
         this.service.get(this.orderId).subscribe(
