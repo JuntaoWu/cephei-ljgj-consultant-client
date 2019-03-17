@@ -5,10 +5,10 @@ export class environment {
   public static clientType = "Client";
 
   public static maxRetryCount = 3;
-  public static clientEndpoint = "http://gdjzj.hzsdgames.com:8101/api";
-  public static managementEndpoint = "http://gdjzj.hzsdgames.com:8101/api";
+  public static clientEndpoint = "https://consultant.51ljgj.com/api";
+  public static managementEndpoint = "https://consultant.51ljgj.com/api";
   public static endpoint = environment.clientType == "Client" ? environment.clientEndpoint : environment.managementEndpoint;
-  public static host = "http://gdjzj.hzsdgames.com:8101";
-  public static GetUserInfo = "http://gdjzj.hzsdgames.com:8101/api/index.php/Home/Index/GetUserInfo";
-  public static UpdateUserInfo = "http://gdjzj.hzsdgames.com:8101/api/Home/Admin/ChangeAdminInfo";
+  public static host = "https://consultant.51ljgj.com";
+  public static GetUserInfo = "https://consultant.51ljgj.com/api/index.php/Home/Index/GetUserInfo";
+  public static UpdateUserInfo = "https://consultant.51ljgj.com/api/Home/Admin/ChangeAdminInfo";
 }

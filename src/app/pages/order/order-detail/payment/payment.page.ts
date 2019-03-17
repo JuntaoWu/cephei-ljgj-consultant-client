@@ -8,6 +8,7 @@ import { PaymentModalPage } from './payment-modal/payment-modal.page';
 import { PaymentService } from './payment.service';
 import { PaymentTotalModalPage } from './payment-total-modal/payment-total-modal.page';
 import { ToastService } from 'app/services/providers';
+import { PaymentQurcodePage } from './payment-qrcode/payment-qrcode.page';
 
 
 @Component({
@@ -18,11 +19,11 @@ import { ToastService } from 'app/services/providers';
 export class PaymentPage implements OnInit {
   public orderId: string;
   public totalAmount: Number;
-  constructor(public service: PaymentService, 
-              public toastService: ToastService, 
-              public route: ActivatedRoute, 
-              public modalController: ModalController,
-              public toastController: ToastController) { }
+  constructor(public service: PaymentService,
+    public toastService: ToastService,
+    public route: ActivatedRoute,
+    public modalController: ModalController,
+    public toastController: ToastController) { }
   public payment: Payment;
   @ViewChild(IonList) list: IonList;
 
@@ -110,22 +111,38 @@ export class PaymentPage implements OnInit {
     }
   }
 
-  testA(){
-    console.log('Test A');
+  async showQurcode(fundItem) {
+    if (+fundItem.fundItemStatus == OrderPaymentStatus.Waiting) {
+      const modal = await this.modalController.create({
+        component: PaymentQurcodePage,
+        componentProps: { 'orderId': this.orderId, 'fundItemId': fundItem.fundItemId }
+      });
+      modal.onDidDismiss().then((result: any) => {
+        this.service.get(this.orderId).subscribe(
+          (res) => {
+            this.payment = res;
+          },
+          (error) => {
+            this.toastService.show(error);
+          });
+      })
+      return await modal.present();
+    }
+
   }
 
-  Obsolete(fundItemId){
+  Obsolete(fundItemId) {
     this.service.updateFundItemStatus(fundItemId).subscribe(
       res => {
-       this.toastService.show("作废预付款成功");
-       this.list.closeSlidingItems();
-       this.service.get(this.orderId).subscribe(
-        (res) => {
-          this.payment = res;
-        },
-        (error) => {
-          this.toastService.show(error);
-        });
+        this.toastService.show("作废预付款成功");
+        this.list.closeSlidingItems();
+        this.service.get(this.orderId).subscribe(
+          (res) => {
+            this.payment = res;
+          },
+          (error) => {
+            this.toastService.show(error);
+          });
       },
       error => {
         this.showErrorMessage(error)

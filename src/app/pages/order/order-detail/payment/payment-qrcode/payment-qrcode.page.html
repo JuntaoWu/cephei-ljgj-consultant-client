@@ -1,0 +1,15 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="activeHref" (click)="cancel()"></ion-back-button>
+        </ion-buttons>
+        <ion-title>项目款项付款</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-list *ngIf="imageurl">
+        <ion-item>
+            <ion-img [src]="imageurl"></ion-img>
+        </ion-item>
+    </ion-list>
+</ion-content>
