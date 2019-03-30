@@ -15,7 +15,7 @@
     </p>
     <p>
       <ion-label>订单金额:
-        <span style="color:#ee3923">{{orderdetail?.orderAmountInfo?.orderAmount}}</span>(<span [style.color]="paymentColor()">{{orderdetail?.orderAmountInfo?.paymentStatus | orderPaymentStatus}})</span> </ion-label>
+        <span style="color:#ee3923">{{(+orderdetail?.orderAmountInfo?.orderAmount / 100).toFixed(2) | currency: 'CNY' :'symbol-narrow'}}</span>(<span [style.color]="paymentColor()">{{orderdetail?.orderAmountInfo?.paymentStatus | orderPaymentStatus}})</span> </ion-label>
     </p>
   </ion-card-content>
 </ion-card>

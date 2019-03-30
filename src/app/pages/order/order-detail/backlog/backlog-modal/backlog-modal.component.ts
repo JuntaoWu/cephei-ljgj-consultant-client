@@ -27,6 +27,7 @@ export class BacklogModalComponent implements OnInit {
     { text: '上门查看', value: BacklogType.VisitUser },
     { text: '准备施工', value: BacklogType.Preparing },
     { text: '正在施工', value: BacklogType.InProgress },
+    { text: '审核完成', value: BacklogType.Reviewed },  // todo: Review should be done by admin users.
   ];
 
   public activeHref: string;

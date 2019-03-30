@@ -1,7 +1,7 @@
 <ion-list #list>
     <ion-item detail="showTotalAmountDetail()" (click)="paymentCreateTotalAmount()">
         <ion-label>订单总金额</ion-label>
-        <ion-label slot="end" style="text-align:right">{{payment?.orderAmount | currency: 'CNY' :'symbol-narrow' }}</ion-label>
+        <ion-label slot="end" style="text-align:right">{{(+payment?.orderAmount / 100).toFixed(2) | currency: 'CNY' :'symbol-narrow' }}</ion-label>
     </ion-item>
 
     <ion-item style="margin-top:20px">
@@ -24,7 +24,7 @@
             <span>{{item.fundItemType | orderPaymentType}}</span>
             <ion-icon *ngIf="item.fundItemStatus == OrderPaymentStatus.Waiting" name="alert" style="vertical-align:middle;margin-left: 5px; color: orange;"></ion-icon>
             <ion-icon *ngIf="item.fundItemStatus == OrderPaymentStatus.Completed" name="checkmark-circle" style="vertical-align:middle;margin-left: 5px; color: green;"></ion-icon>
-            <ion-label slot="end" style="text-align:right">{{item.fundItemAmount | currency: 'CNY' :'symbol-narrow' }}</ion-label>
+            <ion-label slot="end" style="text-align:right">{{(+item.fundItemAmount / 100).toFixed(2) | currency: 'CNY' :'symbol-narrow' }}</ion-label>
             <ion-icon *ngIf="item.fundItemStatus == OrderPaymentStatus.Waiting" name="arrow-forward" slot="end" style="color:#c8c7cc;margin-right: 0px"></ion-icon>
             <ion-icon *ngIf="item.fundItemStatus != OrderPaymentStatus.Waiting" slot="end" style="margin-right:0px"></ion-icon>
         </ion-item>

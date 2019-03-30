@@ -21,12 +21,12 @@ export class PaymentTotalModalPage implements OnInit {
     ngOnInit() {
         this.activeHref = `/tabs/root/order/${this.orderId}/payment`;
         this.service.get(this.orderId).subscribe(res => {
-            this.totalAmount = res.orderAmount;
+            this.totalAmount = +((+res.orderAmount) / 100).toFixed(2);
         });
     }
 
     async confirm() {
-        this.service.createOrderTotalAmount(this.orderId, this.totalAmount).subscribe(
+        this.service.createOrderTotalAmount(this.orderId, (+this.totalAmount * 100)).subscribe(
             res => {
                 console.log('payment-modal res: ' + JSON.stringify(res));
                 this.modalController.dismiss();

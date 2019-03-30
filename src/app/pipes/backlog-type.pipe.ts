@@ -10,13 +10,16 @@ export class BacklogTypePipe implements PipeTransform {
         let result = "";
         switch (+value) {
             case BacklogType.ConfirmOrder:
-                result = "客户平台下单,客服已经确认订单信息";
+                result = "订单确认";
                 break;
             case BacklogType.ContactUser:
                 result = "联系用户";
                 break;
             case BacklogType.VisitUser:
                 result = "上门查看";
+                break;
+            case BacklogType.Reviewed:
+                result = "审核完成";
                 break;
             case BacklogType.Preparing:
                 result = "准备施工";

@@ -34,7 +34,7 @@ export class PaymentModalPage implements OnInit {
 
     async confim() {
         //this.payitem.paymentStatus = OrderPaymentStatus.Initializing;
-        this.service.createOrderWork(this.payitem.orderId, this.payitem.fundItemAmount, this.payitem.fundItemType).subscribe(
+        this.service.createOrderWork(this.payitem.orderId, (+this.payitem.fundItemAmount * 100), this.payitem.fundItemType).subscribe(
             res => {
             console.log('payment-modal res: ' + JSON.stringify(res));
             this.modalController.dismiss();
